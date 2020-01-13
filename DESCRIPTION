@@ -1,0 +1,22 @@
+Package: fh.wdlR
+Title: Convenience Tools for Managing WDL Workflows
+Version: 0.0.0
+Authors@R: 
+    person(given = "Amy",
+           family = "Paguirigan",
+           role = c("aut", "cre"),
+           email = "apaguiri@fredhutch.org",
+           comment = c(ORCID = "0000-0002-6819-9736"))
+Description: A repo containing a basic R package for using Cromwell with WDL workflows at Fred Hutch via R.
+Imports:
+    httr,
+    jsonlite,
+    magrittr,
+    dplyr,
+    purrr
+License: GPL-3
+Depends: R (>= 3.6.0)
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.1.1
+Encoding: UTF-8
+LazyData: true
