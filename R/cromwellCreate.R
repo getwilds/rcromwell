@@ -43,8 +43,19 @@ cromwellCreate <- function(FredHutchId = NULL, port = "2020", pathToServerLogs =
     ssh::ssh_disconnect(session)
     stop("Slurm Job ID is unset.")
   }
+  Sys.sleep(2)
   getNode <- ssh::ssh_exec_internal(session, command = paste0('squeue -o "%R" -j ', slurmJob))
   nodeName <- sub("^.*)", "", gsub("\n", "", rawToChar(getNode$stdout)))
+  if (nodeName == ""){
+    message("Re-querying for node name.")
+    Sys.sleep(2)
+    getNode <- ssh::ssh_exec_internal(session, command = paste0('squeue -o "%R" -j ', slurmJob))
+    nodeName <- sub("^.*)", "", gsub("\n", "", rawToChar(getNode$stdout)))
+    if (nodeName == ""){
+      ssh::ssh_disconnect(session)
+      stop("I don't know what node your job is on, but use `squeue -u <username>` on `rhino` to find out or use the function `setCromwellURL()` in this package. Note, it may be that your job has not been assigned resources yet.")
+    }
+  }
   message(paste0("Your Cromwell server is on node: ", nodeName))
   message(paste0("To use the Swagger UI in a Browser, go to: http://", nodeName, ":", port))
 
