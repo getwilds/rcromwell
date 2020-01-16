@@ -7,6 +7,7 @@
 #' @param pathToServerLogs Full path in our file system to where you want your Cromwell server logs to be written.
 #' @param pathToScript Full path in our file system to where you have saved the script used to start your Cromwell server (e.g. cromServer.sh, https://github.com/FredHutch/diy-cromwell-server).
 #' @param pathToParams Full path in our file system to where you have saved the parameters you'd like your Cromwell server to use (e.g. cromwellParams.sh, https://github.com/FredHutch/diy-cromwell-server).
+#' @param cluster Optional: if present, specify the location of the server, either 'gizmo' or 'beagle'
 #' @return Sets your environment variable CROMWELLURL to be that of the Cromwell server you just started and returns the information about the job ID and node you'll need.
 #' @author Amy Paguirigan
 #' @details
@@ -17,7 +18,7 @@
 #' pathToParams = "/home/username/cromwell/cromwellParams.sh"
 #' @export
 cromwellCreate <- function(FredHutchId = NULL, port = "2020", pathToServerLogs = NULL,
-                           pathToScript = NULL, pathToParams = NULL) {
+                           pathToScript = NULL, pathToParams = NULL, cluster = "gizmo") {
   if (is.null(FredHutchId) == T) {
     stop("Please supply your Fred Hutch id.")
   }
@@ -37,31 +38,37 @@ cromwellCreate <- function(FredHutchId = NULL, port = "2020", pathToServerLogs =
   setupServer <- ssh::ssh_exec_internal(session,
                                    command = paste("sbatch", "-o", pathToServerLogs, pathToScript, pathToParams, sep = " "))
   message(gsub("\n", "", rawToChar(setupServer$stdout)))
-  slurmJob <- sub("\n", "", gsub("Submitted batch job ", "", rawToChar(setupServer$stdout)))
 
+  slurmJob <- sub("\\D*\n", "", gsub("Submitted batch job ", "", rawToChar(setupServer$stdout)))
   if(slurmJob == ""){
     ssh::ssh_disconnect(session)
     stop("Slurm Job ID is unset.")
   }
   Sys.sleep(2)
-  getNode <- ssh::ssh_exec_internal(session, command = paste0('squeue -o "%R" -j ', slurmJob))
+  if (cluster == "gizmo"){
+    nodecommand = paste0('squeue -M gizmo -o "%R" -j ', slurmJob)
+  } else if (cluster == "beagle"){
+    nodecommand = paste0('squeue -M beagle -o "%R" -j ', slurmJob)
+  }
+  getNode <- ssh::ssh_exec_internal(session, command = nodecommand)
   nodeName <- sub("^.*)", "", gsub("\n", "", rawToChar(getNode$stdout)))
-  if (nodeName == ""){
+  if (nodeName %in% c("", " ")){
     message("Re-querying for node name.")
     Sys.sleep(2)
-    getNode <- ssh::ssh_exec_internal(session, command = paste0('squeue -o "%R" -j ', slurmJob))
+    getNode <- ssh::ssh_exec_internal(session, command = nodecommand)
     nodeName <- sub("^.*)", "", gsub("\n", "", rawToChar(getNode$stdout)))
     if (nodeName == ""){
       ssh::ssh_disconnect(session)
       stop("I don't know what node your job is on, but use `squeue -u <username>` on `rhino` to find out or use the function `setCromwellURL()` in this package. Note, it may be that your job has not been assigned resources yet.")
     }
   }
+  ssh::ssh_disconnect(session)
   message(paste0("Your Cromwell server is on node: ", nodeName))
   message(paste0("To use the Swagger UI in a Browser, go to: http://", nodeName, ":", port))
 
   Sys.setenv(CROMWELLURL=paste0("http://", nodeName, ":", port))
-  message(paste0("CROMWELLURL is currently set to: ", Sys.getenv("CROMWELLURL")))
+  message(paste0("Env variable CROMWELLURL is currently set to: ", Sys.getenv("CROMWELLURL")))
 
-  ssh::ssh_disconnect(session)
+
   return(list(node = nodeName, jobId = slurmJob))
 }

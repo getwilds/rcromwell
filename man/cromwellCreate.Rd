@@ -5,7 +5,8 @@
 \title{Start a Cromwell server on Gizmo}
 \usage{
 cromwellCreate(FredHutchId = NULL, port = "2020",
-  pathToServerLogs = NULL, pathToScript = NULL, pathToParams = NULL)
+  pathToServerLogs = NULL, pathToScript = NULL, pathToParams = NULL,
+  cluster = "gizmo")
 }
 \arguments{
 \item{FredHutchId}{Your Fred Hutch username}
@@ -17,6 +18,8 @@ cromwellCreate(FredHutchId = NULL, port = "2020",
 \item{pathToScript}{Full path in our file system to where you have saved the script used to start your Cromwell server (e.g. cromServer.sh, https://github.com/FredHutch/diy-cromwell-server).}
 
 \item{pathToParams}{Full path in our file system to where you have saved the parameters you'd like your Cromwell server to use (e.g. cromwellParams.sh, https://github.com/FredHutch/diy-cromwell-server).}
+
+\item{cluster}{Optional: if present, specify the location of the server, either 'gizmo' or 'beagle'}
 }
 \value{
 Sets your environment variable CROMWELLURL to be that of the Cromwell server you just started and returns the information about the job ID and node you'll need.
