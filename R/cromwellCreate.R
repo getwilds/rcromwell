@@ -3,7 +3,7 @@
 #'
 #'
 #' @param FredHutchId Your Fred Hutch username
-#' @param port The port you specified in your Cromwell config file (`fh-slurm-cromwell.config`), default is "2020" from the template here: https://github.com/FredHutch/diy-cromwell-server.
+#' @param port The port want to connect to for this server.
 #' @param pathToServerLogs Full path in our file system to where you want your Cromwell server logs to be written.
 #' @param pathToScript Full path in our file system to where you have saved the script used to start your Cromwell server (e.g. cromServer.sh, https://github.com/FredHutch/diy-cromwell-server).
 #' @param pathToParams Full path in our file system to where you have saved the parameters you'd like your Cromwell server to use (e.g. cromwellParams.sh, https://github.com/FredHutch/diy-cromwell-server).
@@ -36,7 +36,7 @@ cromwellCreate <- function(FredHutchId = NULL, port = "2020", pathToServerLogs =
   session <- ssh::ssh_connect(paste0(FredHutchId, "@rhino"))
   # send the command to gizmo to start your server and save the response
   setupServer <- ssh::ssh_exec_internal(session,
-                                   command = paste("sbatch", "-o", pathToServerLogs, pathToScript, pathToParams, sep = " "))
+                                   command = paste("sbatch", "-o", pathToServerLogs, pathToScript, pathToParams, port, sep = " "))
   message(gsub("\n", "", rawToChar(setupServer$stdout)))
 
   slurmJob <- sub("\\D*\n", "", gsub("Submitted batch job ", "", rawToChar(setupServer$stdout)))
