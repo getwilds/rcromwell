@@ -16,6 +16,7 @@
 #' pathToServerLogs = "/home/username/cromwell/cromwell-serverlogs/%A.txt"
 #' pathToScript = "/home/username/cromwell/cromServer.sh"
 #' pathToParams = "/home/username/cromwell/cromwellParams.sh"
+#' port = "2020"
 #' @export
 cromwellCreate <- function(FredHutchId = NULL, port = "2020", pathToServerLogs = NULL,
                            pathToScript = NULL, pathToParams = NULL, cluster = "gizmo") {
