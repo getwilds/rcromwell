@@ -11,7 +11,7 @@ cromwellCreate(FredHutchId = NULL, port = "2020",
 \arguments{
 \item{FredHutchId}{Your Fred Hutch username}
 
-\item{port}{The port you specified in your Cromwell config file (\code{fh-slurm-cromwell.config}), default is "2020" from the template here: https://github.com/FredHutch/diy-cromwell-server.}
+\item{port}{The port want to connect to for this server.}
 
 \item{pathToServerLogs}{Full path in our file system to where you want your Cromwell server logs to be written.}
 
@@ -33,6 +33,7 @@ Suggestions for parameters are:
 pathToServerLogs = "/home/username/cromwell/cromwell-serverlogs/%A.txt"
 pathToScript = "/home/username/cromwell/cromServer.sh"
 pathToParams = "/home/username/cromwell/cromwellParams.sh"
+port = "2020"
 }
 \author{
 Amy Paguirigan
