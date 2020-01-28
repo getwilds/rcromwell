@@ -3,27 +3,21 @@
 #' Gets info about call caching status for the calls of a workflow
 #'
 #' @param workflow_id The workflow ID to return call caching metadata for.
-#' @return Returns a long form data frame of metadata on call caching in a workflow.
+#' @return Returns a long form data frame of metadata on call caching in a workflow. NOTE: Currently does not support subworkflows.
 #' @author Amy Paguirigan
 #' @details
-#' Requires valid Cromwell URL to be set in the environment.
+#' Requires valid Cromwell server URL to be set in the environment. (use `setCromwellURL()`)
 #' @export
 cromwellCache <- function(workflow_id) {
   if ("" %in% Sys.getenv("CROMWELLURL")) {
     stop("CROMWELLURL is not set.")
   } else {
-    print(paste0(
-      "Querying for call caching metadata for workflow id: ",
-      workflow_id
-    ))
+    message(paste0("Querying for call caching metadata for workflow id: ", workflow_id))
   }
     crommetadata <-
       httr::content(httr::GET(
         paste0(
-          Sys.getenv("CROMWELLURL"),
-          "/api/workflows/v1/",
-          workflow_id,
-          "/metadata?expandSubWorkflows=false"
+          Sys.getenv("CROMWELLURL"), "/api/workflows/v1/", workflow_id, "/metadata?expandSubWorkflows=false"
         )
       ), as = "parsed")
 
@@ -50,10 +44,9 @@ cromwellCache <- function(workflow_id) {
                          stringsAsFactors = F)
           }
           b$shardIndex <- as.character(b$shardIndex)
-          b$executionStatus <- shardData$executionStatus # and this
-          b$returnCode <- shardData$returnCode # and this
-          #b$returnCode <- as.character(b$returnCode)
-          b$jobId <- shardData$jobId # and especially this
+          b$executionStatus <- shardData$executionStatus
+          b$returnCode <- shardData$returnCode
+          b$jobId <- shardData$jobId
           b <- dplyr::select(b, -dplyr::starts_with("callCaching.hitFailures")) # then remove any data from the messy hitFailures lists
           return(b)
         })

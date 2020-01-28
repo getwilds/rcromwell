@@ -2,7 +2,7 @@
 % Please edit documentation in R/cromwellCall.R
 \name{cromwellCall}
 \alias{cromwellCall}
-\title{Pull metadata for the calls made in a Cromwell workflow job}
+\title{Retrieve metadata for the calls made in a Cromwell workflow job}
 \usage{
 cromwellCall(workflow_id)
 }
@@ -10,17 +10,15 @@ cromwellCall(workflow_id)
 \item{workflow_id}{The workflow ID to return call metadata on.}
 }
 \value{
-Returns a long form data frame of metadata on calls, does not currently support subWorkflows
+Returns a long form data frame of metadata on calls. NOTE: does not currently support subWorkflows.
 }
 \description{
 Retrieve and process call metadata for a specific workflow.
 }
 \details{
-Requires valid Cromwell URL to be set in the environment.
+Requires valid Cromwell server URL to be set in the environment. (use \code{setCromwellURL()})
 }
 \examples{
-## Set credentials from a file with the specified format, called `secrets.R` in path `~/myCreds/`.
-setCreds(tokenSet = "file", path = "~/myCreds/secrets.R")
 ## Request what jobs have been submitted to your Cromwell instance in the past 7 days.
 recentJobs <- cromwellJobs(days = 7)
 ## Request workflow metadata for a specific job that was run in your Cromwell instance.

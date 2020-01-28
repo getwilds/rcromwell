@@ -6,7 +6,7 @@
 #' @return Returns the response from the API post which includes the workflow ID that you'll need to monitor the job.
 #' @author Amy Paguirigan
 #' @details
-#' Requires valid Cromwell URL to be set in the environment.
+#' Requires valid Cromwell server URL to be set in the environment. (use `setCromwellURL()`)
 #' @examples
 #' TBD
 #' @export
@@ -15,7 +15,7 @@ womtoolValidate <-
     if("" %in% Sys.getenv("CROMWELLURL")) {
       stop("CROMWELLURL is not set.")
     } else
-      print("Validating a workflow for Cromwell.")
+      message("Validating a workflow for Cromwell.")
 
     bodyList <- list(workflowSource = httr::upload_file(WDL))
     if(is.null(allInputs) == F) bodyList <- c(bodyList, workflowInputs = list(httr::upload_file(allInputs)))

@@ -18,7 +18,7 @@ Returns the response from the API post which includes the workflow ID that you'l
 Validates a workflow for submission
 }
 \details{
-Requires valid Cromwell URL to be set in the environment.
+Requires valid Cromwell server URL to be set in the environment. (use \code{setCromwellURL()})
 }
 \examples{
 TBD

@@ -13,7 +13,7 @@ Cromwell version
 Get the version of a Cromwell server
 }
 \details{
-Requires valid Cromwell URL to be set in the environment.
+Requires valid Cromwell server URL to be set in the environment. (use \code{setCromwellURL()})
 }
 \examples{
 TBD

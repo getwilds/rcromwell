@@ -18,11 +18,9 @@ Returns a gross list of lists of metadata on a workflow.
 Retrieve a glob of workflow level metadata for a specific workflow.
 }
 \details{
-Requires valid Cromwell URL to be set in the environment.
+Requires valid Cromwell server URL to be set in the environment. (use \code{setCromwellURL()})
 }
 \examples{
-## Set credentials from a file with the specified format, called `secrets.R` in path `~/myCreds/`.
-setCreds(tokenSet = "file", path = "~/myCreds/secrets.R")
 ## Request what jobs have been submitted to your Cromwell instance in the past 7 days.
 recentJobs <- cromwellJobs(days = 7)
 ## Request workflow metadata for a specific job that was run in your Cromwell instance.

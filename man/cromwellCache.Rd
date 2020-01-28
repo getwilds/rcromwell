@@ -10,13 +10,13 @@ cromwellCache(workflow_id)
 \item{workflow_id}{The workflow ID to return call caching metadata for.}
 }
 \value{
-Returns a long form data frame of metadata on call caching in a workflow.
+Returns a long form data frame of metadata on call caching in a workflow. NOTE: Currently does not support subworkflows.
 }
 \description{
 Gets info about call caching status for the calls of a workflow
 }
 \details{
-Requires valid Cromwell URL to be set in the environment.
+Requires valid Cromwell server URL to be set in the environment. (use \code{setCromwellURL()})
 }
 \author{
 Amy Paguirigan

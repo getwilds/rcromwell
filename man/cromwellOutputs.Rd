@@ -10,13 +10,14 @@ cromwellOutputs(workflow_id)
 \item{workflow_id}{Unique workflow id of the job.}
 }
 \value{
-Returns the response from the API post
+Returns a dataframe containing the workflowName, workflowOutputType,
+pathToOutput, shardIndex for the specified outputs of a workflow_id
 }
 \description{
 Gets outputs for a workflow in Cromwell
 }
 \details{
-Requires valid Cromwell URL to be set in the environment.
+Requires valid Cromwell server URL to be set in the environment. (Use \code{setCromwellURL()})
 }
 \author{
 Amy Paguirigan

@@ -6,10 +6,8 @@
 #' @return Returns a long form data frame of metadata on workflow jobs submitted to a specific Cromwell instance.
 #' @author Amy Paguirigan
 #' @details
-#' Requires valid Cromwell URL to be set in the environment.
+#' Requires valid Cromwell server URL to be set in the environment. (use `setCromwellURL()`)
 #' @examples
-#' ## Set credentials from a file with the specified format, called `secrets.R` in path `~/myCreds/`.
-#' setCreds(tokenSet = "file", path = "~/myCreds/secrets.R")
 #' ## Request what jobs have been submitted to your Cromwell instance in the past 7 days.
 #' recentJobs <- cromwellJobs(days = 7)
 #' @export
@@ -17,7 +15,7 @@ cromwellJobs <- function(days = 1) {
   if ("" %in% Sys.getenv("CROMWELLURL")) {
     stop("CROMWELLURL is not set.")
   } else
-    print(paste0("Querying cromwell for jobs in the last ", days, " days."))
+    message(paste0("Querying cromwell for jobs in the last ", days, " days."))
   beforeNow <- Sys.Date() - round(days, 0)
   cromDat <-
     httr::content(httr::GET(

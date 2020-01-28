@@ -10,7 +10,7 @@ cromwellSubmitBatch(WDL, Batch, Params = NULL, Options = NULL,
 \arguments{
 \item{WDL}{Local path to the wdl file describing the workflow. (Required)}
 
-\item{Batch}{Local path to the json containing a reference to any batch file desired if the workflow is a batch. (Required)}
+\item{Batch}{Local path to the json containing a reference to any batch file desired if the workflow is a batch. (Optional)}
 
 \item{Params}{Local path to the json containing the parameters to use with the workflow. (Optional)}
 
@@ -27,7 +27,7 @@ Returns the response from the API post which includes the workflow ID that you'l
 Supports the submission of a fully defined workflow job to a Cromwell instance.
 }
 \details{
-Requires valid Cromwell URL to be set in the environment.
+Requires valid Cromwell server URL to be set in the environment. (use \code{setCromwellURL()})
 }
 \examples{
 TBD

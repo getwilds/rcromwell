@@ -6,10 +6,8 @@
 #' @return Returns a long form data frame of metadata on failed calls in a workflow.
 #' @author Amy Paguirigan
 #' @details
-#' Requires valid Cromwell URL to be set in the environment.
+#' Requires valid Cromwell server URL to be set in the environment. (use `setCromwellURL()`)
 #' @examples
-#' ## Set credentials from a file with the specified format, called `secrets.R` in path `~/myCreds/`.
-#' setCreds(tokenSet = "file", path = "~/myCreds/secrets.R")
 #' ## Request what jobs have been submitted to your Cromwell instance in the past 7 days.
 #' recentJobs <- cromwellJobs(days = 7)
 #' ## Request workflow metadata for a specific job that was run in your Cromwell instance.
@@ -20,7 +18,7 @@ cromwellFailures <- function(workflow_id) {
   if ("" %in% Sys.getenv("CROMWELLURL")) {
     stop("CROMWELLURL is not set.")
   } else {
-    print(paste0("Querying for failure metadata for workflow id: ", workflow_id))
+    message(paste0("Querying for failure metadata for workflow id: ", workflow_id))
   }
   cromfail <-
     httr::content(httr::GET(
