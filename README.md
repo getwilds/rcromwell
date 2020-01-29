@@ -3,7 +3,13 @@ A repo containing a basic R package for using Cromwell with WDL workflows at Fre
 
 
 ## Install from GitHub
-You can install the most recent version of `fh.wdlR` by:
+You will need the following packages installed first:
+```{r}
+install.packages(pkgs = c("httr", "jsonlite", "magrittr", 
+                "dplyr", "ssh", "purrr", "paws", "tidyr"))
+```
+
+Then you can install the most recent version of `fh.wdlR` by:
 
 ```r
 require(remotes)
