@@ -62,8 +62,13 @@ cromwellCall <- function(workflow_id) {
           }
           return(Z)
         })
-      }) %>% purrr::map_dfr(., function(x) { x }, .id = "callName")
+      }) %>% purrr::map_dfr(., function(x) { x }, .id = "fullName")
       # melt it all down by callName
+
+      justCalls <- tidyr::separate(data = justCalls,
+                                   col = fullName,
+                                   into = c("workflowName", "callName"),
+                                   sep = "\\.")
 
       justCalls$workflow_id <-
         workflow_id # This lets you take this output in a map_dfr and just do rbind as the function. ;)
