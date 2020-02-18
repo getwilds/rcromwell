@@ -14,9 +14,9 @@ Imports:
     magrittr,
     dplyr,
     purrr,
-    ssh,
     paws,
-    tidyr
+    tidyr,
+    ssh
 License: GPL-3
 Depends: R (>= 3.6.0)
 Roxygen: list(markdown = TRUE)

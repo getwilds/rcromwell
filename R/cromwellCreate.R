@@ -5,8 +5,9 @@
 #' @param FredHutchId Your Fred Hutch username
 #' @param port The port want to connect to for this server.
 #' @param pathToServerLogs Full path in our file system to where you want your Cromwell server logs to be written.
-#' @param pathToScript Full path in our file system to where you have saved the script used to start your Cromwell server (e.g. cromServer.sh, https://github.com/FredHutch/diy-cromwell-server).
+#' @param pathToServerScript Full path in our file system to where you have saved the script used to start your Cromwell server (e.g. cromServer.sh, https://github.com/FredHutch/diy-cromwell-server).
 #' @param pathToParams Full path in our file system to where you have saved the parameters you'd like your Cromwell server to use (e.g. cromwellParams.sh, https://github.com/FredHutch/diy-cromwell-server).
+#' @param local Are you running this on your local machine (TRUE) or on the rhino's (FALSE)
 #' @param cluster Optional: if present, specify the location of the server, either 'gizmo' or 'beagle'
 #' @return Sets your environment variable CROMWELLURL to be that of the Cromwell server you just started and returns the information about the job ID and node you'll need.
 #' @author Amy Paguirigan
@@ -18,8 +19,11 @@
 #' pathToParams = "/home/username/cromwell/cromwellParams.sh"
 #' port = "2020"
 #' @export
-cromwellCreate <- function(FredHutchId = NULL, port = "2020", pathToServerLogs = NULL,
-                           pathToScript = NULL, pathToParams = NULL, cluster = "gizmo") {
+cromwellCreate <- function(FredHutchId = NULL, port = "2020",
+                           pathToServerLogs = NULL,
+                           pathToServerScript = NULL,
+                           pathToParams = NULL,
+                           cluster = "gizmo", local = TRUE) {
   if (is.null(FredHutchId) == T) {
     stop("Please supply your Fred Hutch id.")
   }
@@ -32,12 +36,15 @@ cromwellCreate <- function(FredHutchId = NULL, port = "2020", pathToServerLogs =
   if (is.null(pathToParams) == T) {
     stop("Please supply  the full path to where your Cromwell parameters file is saved (e.g., cromwellParams.sh).")
   }
-
+  if (local == T){
   # Make an ssh session to rhino and it will prompt for password
   session <- ssh::ssh_connect(paste0(FredHutchId, "@rhino"))
   # send the command to gizmo to start your server and save the response
   setupServer <- ssh::ssh_exec_internal(session,
-                                   command = paste("sbatch", "-o", pathToServerLogs, pathToScript, pathToParams, port, sep = " "))
+                                   command = paste("sbatch", "-o",
+                                                   pathToServerLogs,
+                                                   pathToScript, pathToParams,
+                                                   port, sep = " "))
   message(gsub("\n", "", rawToChar(setupServer$stdout)))
 
   slurmJob <- sub("\\D*\n", "", gsub("Submitted batch job ", "", rawToChar(setupServer$stdout)))
@@ -60,10 +67,44 @@ cromwellCreate <- function(FredHutchId = NULL, port = "2020", pathToServerLogs =
     nodeName <- sub("^.*)", "", gsub("\n", "", rawToChar(getNode$stdout)))
     if (nodeName == ""){
       ssh::ssh_disconnect(session)
-      stop("I don't know what node your job is on, but use `squeue -u <username>` on `rhino` to find out or use the function `setCromwellURL()` in this package. Note, it may be that your job has not been assigned resources yet.")
+      stop("Your job likely has not yet been assigned a node yet.  Please use
+      `squeue -u <username>` on `rhino` to find out if your job has been
+           assigned or use the function `setCromwellURL()` in this package.")
     }
   }
   ssh::ssh_disconnect(session)
+  }
+  if (local == F) {
+    setupServer <- system(command = paste("sbatch", "-o", pathToServerLogs,
+                                          pathToScript, pathToParams, port,
+                                          sep = " "),
+                          intern = TRUE)
+    message(setupServer)
+    slurmJob <- sub("\\D*\n", "", gsub("Submitted batch job ", "", setupServer))
+    if(slurmJob == ""){
+      stop("Slurm Job ID is unset.")
+    }
+    Sys.sleep(2)
+    if (cluster == "gizmo"){
+      nodecommand = paste0('squeue -M gizmo -o "%R" -j ', slurmJob)
+    } else if (cluster == "beagle"){
+      nodecommand = paste0('squeue -M beagle -o "%R" -j ', slurmJob)
+    }
+    getNode <- system(command = nodecommand, intern = TRUE)
+    nodeName <- getNode[3]
+    if (nodeName %in% c("", " ")){
+      message("Re-querying for node name.")
+      Sys.sleep(2)
+      getNode <- system(command = nodecommand, intern = TRUE)
+      nodeName <- getNode[3]
+      if (nodeName == ""){
+        stop("Your job likely has not yet been assigned a node yet.  Please use
+             `squeue -u <username>` on `rhino` to find out if your job has been
+             assigned or use the function `setCromwellURL()` in this package.")
+      }
+    }
+  }
+
   message(paste0("Your Cromwell server is on node: ", nodeName))
   message(paste0("To use the Swagger UI in a Browser, go to: http://", nodeName, ":", port))
 
