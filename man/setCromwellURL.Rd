@@ -4,7 +4,8 @@
 \alias{setCromwellURL}
 \title{Set CROMWELLURL variable based on a gizmo SLURM jobId}
 \usage{
-setCromwellURL(FredHutchId = NULL, jobId = NULL, port = "2020")
+setCromwellURL(FredHutchId = NULL, jobId = NULL, port = "2020",
+  local = TRUE, cluster = "gizmo")
 }
 \arguments{
 \item{FredHutchId}{Your Fred Hutch username}
@@ -12,6 +13,10 @@ setCromwellURL(FredHutchId = NULL, jobId = NULL, port = "2020")
 \item{jobId}{The SLURM job id for your Cromwell server}
 
 \item{port}{The port you specified in your Cromwell config file (\code{fh-slurm-cromwell.config}), default is "2020" from the template here: https://github.com/FredHutch/diy-cromwell-server.}
+
+\item{local}{Are you running this on your local machine (TRUE) or on the rhino's (FALSE)}
+
+\item{cluster}{Optional: if present, specify the location of the server, either 'gizmo' or 'beagle'}
 }
 \value{
 Sets your environment variable CROMWELLURL to be that of the Cromwell server for the job specified.

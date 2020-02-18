@@ -5,6 +5,7 @@
 #' @param jobId The SLURM job id for your Cromwell server
 #' @param port The port you specified in your Cromwell config file (`fh-slurm-cromwell.config`), default is "2020" from the template here: https://github.com/FredHutch/diy-cromwell-server.
 #' @param local Are you running this on your local machine (TRUE) or on the rhino's (FALSE)
+#' @param cluster Optional: if present, specify the location of the server, either 'gizmo' or 'beagle'
 #' @return Sets your environment variable CROMWELLURL to be that of the Cromwell server for the job specified.
 #' @author Amy Paguirigan
 #' @details
