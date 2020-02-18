@@ -36,6 +36,11 @@ cromwellCreate <- function(FredHutchId = NULL, port = "2020",
   if (is.null(pathToParams) == T) {
     stop("Please supply  the full path to where your Cromwell parameters file is saved (e.g., cromwellParams.sh).")
   }
+  if (cluster == "gizmo"){
+    nodecommand = paste0('squeue -M gizmo -o "%R" -j ', slurmJob)
+  } else if (cluster == "beagle"){
+    nodecommand = paste0('squeue -M beagle -o "%R" -j ', slurmJob)
+  }
   if (local == T){
   # Make an ssh session to rhino and it will prompt for password
   session <- ssh::ssh_connect(paste0(FredHutchId, "@rhino"))
@@ -53,11 +58,6 @@ cromwellCreate <- function(FredHutchId = NULL, port = "2020",
     stop("Slurm Job ID is unset.")
   }
   Sys.sleep(2)
-  if (cluster == "gizmo"){
-    nodecommand = paste0('squeue -M gizmo -o "%R" -j ', slurmJob)
-  } else if (cluster == "beagle"){
-    nodecommand = paste0('squeue -M beagle -o "%R" -j ', slurmJob)
-  }
   getNode <- ssh::ssh_exec_internal(session, command = nodecommand)
   nodeName <- sub("^.*)", "", gsub("\n", "", rawToChar(getNode$stdout)))
   if (nodeName %in% c("", " ")){
@@ -85,11 +85,6 @@ cromwellCreate <- function(FredHutchId = NULL, port = "2020",
       stop("Slurm Job ID is unset.")
     }
     Sys.sleep(2)
-    if (cluster == "gizmo"){
-      nodecommand = paste0('squeue -M gizmo -o "%R" -j ', slurmJob)
-    } else if (cluster == "beagle"){
-      nodecommand = paste0('squeue -M beagle -o "%R" -j ', slurmJob)
-    }
     getNode <- system(command = nodecommand, intern = TRUE)
     nodeName <- getNode[3]
     if (nodeName %in% c("", " ")){
