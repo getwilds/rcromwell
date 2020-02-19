@@ -15,7 +15,7 @@
 #' Will require your Fred Hutch Id and will prompt you to enter your Fred Hutch password.
 #' Suggestions for parameters are:
 #' pathToServerLogs = "/home/username/cromwell/cromwell-serverlogs/%A.txt"
-#' pathToScript = "/home/username/cromwell/cromServer.sh"
+#' pathToServerScript = "/home/username/cromwell/cromServer.sh"
 #' pathToParams = "/home/username/cromwell/cromwellParams.sh"
 #' port = "2020"
 #' @export
@@ -30,7 +30,7 @@ cromwellCreate <- function(FredHutchId = NULL, port = "2020",
   if (is.null(pathToServerLogs) == T) {
     stop("Please supply the full path to where you want server logs to be saved.")
   }
-  if (is.null(pathToScript) == T) {
+  if (is.null(pathToServerScript) == T) {
     stop("Please supply the full path to where your Cromwell server script is saved (e.g., cromServer.sh).")
   }
   if (is.null(pathToParams) == T) {
@@ -48,7 +48,7 @@ cromwellCreate <- function(FredHutchId = NULL, port = "2020",
   setupServer <- ssh::ssh_exec_internal(session,
                                    command = paste("sbatch", "-o",
                                                    pathToServerLogs,
-                                                   pathToScript, pathToParams,
+                                                   pathToServerScript, pathToParams,
                                                    port, sep = " "))
   message(gsub("\n", "", rawToChar(setupServer$stdout)))
 
@@ -76,7 +76,7 @@ cromwellCreate <- function(FredHutchId = NULL, port = "2020",
   }
   if (local == F) {
     setupServer <- system(command = paste("sbatch", "-o", pathToServerLogs,
-                                          pathToScript, pathToParams, port,
+                                          pathToServerScript, pathToParams, port,
                                           sep = " "),
                           intern = TRUE)
     message(setupServer)

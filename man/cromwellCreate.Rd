@@ -33,7 +33,7 @@ Start a Cromwell server on Gizmo
 Will require your Fred Hutch Id and will prompt you to enter your Fred Hutch password.
 Suggestions for parameters are:
 pathToServerLogs = "/home/username/cromwell/cromwell-serverlogs/%A.txt"
-pathToScript = "/home/username/cromwell/cromServer.sh"
+pathToServerScript = "/home/username/cromwell/cromServer.sh"
 pathToParams = "/home/username/cromwell/cromwellParams.sh"
 port = "2020"
 }
