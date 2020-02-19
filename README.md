@@ -5,7 +5,7 @@ A repo containing a basic R package for using Cromwell with WDL workflows at Fre
 ## Install from GitHub
 You will need the following packages installed first:
 ```{r}
-install.packages(pkgs = c("httr", "jsonlite", "magrittr", 
+install.packages(pkgs = c("httr", "jsonlite", "magrittr",
                 "dplyr", "ssh", "purrr", "paws", "tidyr"))
 ```
 
@@ -32,11 +32,11 @@ Once you have set up your config files to a place in our filesystem where `rhino
 library(fh.wdlR)
 cromwellCreate(FredHutchId = "username", port = "2020",
         pathToServerLogs = "/home/username/cromwell/cromwell-serverlogs/%A.txt",
-        pathToScript = "/home/username/cromwell/cromServer.sh",
+        pathToServerScript = "/home/username/cromwell/cromServer.sh",
         pathToParams = "/home/username/cromwell/cromwellParams.sh")
 ```
 
-When you use the `cromwellCreate` function it will return the necessary information for using the API via a browser AND will automatically set your `CROMWELLURL` environment variable to the correct location for the remaining job submission and management functions in the R package. 
+When you use the `cromwellCreate` function it will return the necessary information for using the API via a browser AND will automatically set your `CROMWELLURL` environment variable to the correct location for the remaining job submission and management functions in the R package.
 
 ### Set Credentials of an existing Cromwell server
 
