@@ -31,7 +31,8 @@ cromwellOutputs <- function(workflow_id) {
       Z <- data.frame("pathToOutput" = unlist(x), stringsAsFactors = F)
       dplyr::mutate(Z, shardIndex = gsub("/.*$", "", gsub("^.*shard-", "", Z$pathToOutput)))
     }, .id = "workflowMeta")
-    # separate out the workflowName and workflowOutputType columnes
+    out$shardIndex[out$shardIndex == ""] <- NA
+    # separate out the workflowName and workflowOutputType columns
     outputsDf <- tidyr::separate(outputsDf, workflowMeta,
                                  c("workflowName","workflowOutputType"),
                                  sep = "\\.")
