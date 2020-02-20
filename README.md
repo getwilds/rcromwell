@@ -44,3 +44,74 @@ If you have already set up a Cromwell server, you'll need the environment variab
 ```{r}
 Sys.setenv(CROMWELLURL="yourcromwellserverURL")
 ```
+
+
+## Example workflow process
+
+```{r}
+## Start your server
+cromwellCreate(FredHutchId = "username", port = "2020",
+        pathToServerLogs = "/home/username/cromwell/cromwell-serverlogs/%A.txt",
+        pathToServerScript = "/home/username/cromwell/cromServer.sh",
+        pathToParams = "/home/username/cromwell/cromwellParams.sh")
+## Maybe the cluster is busy and you need to check back after your server was allocated resources:    
+setCromwellURL(FredHutchId = "username", jobId = "45533124", port = "2020")
+## Maybe you just need to set the environment variable later and you know the gizmo node name and port:
+Sys.setenv("CROMWELLURL" = "http://gizmoxxx:2020")
+```
+
+### Validate your workflow using Womtool
+```{r}
+list.files(pattern = "*.wdl")
+valid <- womtoolValidate(WDL = "myworkflow.wdl"); valid[["errors"]]
+```
+## Go fix your issues, now send your workflow to Crowmell
+
+```{r}
+thisJob <- cromwellSubmitBatch(WDL = "myworkflow.wdl",
+                    Params = "myworkflow-parameters.json",
+                    Batch = "myworkflow-batch.json",
+                    Options = "workflow-options.json")
+# thisJob$id is now the unique Crowmell ID for your entire workflow - you can use that to request all sorts of metadata!!!
+thisOne<- thisJob$id; thisOne
+```
+## Now get all your metadata and track the workflow!!
+```{r}
+# data frame of all jobs run in the past x number of days from your database
+jobs <- cromwellJobs(days = 2)
+
+# data frame (one line if you only submit one workflow id) containing workflow level metadata
+w <- cromwellWorkflow(thisOne)
+
+w$status
+
+# data frame (one line if you only submit one workflow id) containing workflow level metadata
+c <- cromwellCall(thisOne)
+
+c %>% group_by(callName, executionStatus) %>% summarize(status = n())%>% arrange(executionStatus)
+
+# data frame (one line if you only submit one workflow id) containing workflow level metadata
+ca <- cromwellCache(thisOne)
+
+ca %>% group_by(callCaching.hit, callName) %>% summarize(hits = n())
+
+# data frame (one line if you only submit one workflow id) containing workflow level metadata
+cromwellTiming(thisOne)
+
+# data frame (one line if you only submit one workflow id) containing workflow level metadata
+f <- cromwellFailures(thisOne)
+
+# data frame (one line if you only submit one workflow id) containing workflow level metadata
+abort <- cromwellAbort(thisOne)
+```
+
+
+```{r}
+# Ugly list of raw metadata should you need it for workflow troubleshooting
+WTF <- cromwellGlob(thisOne); WTF[["failures"]]
+```
+
+# Output Processing workflow prep (copyNTag)
+```{r}
+out <- cromwellOutputs(thisOne)
+#batchFileNa
