@@ -45,13 +45,12 @@ cromwellFailures <- function(workflow_id) {
       temp1 <- data.frame(do.call('rbind',strsplit(faildf$callName, split = "[.]")))
       colnames(temp1)<- c("workflowName", "call")
       faildf <- cbind(faildf, temp1)
-      faildf$stderrPrefix <- paste0("cromwell-output/",
-                                    faildf$workflowName,"/", faildf$workflow_id, "/call-", faildf$call,
-                                    "/shard-", faildf$shardIndex, "/", faildf$call, "-", faildf$shardIndex,
-                                    "-stderr.log")
-
+      faildf$callName <- NULL
+      faildf  <- dplyr::rename(faildf, "callName" = "call")
       if ("failures.message" %in% colnames(faildf)) {
         faildf <- dplyr::filter(faildf, is.na(failures.message) == F)
+        callData <- cromwellCall(workflow_id = workflow_id)
+        faildf <- suppressWarnings(dplyr::left_join(faildf, callData)) # come clean this
       } else {
         faildf <- faildf[0,]
       }
