@@ -64,5 +64,5 @@ setCromwellURL <- function(FredHutchId = NULL, jobId = NULL, port = "2020", loca
   message(paste0("CROMWELLURL is currently set to: ", Sys.getenv("CROMWELLURL")))
 
   ssh::ssh_disconnect(session)
-  return(list(node = nodeName, jobId = jobId))
+  return(list(jobId = jobId, cromwellURL = paste0("http://", nodeName, ":", port)))
 }

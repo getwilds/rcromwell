@@ -43,7 +43,7 @@ cromwellOutputs <- function(workflow_id) {
     }
     outputsDf$workflow_id <- workflow_id
   } else {
-    message("No outputs are available for this workflow.")
+    stop("No outputs are available for this workflow.")
   }
   return(outputsDf)
 }
