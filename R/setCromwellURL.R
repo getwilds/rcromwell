@@ -19,9 +19,9 @@ setCromwellURL <- function(FredHutchId = NULL, jobId = NULL, port = "2020", loca
     stop("Please supply the SLURM jobId of your Cromwell server job.")
   }
   if (cluster == "gizmo"){
-    nodecommand = paste0('squeue -M gizmo -o "%R" -j ', slurmJob)
+    nodecommand = paste0('squeue -M gizmo -o "%R" -j ', jobId)
   } else if (cluster == "beagle"){
-    nodecommand = paste0('squeue -M beagle -o "%R" -j ', slurmJob)
+    nodecommand = paste0('squeue -M beagle -o "%R" -j ', jobId)
   }
   if (local == T){
   # Make an ssh session to rhino and it will prompt for password
