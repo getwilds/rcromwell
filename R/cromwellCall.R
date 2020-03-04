@@ -64,13 +64,14 @@ cromwellCall <- function(workflow_id) {
         })
       }) %>% purrr::map_dfr(., function(x) { x }, .id = "fullName")
       # melt it all down by callName
-      
+
       # split fullname into workflowName and callName
-      justCalls <- tidyr::separate(data = justCalls, 
+      justCalls <- tidyr::separate(data = justCalls,
                                    col = fullName,
                                    into = c("workflowName", "callName"),
-                                   sep = "\\.")
-      
+                                   sep = "\\.",
+                                   extra = "merge")
+
       justCalls$workflow_id <-
         workflow_id # This lets you take this output in a map_dfr and just do rbind as the function. ;)
       ## Big Chunk of dealing with start and end times.
