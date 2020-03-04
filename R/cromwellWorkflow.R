@@ -110,11 +110,14 @@ cromwellWorkflow <- function(workflow_id) {
         } else {
           # if end doesn't exist or it is already NA (???), make it and workflowDuration but set to NA
           resultdf$end <- NA
-          resultdf$workflowDuration <- NA
+          resultdf$workflowDuration <- 0
         }
       } else {
         # if start doesn't exist, then create it and set it to NA
         resultdf$start <- NA
+        # if start doesn't exist, then probably end and workflow Duration don't either.
+        resultdf$end <- NA
+        resultdf$workflowDuration <- 0
       }
       resultdf <- dplyr::mutate_all(resultdf, as.character)
       resultdf$workflowDuration <-

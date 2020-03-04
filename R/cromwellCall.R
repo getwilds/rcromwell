@@ -88,11 +88,13 @@ cromwellCall <- function(workflow_id) {
         } else {
           # if end doesn't exist or it is already NA (???), make it and workflowDuration but set to NA
           justCalls$end <- NA
-          justCalls$callDuration <- NA
+          justCalls$callDuration <- 0
         }
       } else {
         # if start doesn't exist, then create it and set it to NA
         justCalls$start <- NA
+        justCalls$end <- NA
+        justCalls$callDuration <- 0
       }
       justCalls <- dplyr::mutate_all(justCalls, as.character)
       justCalls$callDuration <- as.numeric(justCalls$callDuration)
