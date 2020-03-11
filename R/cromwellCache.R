@@ -51,7 +51,13 @@ cromwellCache <- function(workflow_id) {
           return(b)
         })
       })
-    geocache <- purrr::map_dfr(bobCallMeta, rbind, .id = "callName")
+    geocache <- purrr::map_dfr(bobCallMeta, rbind, .id = "fullName")
+    # split fullname into workflowName and callName
+    geocache <- tidyr::separate(data = geocache,
+                                 col = fullName,
+                                 into = c("workflowName", "callName"),
+                                 sep = "\\.",
+                                 extra = "merge")
   } else {
     geocache <-
       data.frame("workflow_id" = "No call caching metadata available.", stringsAsFactors = F)
