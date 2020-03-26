@@ -16,13 +16,13 @@
 #' TBD
 #' @export
 cromwellSubmitBatch <-
-  function(WDL, Batch, Params=NULL, Options=NULL, Labels=NULL, Dependencies = NULL) {
+  function(WDL, Batch=NULL, Params=NULL, Options=NULL, Labels=NULL, Dependencies = NULL) {
     if("" %in% Sys.getenv("CROMWELLURL")) {
       stop("CROMWELLURL is not set.")
     } else
       message("Submitting a batch workflow to Cromwell.")
     if(is.null(Batch) & is.null(Params) == T) {
-      stop("Either Batch inputs or Params inputs must be specified.")
+      warning("You did not submit either Batch inputs or Params inputs for this workflow.  Was that on purpose?")
     }
     bodyList <- list(
       workflowSource = httr::upload_file(WDL))
