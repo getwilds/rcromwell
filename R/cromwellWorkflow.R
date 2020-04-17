@@ -87,13 +87,13 @@ cromwellWorkflow <- function(workflow_id) {
       }
       #resultdf <- dplyr::mutate_all(resultdf, as.character)
       resultdf$submission <-
-        as.character(as.POSIXct(resultdf$submission, "UTC", "%Y-%m-%dT%H:%M:%S") - 8*60*60 )# because PST/hack)
+        as.character(as.POSIXct(resultdf$submission, tz= "America/Los_Angeles", "%Y-%m-%dT%H:%M:%S") - 7*60*60 )# because PST/hack)
       if ("start" %in% colnames(resultdf) == T) {
         # if the workflow has started
         if (is.na(resultdf$start) == F) {
           # and if the value of start is not NA
           resultdf$start <-
-            as.POSIXct(resultdf$start, "UTC", "%Y-%m-%dT%H:%M:%S") - 8*60*60 # because PST/hack
+            as.POSIXct(resultdf$start, tz= "America/Los_Angeles", "%Y-%m-%dT%H:%M:%S") - 7*60*60 # because PST/hack
         } else {
           # if start is NA, then make sure it's set to NA????  Stupid.
           resultdf$start <- NA
@@ -103,14 +103,15 @@ cromwellWorkflow <- function(workflow_id) {
           if (is.na(resultdf$end) == F) {
             # and it is not NA
             resultdf$end <-
-              as.POSIXct(resultdf$end, "UTC", "%Y-%m-%dT%H:%M:%S") - 8*60*60 # because PST/hack
+              as.POSIXct(resultdf$end, tz= "America/Los_Angeles", "%Y-%m-%dT%H:%M:%S") - 7*60*60 # because PST/hack
             resultdf <-
               dplyr::mutate(resultdf, workflowDuration = round(difftime(end, start, units = "mins"), 3))
           }
         } else {
           # if end doesn't exist or it is already NA (???), make it and workflowDuration but set to NA
           resultdf$end <- NA
-          resultdf$workflowDuration <- 0
+          if (is.na(resultdf$start)==F){resultdf$workflowDuration <- as.POSIXct(Sys.time())- resultdf$start} else {
+            resultdf$workflowDuration <- 0}
         }
       } else {
         # if start doesn't exist, then create it and set it to NA
