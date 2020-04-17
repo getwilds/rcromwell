@@ -4,8 +4,14 @@
 \alias{cromwellSubmitBatch}
 \title{Submit a workflow job to Cromwell}
 \usage{
-cromwellSubmitBatch(WDL, Batch, Params = NULL, Options = NULL,
-  Labels = NULL, Dependencies = NULL)
+cromwellSubmitBatch(
+  WDL,
+  Batch = NULL,
+  Params = NULL,
+  Options = NULL,
+  Labels = NULL,
+  Dependencies = NULL
+)
 }
 \arguments{
 \item{WDL}{Local path to the wdl file describing the workflow. (Required)}

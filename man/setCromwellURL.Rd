@@ -4,8 +4,13 @@
 \alias{setCromwellURL}
 \title{Set CROMWELLURL variable based on a gizmo SLURM jobId}
 \usage{
-setCromwellURL(FredHutchId = NULL, jobId = NULL, port = "2020",
-  local = TRUE, cluster = "gizmo")
+setCromwellURL(
+  FredHutchId = NULL,
+  jobId = NULL,
+  port = "2020",
+  local = TRUE,
+  cluster = "gizmo"
+)
 }
 \arguments{
 \item{FredHutchId}{Your Fred Hutch username}

@@ -4,9 +4,15 @@
 \alias{cromwellCreate}
 \title{Start a Cromwell server on Gizmo}
 \usage{
-cromwellCreate(FredHutchId = NULL, port = "2020",
-  pathToServerLogs = NULL, pathToServerScript = NULL,
-  pathToParams = NULL, cluster = "gizmo", local = TRUE)
+cromwellCreate(
+  FredHutchId = NULL,
+  port = "2020",
+  pathToServerLogs = NULL,
+  pathToServerScript = NULL,
+  pathToParams = NULL,
+  cluster = "gizmo",
+  local = TRUE
+)
 }
 \arguments{
 \item{FredHutchId}{Your Fred Hutch username}
@@ -32,7 +38,7 @@ Start a Cromwell server on Gizmo
 \details{
 Will require your Fred Hutch Id and will prompt you to enter your Fred Hutch password.
 Suggestions for parameters are:
-pathToServerLogs = "/home/username/cromwell/cromwell-serverlogs/%A.txt"
+pathToServerLogs = "/home/username/cromwell/cromwell-serverlogs/\%A.txt"
 pathToServerScript = "/home/username/cromwell/cromServer.sh"
 pathToParams = "/home/username/cromwell/cromwellParams.sh"
 port = "2020"
