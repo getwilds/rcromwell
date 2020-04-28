@@ -10,6 +10,7 @@ cromwellCreate(
   pathToServerLogs = NULL,
   pathToServerScript = NULL,
   pathToParams = NULL,
+  pathToConfig = NULL,
   cluster = "gizmo",
   local = TRUE
 )
@@ -25,7 +26,9 @@ cromwellCreate(
 
 \item{pathToParams}{Full path in our file system to where you have saved the parameters you'd like your Cromwell server to use (e.g. cromwellParams.sh, https://github.com/FredHutch/diy-cromwell-server).}
 
-\item{cluster}{Optional: if present, specify the location of the server, either 'gizmo' or 'beagle'}
+\item{pathToConfig}{Full path in our file system to where you have saved the configuration file you'd like your Cromwell server to use (e.g. fh-slurm-cromwell.conf, https://github.com/FredHutch/diy-cromwell-server).}
+
+\item{cluster}{Optional: if present, specify the cluster of the server, either 'gizmo' or other cluster name.}
 
 \item{local}{Are you running this on your local machine (TRUE) or on the rhino's (FALSE)}
 }
@@ -38,10 +41,11 @@ Start a Cromwell server on Gizmo
 \details{
 Will require your Fred Hutch Id and will prompt you to enter your Fred Hutch password.
 Suggestions for parameters are:
-pathToServerLogs = "/home/username/cromwell/cromwell-serverlogs/\%A.txt"
-pathToServerScript = "/home/username/cromwell/cromServer.sh"
-pathToParams = "/home/username/cromwell/cromwellParams.sh"
+pathToServerLogs = "/home/username/cromwell-home/cromwell-serverlogs/\%A.txt"
+pathToServerScript = "/home/username/cromwell-home/cromServer.sh"
+pathToParams = "/home/username/cromwell-home/cromwellParams.sh"
 port = "2020"
+pathToConfig = "/home/username/cromwell-home/fh-slurm-cromwell.conf"
 }
 \author{
 Amy Paguirigan

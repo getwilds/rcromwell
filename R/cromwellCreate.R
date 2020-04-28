@@ -7,22 +7,25 @@
 #' @param pathToServerLogs Full path in our file system to where you want your Cromwell server logs to be written.
 #' @param pathToServerScript Full path in our file system to where you have saved the script used to start your Cromwell server (e.g. cromServer.sh, https://github.com/FredHutch/diy-cromwell-server).
 #' @param pathToParams Full path in our file system to where you have saved the parameters you'd like your Cromwell server to use (e.g. cromwellParams.sh, https://github.com/FredHutch/diy-cromwell-server).
+#' @param pathToConfig Full path in our file system to where you have saved the configuration file you'd like your Cromwell server to use (e.g. fh-slurm-cromwell.conf, https://github.com/FredHutch/diy-cromwell-server).
 #' @param local Are you running this on your local machine (TRUE) or on the rhino's (FALSE)
-#' @param cluster Optional: if present, specify the location of the server, either 'gizmo' or 'beagle'
+#' @param cluster Optional: if present, specify the cluster of the server, either 'gizmo' or other cluster name.
 #' @return Sets your environment variable CROMWELLURL to be that of the Cromwell server you just started and returns the information about the job ID and node you'll need.
 #' @author Amy Paguirigan
 #' @details
 #' Will require your Fred Hutch Id and will prompt you to enter your Fred Hutch password.
 #' Suggestions for parameters are:
-#' pathToServerLogs = "/home/username/cromwell/cromwell-serverlogs/%A.txt"
-#' pathToServerScript = "/home/username/cromwell/cromServer.sh"
-#' pathToParams = "/home/username/cromwell/cromwellParams.sh"
+#' pathToServerLogs = "/home/username/cromwell-home/cromwell-serverlogs/%A.txt"
+#' pathToServerScript = "/home/username/cromwell-home/cromServer.sh"
+#' pathToParams = "/home/username/cromwell-home/cromwellParams.sh"
 #' port = "2020"
+#' pathToConfig = "/home/username/cromwell-home/fh-slurm-cromwell.conf"
 #' @export
 cromwellCreate <- function(FredHutchId = NULL, port = "2020",
                            pathToServerLogs = NULL,
                            pathToServerScript = NULL,
                            pathToParams = NULL,
+                           pathToConfig = NULL,
                            cluster = "gizmo", local = TRUE) {
   if (is.null(FredHutchId) == T) {
     stop("Please supply your Fred Hutch id.")
@@ -34,7 +37,10 @@ cromwellCreate <- function(FredHutchId = NULL, port = "2020",
     stop("Please supply the full path to where your Cromwell server script is saved (e.g., cromServer.sh).")
   }
   if (is.null(pathToParams) == T) {
-    stop("Please supply  the full path to where your Cromwell parameters file is saved (e.g., cromwellParams.sh).")
+    stop("Please supply the full path to where your Cromwell parameters file is saved (e.g., cromwellParams.sh).")
+  }
+  if (is.null(pathToConfig) == T) {
+    stop("Please supply the full path to where the configuration file is saved (e.g., fh-slurm-cromwell.conf).")
   }
 
   if (local == T){
@@ -44,8 +50,11 @@ cromwellCreate <- function(FredHutchId = NULL, port = "2020",
   setupServer <- ssh::ssh_exec_internal(session,
                                    command = paste("sbatch", "-o",
                                                    pathToServerLogs,
-                                                   pathToServerScript, pathToParams,
-                                                   port, sep = " "))
+                                                   pathToServerScript,
+                                                   pathToParams,
+                                                   port,
+                                                   pathToConfig,
+                                                   sep = " "))
   message(gsub("\n", "", rawToChar(setupServer$stdout)))
 
   slurmJob <- sub("\\D*\n", "", gsub("Submitted batch job ", "", rawToChar(setupServer$stdout)))
@@ -53,11 +62,7 @@ cromwellCreate <- function(FredHutchId = NULL, port = "2020",
     ssh::ssh_disconnect(session)
     stop("Slurm Job ID is unset.")
   }
-  if (cluster == "gizmo"){
-    nodecommand = paste0('squeue -M gizmo -o "%R" -j ', slurmJob)
-  } else if (cluster == "beagle"){
-    nodecommand = paste0('squeue -M beagle -o "%R" -j ', slurmJob)
-  }
+  nodecommand = paste0('squeue -M ', cluster, ' -o "%R" -j ', slurmJob)
   Sys.sleep(2)
   getNode <- ssh::ssh_exec_internal(session, command = nodecommand)
   nodeName <- sub("^.*)", "", gsub("\n", "", rawToChar(getNode$stdout)))
@@ -76,8 +81,12 @@ cromwellCreate <- function(FredHutchId = NULL, port = "2020",
   ssh::ssh_disconnect(session)
   }
   if (local == F) {
-    setupServer <- system(command = paste("sbatch", "-o", pathToServerLogs,
-                                          pathToServerScript, pathToParams, port,
+    setupServer <- system(command = paste("sbatch", "-o",
+                                          pathToServerLogs,
+                                          pathToServerScript,
+                                          pathToParams,
+                                          port,
+                                          pathToConfig,
                                           sep = " "),
                           intern = TRUE)
     message(setupServer)
@@ -85,11 +94,7 @@ cromwellCreate <- function(FredHutchId = NULL, port = "2020",
     if(slurmJob == ""){
       stop("Slurm Job ID is unset.")
     }
-    if (cluster == "gizmo"){
-      nodecommand = paste0('squeue -M gizmo -o "%R" -j ', slurmJob)
-    } else if (cluster == "beagle"){
-      nodecommand = paste0('squeue -M beagle -o "%R" -j ', slurmJob)
-    }
+    nodecommand = paste0('squeue -M ', cluster, ' -o "%R" -j ', slurmJob)
     Sys.sleep(2)
     getNode <- system(command = nodecommand, intern = TRUE)
     nodeName <- getNode[3]
