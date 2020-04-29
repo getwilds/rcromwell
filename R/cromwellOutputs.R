@@ -44,7 +44,8 @@ cromwellOutputs <- function(workflow_id) {
     }
     outputsDf$workflow_id <- workflow_id
   } else {
-    stop("No outputs are available for this workflow.")
+    outputsDf <-
+      data.frame("workflow_id" = "No outputs are available for this workflow yet.",  stringsAsFactors = F)
   }
   return(outputsDf)
 }
