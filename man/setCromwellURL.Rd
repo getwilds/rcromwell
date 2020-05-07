@@ -9,7 +9,7 @@ setCromwellURL(
   jobId = NULL,
   port = "2020",
   local = TRUE,
-  cluster = "gizmo"
+  cluster = "trusty"
 )
 }
 \arguments{
@@ -21,7 +21,7 @@ setCromwellURL(
 
 \item{local}{Are you running this on your local machine (TRUE) or on the rhino's (FALSE)}
 
-\item{cluster}{Optional: if present, specify the location of the server, either 'gizmo' or 'beagle'}
+\item{cluster}{Optional: default is trusty, and will submit to rhino nodes, while bionic will connect to rhino03 to submit to Bionic nodes.}
 }
 \value{
 Sets your environment variable CROMWELLURL to be that of the Cromwell server for the job specified.

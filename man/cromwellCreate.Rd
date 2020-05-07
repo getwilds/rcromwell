@@ -11,7 +11,7 @@ cromwellCreate(
   pathToServerScript = NULL,
   pathToParams = NULL,
   pathToConfig = NULL,
-  cluster = "gizmo",
+  cluster = "trusty",
   local = TRUE
 )
 }
@@ -28,7 +28,7 @@ cromwellCreate(
 
 \item{pathToConfig}{Full path in our file system to where you have saved the configuration file you'd like your Cromwell server to use (e.g. fh-slurm-cromwell.conf, https://github.com/FredHutch/diy-cromwell-server).}
 
-\item{cluster}{Optional: if present, specify the cluster of the server, either 'gizmo' or other cluster name.}
+\item{cluster}{Optional: default is trusty, and will submit to rhino nodes, while bionic will connect to rhino03 to submit to Bionic nodes.}
 
 \item{local}{Are you running this on your local machine (TRUE) or on the rhino's (FALSE)}
 }

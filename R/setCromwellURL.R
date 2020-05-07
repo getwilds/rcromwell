@@ -5,27 +5,29 @@
 #' @param jobId The SLURM job id for your Cromwell server
 #' @param port The port you specified in your Cromwell config file (`fh-slurm-cromwell.config`), default is "2020" from the template here: https://github.com/FredHutch/diy-cromwell-server.
 #' @param local Are you running this on your local machine (TRUE) or on the rhino's (FALSE)
-#' @param cluster Optional: if present, specify the location of the server, either 'gizmo' or 'beagle'
+#' @param cluster Optional: default is trusty, and will submit to rhino nodes, while bionic will connect to rhino03 to submit to Bionic nodes.
 #' @return Sets your environment variable CROMWELLURL to be that of the Cromwell server for the job specified.
 #' @author Amy Paguirigan
 #' @details
 #' Will require your Fred Hutch Id and will prompt you to enter your Fred Hutch password.
 #' @export
-setCromwellURL <- function(FredHutchId = NULL, jobId = NULL, port = "2020", local = TRUE, cluster = "gizmo") {
+setCromwellURL <- function(FredHutchId = NULL, jobId = NULL, port = "2020", local = TRUE, cluster = "trusty") {
   if (is.null(FredHutchId) == T) {
     stop("Please supply your Fred Hutch id.")
   }
   if (is.null(jobId) == T) {
     stop("Please supply the SLURM jobId of your Cromwell server job.")
   }
-  if (cluster == "gizmo"){
-    nodecommand = paste0('squeue -M gizmo -o "%R" -j ', jobId)
-  } else if (cluster == "beagle"){
-    nodecommand = paste0('squeue -M beagle -o "%R" -j ', jobId)
-  }
+
+  if (cluster == "trusty") { rhino <- "@rhino"
+  } else if (cluster == "bionic") { rhino <- "@rhino03"
+  } else { stop("You specified 'cluster' as neither 'trusty' nor 'bionic', so I'm not sure which 'rhino' to submit your request to.")}
+
+  nodecommand = paste0('squeue -o "%R" -j ', jobId)
+
   if (local == T){
   # Make an ssh session to rhino and it will prompt for password
-  session <- ssh::ssh_connect(paste0(FredHutchId, "@rhino"))
+  session <- ssh::ssh_connect(paste0(FredHutchId, rhino))
   getNode <- ssh::ssh_exec_internal(session, command = nodecommand)
   nodeName <- sub("^.*)", "", gsub("\n", "", rawToChar(getNode$stdout)))
   if (nodeName == ""){

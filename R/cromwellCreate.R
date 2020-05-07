@@ -9,7 +9,7 @@
 #' @param pathToParams Full path in our file system to where you have saved the parameters you'd like your Cromwell server to use (e.g. cromwellParams.sh, https://github.com/FredHutch/diy-cromwell-server).
 #' @param pathToConfig Full path in our file system to where you have saved the configuration file you'd like your Cromwell server to use (e.g. fh-slurm-cromwell.conf, https://github.com/FredHutch/diy-cromwell-server).
 #' @param local Are you running this on your local machine (TRUE) or on the rhino's (FALSE)
-#' @param cluster Optional: if present, specify the cluster of the server, either 'gizmo' or other cluster name.
+#' @param cluster Optional: default is trusty, and will submit to rhino nodes, while bionic will connect to rhino03 to submit to Bionic nodes.
 #' @return Sets your environment variable CROMWELLURL to be that of the Cromwell server you just started and returns the information about the job ID and node you'll need.
 #' @author Amy Paguirigan
 #' @details
@@ -26,7 +26,8 @@ cromwellCreate <- function(FredHutchId = NULL, port = "2020",
                            pathToServerScript = NULL,
                            pathToParams = NULL,
                            pathToConfig = NULL,
-                           cluster = "gizmo", local = TRUE) {
+                           cluster = "trusty",
+                           local = TRUE) {
   if (is.null(FredHutchId) == T) {
     stop("Please supply your Fred Hutch id.")
   }
@@ -42,10 +43,13 @@ cromwellCreate <- function(FredHutchId = NULL, port = "2020",
   if (is.null(pathToConfig) == T) {
     stop("Please supply the full path to where the configuration file is saved (e.g., fh-slurm-cromwell.conf).")
   }
+  if (cluster == "trusty") { rhino <- "@rhino"
+  } else if (cluster == "bionic") { rhino <- "@rhino03"
+  } else { stop("You specified 'cluster' as neither 'trusty' nor 'bionic', so I'm not sure which 'rhino' to submit your request to.")}
 
   if (local == T){
   # Make an ssh session to rhino and it will prompt for password
-  session <- ssh::ssh_connect(paste0(FredHutchId, "@rhino"))
+  session <- ssh::ssh_connect(paste0(FredHutchId, rhino))
   # send the command to gizmo to start your server and save the response
   setupServer <- ssh::ssh_exec_internal(session,
                                    command = paste("sbatch", "-o",
@@ -62,7 +66,7 @@ cromwellCreate <- function(FredHutchId = NULL, port = "2020",
     ssh::ssh_disconnect(session)
     stop("Slurm Job ID is unset.")
   }
-  nodecommand = paste0('squeue -M ', cluster, ' -o "%R" -j ', slurmJob)
+  nodecommand = paste0('squeue -o "%R" -j ', slurmJob)
   Sys.sleep(2)
   getNode <- ssh::ssh_exec_internal(session, command = nodecommand)
   nodeName <- sub("^.*)", "", gsub("\n", "", rawToChar(getNode$stdout)))
@@ -94,7 +98,7 @@ cromwellCreate <- function(FredHutchId = NULL, port = "2020",
     if(slurmJob == ""){
       stop("Slurm Job ID is unset.")
     }
-    nodecommand = paste0('squeue -M ', cluster, ' -o "%R" -j ', slurmJob)
+    nodecommand = paste0('squeue -o "%R" -j ', slurmJob)
     Sys.sleep(2)
     getNode <- system(command = nodecommand, intern = TRUE)
     nodeName <- getNode[3]
