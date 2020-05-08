@@ -77,18 +77,16 @@ cromwellCall <- function(workflow_id) {
       ## Big Chunk of dealing with start and end times.
       if ("start" %in% colnames(justCalls) == T) {
         # if the workflow has started
-        justCalls$start <-
-          as.POSIXct(justCalls$start, tz = "UTC", "%Y-%m-%dT%H:%M:%S") - 8*60*60 # because PST/hack
+        justCalls$start <- lubridate::with_tz(lubridate::ymd_hms(justCalls$start), tzone = "US/Pacific")
         if ("end" %in% colnames(justCalls) == T) {
           # and if end is present
-          justCalls$end <-
-            as.POSIXct(justCalls$end, tz = "UTC", "%Y-%m-%dT%H:%M:%S") - 8*60*60 # because PST/hack
+          justCalls$end <-lubridate::with_tz(lubridate::ymd_hms(justCalls$end), tzone = "US/Pacific")
           justCalls <-
             dplyr::mutate(justCalls, callDuration = round(difftime(end, start, units = "mins"), 3))
         } else {
           # if end doesn't exist or it is already NA (???), make it and workflowDuration but set to NA
           justCalls$end <- NA
-          justCalls$callDuration <- 0
+          justCalls$callDuration <- round(difftime(lubridate::now(tz = "US/Pacific"), justCalls$start, units = "mins"),3)
         }
       } else {
         # if start doesn't exist, then create it and set it to NA

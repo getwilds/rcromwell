@@ -86,14 +86,12 @@ cromwellWorkflow <- function(workflow_id) {
           purrr::reduce(list(remainder, drag, submit), dplyr::full_join, by = "workflow_id")
       }
       #resultdf <- dplyr::mutate_all(resultdf, as.character)
-      resultdf$submission <-
-        as.character(as.POSIXct(resultdf$submission, tz= "UTC", "%Y-%m-%dT%H:%M:%S") - 8*60*60 )# because PST/hack)
+      resultdf$submission <- lubridate::with_tz(lubridate::ymd_hms(resultdf$submission), tzone = "US/Pacific")
       if ("start" %in% colnames(resultdf) == T) {
         # if the workflow has started
         if (is.na(resultdf$start) == F) {
           # and if the value of start is not NA
-          resultdf$start <-
-            as.POSIXct(resultdf$start, tz= "UTC", "%Y-%m-%dT%H:%M:%S") - 8*60*60 # because PST/hack
+          resultdf$start <- lubridate::with_tz(lubridate::ymd_hms(resultdf$start), tzone = "US/Pacific")
         } else {
           # if start is NA, then make sure it's set to NA????  Stupid.
           resultdf$start <- NA
@@ -102,15 +100,17 @@ cromwellWorkflow <- function(workflow_id) {
           # and if end is present
           if (is.na(resultdf$end) == F) {
             # and it is not NA
-            resultdf$end <-
-              as.POSIXct(resultdf$end, tz= "UTC", "%Y-%m-%dT%H:%M:%S") - 8*60*60 # because PST/hack
+            resultdf$end <-lubridate::with_tz(lubridate::ymd_hms(resultdf$end), tzone = "US/Pacific")
             resultdf <-
               dplyr::mutate(resultdf, workflowDuration = round(difftime(end, start, units = "mins"), 3))
           }
         } else {
           # if end doesn't exist or it is already NA (???), make it and workflowDuration but set to NA
           resultdf$end <- NA
-          if (is.na(resultdf$start)==F){resultdf$workflowDuration <- as.POSIXct(Sys.time())- resultdf$start} else {
+          if (is.na(resultdf$start)==F){
+            resultdf$workflowDuration <-
+            round(difftime(Sys.time(), resultdf$start, units = "mins"),3)
+            } else {
             resultdf$workflowDuration <- 0}
         }
       } else {

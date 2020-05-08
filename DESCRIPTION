@@ -1,6 +1,6 @@
 Package: fh.wdlR
 Title: Convenience Tools for Managing WDL Workflows via Cromwell
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: 
     person(given = "Amy",
            family = "Paguirigan",
@@ -16,7 +16,8 @@ Imports:
     purrr,
     paws,
     tidyr,
-    ssh
+    ssh,
+    lubridate
 License: GPL-3
 Depends: R (>= 3.6.0)
 Roxygen: list(markdown = TRUE)

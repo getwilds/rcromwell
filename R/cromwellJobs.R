@@ -31,19 +31,20 @@ cromwellJobs <- function(days = 1) {
     cromTable <- dplyr::rename(cromTable, "workflow_id" = "id")
     if ("end" %in% colnames(cromTable) == T &
         "start" %in% colnames(cromTable) == T) {
-      cromTable$start <-
-        as.POSIXct(cromTable$start, "UTC", "%Y-%m-%dT%H:%M:%S") - 8*60*60 # because PST/hack
-      cromTable$end <-
-        as.POSIXct(cromTable$end, "UTC", "%Y-%m-%dT%H:%M:%S") - 8*60*60 # because PST/hack
-      cromTable$submission <-
-        as.character(as.POSIXct(cromTable$submission, "UTC", "%Y-%m-%dT%H:%M:%S") - 8*60*60 )# because PST/hack)
+      cromTable$start <-lubridate::with_tz(lubridate::ymd_hms(cromTable$start), tzone = "US/Pacific")
+      cromTable$end <-lubridate::with_tz(lubridate::ymd_hms(cromTable$end), tzone = "US/Pacific")
+      cromTable$submission <-lubridate::with_tz(lubridate::ymd_hms(cromTable$submission), tzone = "US/Pacific")
       cromTable$workflowDuration <-
         round(difftime(cromTable$end, cromTable$start, units = "mins"),
               3)
       cromTable$workflowDuration <-
         as.numeric(cromTable$workflowDuration)
+    } else if ("start" %in% colnames(cromTable) == T) {
+      cromTable$start <-lubridate::with_tz(lubridate::ymd_hms(cromTable$start), tzone = "US/Pacific")
+      # If it hasn't ended yet, then report the amount of time it's been running to that moment.
+      cromTable$workflowDuration <- round(difftime(Sys.time(), resultdf$start, units = "mins"),3)
     } else {
-      cromTable$workflowDuration <- "NA"
+      cromTable$workflowDuration <- 0
     }
   } else {
     cromTable <- data.frame("workflow_id" = NA,
