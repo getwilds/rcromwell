@@ -42,7 +42,7 @@ cromwellJobs <- function(days = 1) {
     } else if ("start" %in% colnames(cromTable) == T) {
       cromTable$start <-lubridate::with_tz(lubridate::ymd_hms(cromTable$start), tzone = "US/Pacific")
       # If it hasn't ended yet, then report the amount of time it's been running to that moment.
-      cromTable$workflowDuration <- round(difftime(Sys.time(), resultdf$start, units = "mins"),3)
+      cromTable$workflowDuration <- round(difftime(Sys.time(), cromTable$start, units = "mins"),3)
     } else {
       cromTable$workflowDuration <- 0
     }

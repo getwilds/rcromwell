@@ -9,7 +9,7 @@ cromwellGlob(workflow_id, expandSubWorkflows = F)
 \arguments{
 \item{workflow_id}{The workflow ID to return metadata for.}
 
-\item{expandSubWorkflows}{Boolean, whether to expand subworkflows in the results or not, default is F.}
+\item{expandSubWorkflows}{Boolean, whether to expand subworkflows in the results or not, default is FALSE.}
 }
 \value{
 Returns a gross list of lists of metadata on a workflow.

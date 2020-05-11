@@ -1,11 +1,9 @@
-
-
 #' Pull a glob of metadata for a specific Cromwell workflow job
 #'
 #' Retrieve a glob of workflow level metadata for a specific workflow.
 #'
 #' @param workflow_id The workflow ID to return metadata for.
-#' @param expandSubWorkflows Boolean, whether to expand subworkflows in the results or not, default is F.
+#' @param expandSubWorkflows Boolean, whether to expand subworkflows in the results or not, default is FALSE.
 #' @return Returns a gross list of lists of metadata on a workflow.
 #' @author Amy Paguirigan
 #' @details

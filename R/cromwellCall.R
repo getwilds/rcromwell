@@ -72,8 +72,7 @@ cromwellCall <- function(workflow_id) {
                                    sep = "\\.",
                                    extra = "merge")
 
-      justCalls$workflow_id <-
-        workflow_id # This lets you take this output in a map_dfr and just do rbind as the function. ;)
+      justCalls$workflow_id <- workflow_id # This lets you take this output in a map_dfr and just do rbind as the function. ;)
       ## Big Chunk of dealing with start and end times.
       if ("start" %in% colnames(justCalls) == T) {
         # if the workflow has started
@@ -99,13 +98,11 @@ cromwellCall <- function(workflow_id) {
 
     } else {
       # returns a data frame if no data is avaialable so that this can be used with Shiny apps easier
-      justCalls <-
-        data.frame("workflow_id" = "No call metadata available.", stringsAsFactors = F)
+      justCalls <- data.frame("workflow_id" = "No call metadata available.", stringsAsFactors = F)
     }
   } else {
     # returns a data frame if no data is avaialable so that this can be used with Shiny apps easierx
-    justCalls <-
-      data.frame("workflow_id" = "No call metadata available.", stringsAsFactors = F)
+    justCalls <- data.frame("workflow_id" = "No call metadata available.", stringsAsFactors = F)
   }
   return(justCalls)
 }

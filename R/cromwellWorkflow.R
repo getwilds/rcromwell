@@ -20,15 +20,14 @@ cromwellWorkflow <- function(workflow_id) {
   } else {
     print(paste0("Querying for metadata for workflow id: ", workflow_id))
   }
-    crommetadata <-
-      httr::content(httr::GET(
-        paste0(
-          Sys.getenv("CROMWELLURL"),
-          "/api/workflows/v1/",
-          workflow_id,
-          "/metadata?expandSubWorkflows=false"
-        )
-      ), as = "parsed")
+  crommetadata <- httr::content(httr::GET(
+      paste0(
+        Sys.getenv("CROMWELLURL"),
+        "/api/workflows/v1/",
+        workflow_id,
+        "/metadata?expandSubWorkflows=false"
+      )
+    ), as = "parsed")
 
   if (crommetadata$status == "fail") {
     #this is when a workflow itself fails to start
@@ -42,23 +41,18 @@ cromwellWorkflow <- function(workflow_id) {
       # if a workflow has a list of labels
       if (is.list(crommetadata$labels) == T) {
         drag <- purrr::pluck(crommetadata, "labels")
-        drag <-
-          data.frame(purrr::flatten(drag), stringsAsFactors = F)
-        drag$workflow_id <-
-          gsub("cromwell-", "", drag$cromwell.workflow.id)
+        drag <- data.frame(purrr::flatten(drag), stringsAsFactors = F)
+        drag$workflow_id <- gsub("cromwell-", "", drag$cromwell.workflow.id)
         drag$cromwell.workflow.id <- NULL
       } else {
         drag <- data.frame("workflow_id" = workflow_id)
       }
       # Get submission data
-      submit <-
-        data.frame(purrr::flatten(purrr::pluck(crommetadata, "submittedFiles")), stringsAsFactors = F)
-      submit$labels <-
-        NULL # why do they have labels here TOO!!?!>!>
+      submit <- data.frame(purrr::flatten(purrr::pluck(crommetadata, "submittedFiles")), stringsAsFactors = F)
+      submit$labels <- NULL # why do they have labels here TOO!!?!
       submit$workflow_id <- workflow_id
       # Get remaining workflow level data
-      remainder <-
-        data.frame(purrr::discard(crommetadata, is.list),
+      remainder <-data.frame(purrr::discard(crommetadata, is.list),
                    stringsAsFactors = F)
       remainder <- dplyr::rename(remainder, "workflow_id" = "id")
       # Get workflow failure data if it exists
@@ -71,21 +65,16 @@ cromwellWorkflow <- function(workflow_id) {
             .default = NA
           ))
         if (is.na(failureData) == F) {
-          failures <-
-            data.frame(failureData[failureData != ""], stringsAsFactors = F)
+          failures <- data.frame(failureData[failureData != ""], stringsAsFactors = F)
           failures$workflow_id <- workflow_id
-          resultdf <-
-            purrr::reduce(list(remainder, drag, submit, failures),
+          resultdf <- purrr::reduce(list(remainder, drag, submit, failures),
                           dplyr::full_join,
                           by = "workflow_id")
         } # if failures is na, then keep going
-        resultdf <-
-          purrr::reduce(list(remainder, drag, submit), dplyr::full_join, by = "workflow_id")
+        resultdf <- purrr::reduce(list(remainder, drag, submit), dplyr::full_join, by = "workflow_id")
       } else {
-        resultdf <-
-          purrr::reduce(list(remainder, drag, submit), dplyr::full_join, by = "workflow_id")
+        resultdf <- purrr::reduce(list(remainder, drag, submit), dplyr::full_join, by = "workflow_id")
       }
-      #resultdf <- dplyr::mutate_all(resultdf, as.character)
       resultdf$submission <- lubridate::with_tz(lubridate::ymd_hms(resultdf$submission), tzone = "US/Pacific")
       if ("start" %in% colnames(resultdf) == T) {
         # if the workflow has started
@@ -100,17 +89,15 @@ cromwellWorkflow <- function(workflow_id) {
           # and if end is present
           if (is.na(resultdf$end) == F) {
             # and it is not NA
-            resultdf$end <-lubridate::with_tz(lubridate::ymd_hms(resultdf$end), tzone = "US/Pacific")
-            resultdf <-
-              dplyr::mutate(resultdf, workflowDuration = round(difftime(end, start, units = "mins"), 3))
+            resultdf$end <- lubridate::with_tz(lubridate::ymd_hms(resultdf$end), tzone = "US/Pacific")
+            resultdf <- dplyr::mutate(resultdf, workflowDuration = round(difftime(end, start, units = "mins"), 3))
           }
         } else {
           # if end doesn't exist or it is already NA (???), make it and workflowDuration but set to NA
           resultdf$end <- NA
           if (is.na(resultdf$start)==F){
-            resultdf$workflowDuration <-
-            round(difftime(Sys.time(), resultdf$start, units = "mins"),3)
-            } else {
+            resultdf$workflowDuration <- round(difftime(Sys.time(), resultdf$start, units = "mins"),3)
+          } else {
             resultdf$workflowDuration <- 0}
         }
       } else {
@@ -121,12 +108,10 @@ cromwellWorkflow <- function(workflow_id) {
         resultdf$workflowDuration <- 0
       }
       resultdf <- dplyr::mutate_all(resultdf, as.character)
-      resultdf$workflowDuration <-
-        as.numeric(resultdf$workflowDuration)
+      resultdf$workflowDuration <- as.numeric(resultdf$workflowDuration)
     } else {
       # if id is not in the names, then
-      resultdf <-
-        data.frame("workflow_id" = "No metadata available.", stringsAsFactors = F)
+      resultdf <- data.frame("workflow_id" = "No metadata available.", stringsAsFactors = F)
     }
     return(resultdf)
   }
