@@ -28,7 +28,9 @@ cromwellWorkflow <- function(workflow_id) {
         "/metadata?expandSubWorkflows=false&excludeKey=calls"
       )
     ), as = "parsed")
-
+  if (is.list(crommetadata)==F) {
+    stop("Likely the API timed out, please resubmit your request or check your Cromwell server.")
+  }
   if (crommetadata$status == "fail") {
     #this is when a workflow itself fails to start
     return(data.frame(

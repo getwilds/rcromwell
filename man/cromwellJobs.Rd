@@ -4,10 +4,14 @@
 \alias{cromwellJobs}
 \title{Pull information about recent Cromwell workflow jobs}
 \usage{
-cromwellJobs(days = 1)
+cromwellJobs(days = 1, workflowName = NULL, workflowStatus = NULL)
 }
 \arguments{
 \item{days}{The number of days of history to return, defaults to 1 day.}
+
+\item{workflowName}{An array of strings of valid workflow names you want in your job list.}
+
+\item{workflowStatus}{A array of strings of valid workflow statuses you want in your job list (e.g., submitted, running, suceeded, failed, aborting, aborted)}
 }
 \value{
 Returns a long form data frame of metadata on workflow jobs submitted to a specific Cromwell instance.
