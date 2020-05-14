@@ -25,7 +25,7 @@ cromwellWorkflow <- function(workflow_id) {
         Sys.getenv("CROMWELLURL"),
         "/api/workflows/v1/",
         workflow_id,
-        "/metadata?expandSubWorkflows=false"
+        "/metadata?expandSubWorkflows=false&excludeKey=calls"
       )
     ), as = "parsed")
 

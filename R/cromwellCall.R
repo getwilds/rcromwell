@@ -26,7 +26,7 @@ cromwellCall <- function(workflow_id) {
         Sys.getenv("CROMWELLURL"),
         "/api/workflows/v1/",
         workflow_id,
-        "/metadata?expandSubWorkflows=false"
+        "/metadata?expandSubWorkflows=false&includeKey=calls"
       )
     ), as = "parsed")
   # if the response is a character vector, then return it and stop
