@@ -26,7 +26,6 @@ cromwellJobs <- function(days = 1, workflowName = NULL, workflowStatus = NULL) {
   if (is.null(workflowStatus) == F) {
     queryString <- paste(queryString, paste("status=", workflowStatus, sep = "", collapse = "&"), sep = "&")
   }
-  print(queryString)
   cromDat <-
     httr::content(httr::GET(
       paste0(

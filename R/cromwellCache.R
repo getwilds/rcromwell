@@ -31,11 +31,9 @@ cromwellCache <- function(workflow_id) {
         purrr::map_dfr(callData , function(shardData) {
           # and for each of the shards in that workflow...
           if ("inputs" %in% names(shardData) == T) {
-            a <-
-              purrr::keep(shardData,
+            a <- purrr::keep(shardData,
                           names(shardData) %in% c("callCaching", "inputs", "outputs")) # select only these lists
-            b <-
-              data.frame(rbind(unlist(a)), stringsAsFactors = F) # flatten them and make them a data frame
+            b <- data.frame(rbind(unlist(a)), stringsAsFactors = F) # flatten them and make them a data frame
             b$shardIndex <-
               shardData$shardIndex # add the shard Index associated
           } else {
@@ -44,6 +42,7 @@ cromwellCache <- function(workflow_id) {
                          stringsAsFactors = F)
           }
           b$shardIndex <- as.character(b$shardIndex)
+          b$workflow_id <- workflow_id
           b$executionStatus <- shardData$executionStatus
           b$returnCode <- shardData$returnCode
           b$jobId <- shardData$jobId

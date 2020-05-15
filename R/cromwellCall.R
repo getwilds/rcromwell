@@ -80,8 +80,9 @@ cromwellCall <- function(workflow_id) {
         if ("end" %in% colnames(justCalls) == T) {
           # and if end is present
           justCalls$end <-lubridate::with_tz(lubridate::ymd_hms(justCalls$end), tzone = "US/Pacific")
-          justCalls <-
-            dplyr::mutate(justCalls, callDuration = round(difftime(end, start, units = "mins"), 3))
+          justCalls <- justCalls %>% mutate(callDuration = ifelse(is.na(justCalls$end) == T,
+                 round(difftime(lubridate::now(tz = "US/Pacific"), justCalls$start, units = "mins"),3),
+                 round(difftime(justCalls$end, justCalls$start, units = "mins"), 3)))
         } else {
           # if end doesn't exist or it is already NA (???), make it and workflowDuration but set to NA
           justCalls$end <- NA
