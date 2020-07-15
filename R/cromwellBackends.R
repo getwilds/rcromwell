@@ -11,8 +11,10 @@ cromwellBackends <- function() {
     stop("CROMWELLURL is not set.")
   }  else
     print("Getting backend options from Cromwell.")
-  httr::content(httr::GET(paste0(
+  all <- httr::content(httr::GET(paste0(
     Sys.getenv("CROMWELLURL"),
     "/api/workflows/v1/backends"
   )))
+  all$supportedBackends <- unlist(all$supportedBackends)
+  return(all)
 }
