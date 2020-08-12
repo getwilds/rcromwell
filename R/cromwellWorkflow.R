@@ -3,10 +3,12 @@
 #' Retrieve and process all labels, submission and workflow level metadata for a specific workflow.
 #'
 #' @param workflow_id The workflow ID to return metadata for.
+#' @param cromURL The full string of the Cromwell URL to query if not using this locally (e.g. http://gizmog10:8000). (Optional)
 #' @return Returns a long form data frame of metadata on a workflow.
 #' @author Amy Paguirigan
 #' @details
-#' Requires valid Cromwell server URL to be set in the environment. (use `setCromwellURL()`)
+#' Requires valid Cromwell server URL to be set in the environment, or the use
+#' of the cromURL param if you want to specify upon call the URL to use. (use `setCromwellURL()`)
 #' @examples
 #' ## Request what jobs have been submitted to your Cromwell instance in the past 7 days.
 #' recentJobs <- cromwellJobs(days = 7)
@@ -14,15 +16,15 @@
 #' thisWorkflowID <- recentJobs$workflow_id[1]
 #' workflowMeta <- cromwellWorkflow(workflow_id = thisWorkflowID)
 #' @export
-cromwellWorkflow <- function(workflow_id) {
-  if ("" %in% Sys.getenv("CROMWELLURL")) {
-    stop("CROMWELLURL is not set.")
+cromwellWorkflow <- function(workflow_id, cromURL = Sys.getenv("CROMWELLURL", unset = "needsURL")) {
+  if(cromURL == "needsURL") {
+    stop("CROMWELLURL is not set in your environment, or specify the URL to query via cromURL.")
   } else {
     print(paste0("Querying for metadata for workflow id: ", workflow_id))
   }
   crommetadata <- httr::content(httr::GET(
       paste0(
-        Sys.getenv("CROMWELLURL"),
+        cromURL,
         "/api/workflows/v1/",
         workflow_id,
         "/metadata?expandSubWorkflows=false&excludeKey=calls"

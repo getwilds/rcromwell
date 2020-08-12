@@ -5,19 +5,23 @@
 #' @param days The number of days of history to return, defaults to 1 day.
 #' @param workflowName An array of strings of valid workflow names you want in your job list.
 #' @param workflowStatus A array of strings of valid workflow statuses you want in your job list (e.g., submitted, running, suceeded, failed, aborting, aborted)
+#' @param cromURL The full string of the Cromwell URL to query if not using this locally (e.g. http://gizmog10:8000). (Optional)
 #' @return Returns a long form data frame of metadata on workflow jobs submitted to a specific Cromwell instance.
 #' @author Amy Paguirigan
 #' @details
-#' Requires valid Cromwell server URL to be set in the environment. (use `setCromwellURL()`)
+#' Requires valid Cromwell server URL to be set in the environment, or the use
+#' of the cromURL param if you want to specify upon call the URL to use. (use `setCromwellURL()`)
 #' @examples
 #' ## Request what jobs have been submitted to your Cromwell instance in the past 7 days.
 #' recentJobs <- cromwellJobs(days = 7)
 #' @export
-cromwellJobs <- function(days = 1, workflowName = NULL, workflowStatus = NULL) {
-  if ("" %in% Sys.getenv("CROMWELLURL")) {
-    stop("CROMWELLURL is not set.")
-  } else
+cromwellJobs <- function(days = 1, workflowName = NULL, workflowStatus = NULL,
+                         cromURL = Sys.getenv("CROMWELLURL", unset = "needsURL")) {
+  if(cromURL == "needsURL") {
+    stop("CROMWELLURL is not set in your environment, or specify the URL to query via cromURL.")
+  } else {
     message(paste0("Querying cromwell for jobs in the last ", days, " days."))
+  }
   beforeNow <- Sys.Date() - round(days, 0)
   queryString <-paste0("submission=", beforeNow, "T00%3A00Z"); queryString
   if (is.null(workflowName)==F){
@@ -29,7 +33,7 @@ cromwellJobs <- function(days = 1, workflowName = NULL, workflowStatus = NULL) {
   cromDat <-
     httr::content(httr::GET(
       paste0(
-        Sys.getenv("CROMWELLURL"),
+        cromURL,
         "/api/workflows/v1/query?", queryString
       )
     ))$results

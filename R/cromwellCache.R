@@ -3,21 +3,23 @@
 #' Gets info about call caching status for the calls of a workflow
 #'
 #' @param workflow_id The workflow ID to return call caching metadata for.
+#' @param cromURL The full string of the Cromwell URL to query if not using this locally (e.g. http://gizmog10:8000). (Optional)
 #' @return Returns a long form data frame of metadata on call caching in a workflow. NOTE: Currently does not support subworkflows.
 #' @author Amy Paguirigan
 #' @details
-#' Requires valid Cromwell server URL to be set in the environment. (use `setCromwellURL()`)
+#' Requires valid Cromwell server URL to be set in the environment, or the use
+#' of the cromURL param if you want to specify upon call the URL to use. (use `setCromwellURL()`)
 #' @export
-cromwellCache <- function(workflow_id) {
-  if ("" %in% Sys.getenv("CROMWELLURL")) {
-    stop("CROMWELLURL is not set.")
+cromwellCache <- function(workflow_id, cromURL = Sys.getenv("CROMWELLURL", unset = "needsURL")) {
+  if(cromURL == "needsURL") {
+    stop("CROMWELLURL is not set in your environment, or specify the URL to query via cromURL.")
   } else {
-    message(paste0("Querying for call caching metadata for workflow id: ", workflow_id))
-  }
+    message(paste0("Querying for call caching metadata for workflow id: ", workflow_id)) }
+
     crommetadata <-
       httr::content(httr::GET(
         paste0(
-          Sys.getenv("CROMWELLURL"), "/api/workflows/v1/", workflow_id, "/metadata?expandSubWorkflows=false"
+          cromURL, "/api/workflows/v1/", workflow_id, "/metadata?expandSubWorkflows=false"
         )
       ), as = "parsed")
 

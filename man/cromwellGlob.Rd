@@ -4,12 +4,18 @@
 \alias{cromwellGlob}
 \title{Pull a glob of metadata for a specific Cromwell workflow job}
 \usage{
-cromwellGlob(workflow_id, expandSubWorkflows = F)
+cromwellGlob(
+  workflow_id,
+  expandSubWorkflows = F,
+  cromURL = Sys.getenv("CROMWELLURL", unset = "needsURL")
+)
 }
 \arguments{
 \item{workflow_id}{The workflow ID to return metadata for.}
 
 \item{expandSubWorkflows}{Boolean, whether to expand subworkflows in the results or not, default is FALSE.}
+
+\item{cromURL}{The full string of the Cromwell URL to query if not using this locally (e.g. http://gizmog10:8000). (Optional)}
 }
 \value{
 Returns a gross list of lists of metadata on a workflow.
@@ -18,7 +24,8 @@ Returns a gross list of lists of metadata on a workflow.
 Retrieve a glob of workflow level metadata for a specific workflow.
 }
 \details{
-Requires valid Cromwell server URL to be set in the environment. (use \code{setCromwellURL()})
+Requires valid Cromwell server URL to be set in the environment, or the use
+of the cromURL param if you want to specify upon call the URL to use. (use \code{setCromwellURL()})
 }
 \examples{
 ## Request what jobs have been submitted to your Cromwell instance in the past 7 days.

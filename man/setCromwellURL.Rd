@@ -4,13 +4,7 @@
 \alias{setCromwellURL}
 \title{Set CROMWELLURL variable based on a gizmo SLURM jobId}
 \usage{
-setCromwellURL(
-  FredHutchId = NULL,
-  jobId = NULL,
-  port = "2020",
-  local = TRUE,
-  cluster = "trusty"
-)
+setCromwellURL(FredHutchId = NULL, jobId = NULL, port = "2020", local = TRUE)
 }
 \arguments{
 \item{FredHutchId}{Your Fred Hutch username}
@@ -20,8 +14,6 @@ setCromwellURL(
 \item{port}{The port you specified in your Cromwell config file (\code{fh-slurm-cromwell.config}), default is "2020" from the template here: https://github.com/FredHutch/diy-cromwell-server.}
 
 \item{local}{Are you running this on your local machine (TRUE) or on the rhino's (FALSE)}
-
-\item{cluster}{Optional: default is trusty, and will submit to rhino nodes, while bionic will connect to rhino03 to submit to Bionic nodes.}
 }
 \value{
 Sets your environment variable CROMWELLURL to be that of the Cromwell server for the job specified.

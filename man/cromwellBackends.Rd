@@ -4,7 +4,10 @@
 \alias{cromwellBackends}
 \title{Get the available backends of a Cromwell server}
 \usage{
-cromwellBackends()
+cromwellBackends(cromURL = Sys.getenv("CROMWELLURL", unset = "needsURL"))
+}
+\arguments{
+\item{cromURL}{The full string of the Cromwell URL to query if not using this locally (e.g. http://gizmog10:8000). (Optional)}
 }
 \value{
 Cromwell backend options
@@ -13,7 +16,8 @@ Cromwell backend options
 Get the available backends of a Cromwell server
 }
 \details{
-Requires valid Cromwell URL to be set in the environment.
+Requires valid Cromwell server URL to be set in the environment, or the use
+of the cromURL param if you want to specify upon call the URL to use. (use \code{setCromwellURL()})
 }
 \author{
 Amy Paguirigan
