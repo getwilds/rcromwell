@@ -42,8 +42,6 @@ cromwellFailures <- function(workflow_id, cromURL = Sys.getenv("CROMWELLURL", un
         x
       }, .id = "callName")
       faildf$workflow_id <- workflow_id
-      # this section creates a URL for where the stderr log for the failed jobs likely are.
-      # This is hardcoded for ALP right now b/c it's not part of what Cromwell returns.
       temp1 <- data.frame(do.call('rbind',strsplit(faildf$callName, split = "[.]")))
       colnames(temp1)<- c("workflowName", "call")
       faildf <- cbind(faildf, temp1)
@@ -51,8 +49,6 @@ cromwellFailures <- function(workflow_id, cromURL = Sys.getenv("CROMWELLURL", un
       faildf  <- dplyr::rename(faildf, "callName" = "call")
       if ("failures.message" %in% colnames(faildf)) {
         faildf <- dplyr::filter(faildf, is.na(failures.message) == F)
-        callData <- cromwellCall(workflow_id = workflow_id, cromURL)
-        faildf <- suppressWarnings(dplyr::left_join(faildf, callData)) # come clean this
       } else {
         faildf <- faildf[0,]
       }

@@ -39,7 +39,7 @@ cromwellJobs <- function(days = 1, workflowName = NULL, workflowStatus = NULL,
     ))$results
   cromTable <- purrr::map_dfr(cromDat, dplyr::bind_rows)
   if (nrow(cromTable) > 0) {
-    cromTable <- dplyr::rename(cromTable, "workflow_id" = "id")
+    cromTable <- dplyr::rename(cromTable, "workflow_id" = "id", "workflowName" = "name")
     if ("end" %in% colnames(cromTable) == T &
         "start" %in% colnames(cromTable) == T) {
       cromTable$start <-lubridate::with_tz(lubridate::ymd_hms(cromTable$start), tzone = "US/Pacific")
