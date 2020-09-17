@@ -40,26 +40,18 @@ cromwellJobs <- function(days = 1, workflowName = NULL, workflowStatus = NULL,
   cromTable <- purrr::map_dfr(cromDat, dplyr::bind_rows)
   if (nrow(cromTable) > 0) {
     cromTable <- dplyr::rename(cromTable, "workflow_id" = "id", "workflowName" = "name")
-    if ("end" %in% colnames(cromTable) == T &
-        "start" %in% colnames(cromTable) == T) {
-      cromTable$start <-lubridate::with_tz(lubridate::ymd_hms(cromTable$start), tzone = "US/Pacific")
-      cromTable$end <-lubridate::with_tz(lubridate::ymd_hms(cromTable$end), tzone = "US/Pacific")
-      cromTable$submission <-lubridate::with_tz(lubridate::ymd_hms(cromTable$submission), tzone = "US/Pacific")
-      cromTable$workflowDuration <-
-        round(difftime(cromTable$end, cromTable$start, units = "mins"),
-              3)
-      cromTable$workflowDuration <-
-        as.numeric(cromTable$workflowDuration)
-    } else if ("start" %in% colnames(cromTable) == T) {
-      cromTable$start <-lubridate::with_tz(lubridate::ymd_hms(cromTable$start), tzone = "US/Pacific")
-      # If it hasn't ended yet, then report the amount of time it's been running to that moment.
-      cromTable$workflowDuration <- round(difftime(Sys.time(), cromTable$start, units = "mins"),3)
+    cromTable$submission <-lubridate::with_tz(lubridate::ymd_hms(cromTable$submission), tzone = "US/Pacific")
+    if ("start" %in% colnames(cromTable) == T) {
+      cromTable$start <-lubridate::with_tz(lubridate::ymd_hms(cromTable$start), tzone = "US/Pacific") }
+    if ("end" %in% colnames(cromTable) == T) {
+      cromTable$end <-lubridate::with_tz(lubridate::ymd_hms(cromTable$end), tzone = "US/Pacific") }
+    cromTable <- cromTable %>%
+      dplyr::mutate(workflowDuration = dplyr::if_else(is.na(end)==T,
+                                                      round(difftime(lubridate::now(tz = "US/Pacific"), cromTable$submission, units = "mins"),3),
+                                                      round(difftime(cromTable$end, cromTable$submission, units = "mins"),3)
+                                                      ))
     } else {
-      cromTable$workflowDuration <- 0
-    }
-  } else {
     cromTable <- data.frame("workflow_id" = NA,
-                            stringsAsFactors = F)
-  }
+                            stringsAsFactors = F) }
   return(cromTable)
 }
