@@ -23,6 +23,7 @@ Retrieve and process call metadata for a specific workflow.
 \details{
 Requires valid Cromwell server URL to be set in the environment, or the use
 of the cromURL param if you want to specify upon call the URL to use. (use \code{setCromwellURL()})
+Now supports nested scatters.
 }
 \examples{
 ## Request what jobs have been submitted to your Cromwell instance in the past 7 days.

@@ -1,6 +1,6 @@
 Package: fh.wdlR
 Title: Convenience Tools for Managing WDL Workflows via Cromwell
-Version: 0.2.1
+Version: 0.3.0
 Authors@R: 
     person(given = "Amy",
            family = "Paguirigan",
