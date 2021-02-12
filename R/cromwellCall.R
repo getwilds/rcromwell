@@ -49,6 +49,7 @@ cromwellCall <- function(workflow_id, cromURL = Sys.getenv("CROMWELLURL", unset 
         return(c)})
 
       names(subworkflowMeta) <- subs
+      # Likely needs some logic here to capture when subworkflows are found but don't yet have calls to get metadata from
       justSubCalls <- purrr::map(subworkflowMeta, function(subcallData) {
         calls <- purrr::pluck(subcallData, "calls")
         names(calls)
@@ -176,7 +177,7 @@ cromwellCall <- function(workflow_id, cromURL = Sys.getenv("CROMWELLURL", unset 
       justCalls$callDuration <- as.numeric(justCalls$callDuration)
 
     if (exists("justSubCalls")) {
-      justCalls <- dplyr::full_join(justCalls, justSubCalls)
+      justCalls <- suppressMessages(dplyr::full_join(justCalls, justSubCalls))
     }
     } else {
       # returns a data frame if no data is avaialable so that this can be used with Shiny apps easier
