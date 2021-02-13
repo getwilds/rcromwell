@@ -44,14 +44,15 @@ cromwellCall <- function(workflow_id, cromURL = Sys.getenv("CROMWELLURL", unset 
       subworkflow <- bob[subs]
       bob <- bob[!names(bob) %in% subs]
       subworkflowMeta <- purrr::map(subs, function(x) {
-        b <- purrr::flatten(purrr::flatten(subworkflow[x]))
-        c <- purrr::pluck(b, "subWorkflowMetadata")
-        return(c)})
-
+        b <- purrr::flatten(subworkflow[x])
+        names(b) <- paste0("subshard-", seq(1:length(b)))
+        #c <- purrr::pluck(b, "subWorkflowMetadata")
+        return(b)})
       names(subworkflowMeta) <- subs
       # Likely needs some logic here to capture when subworkflows are found but don't yet have calls to get metadata from
-      justSubCalls <- purrr::map(subworkflowMeta, function(subcallData) {
-        calls <- purrr::pluck(subcallData, "calls")
+      justSubCalls <- purrr::map_dfr(subworkflowMeta, function(subcallData) {
+        purrr::map_dfr(subcallData, function(shardData) {
+        calls <- shardData$subWorkflowMetadata$calls
         names(calls)
         out <- purrr::map_dfr(calls, function(taskData) {
           purrr::map_dfr(taskData, function(shards){
@@ -78,8 +79,9 @@ cromwellCall <- function(workflow_id, cromURL = Sys.getenv("CROMWELLURL", unset 
             }
             return(Z)
           })
+
         }, .id = "fullName")
-        return(out) })  %>% purrr::map_dfr(., function(x) { x }, .id = "subWorkflowName")
+        return(out) })  %>% purrr::map_dfr(., function(x) { x }, .id = "subWorkflowName") }, .id = "detailedSubName")
       # split fullname into workflowName and callName
       justSubCalls <- tidyr::separate(data = justSubCalls,
                                       col = fullName,
