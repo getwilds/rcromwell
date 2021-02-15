@@ -94,7 +94,7 @@ cromwellWorkflow <- function(workflow_id, cromURL = Sys.getenv("CROMWELLURL", un
           if (is.na(resultdf$end) == F) {
             # and it is not NA
             resultdf$end <- lubridate::with_tz(lubridate::ymd_hms(resultdf$end), tzone = "US/Pacific")
-            resultdf <- dplyr::mutate(resultdf, workflowDuration = round(difftime(end, start, units = "mins"), 3))
+            resultdf$workflowDuration <- round(difftime(end, start, units = "mins"), 3)
           }
         } else {
           # if end doesn't exist or it is already NA (???), make it and workflowDuration but set to NA

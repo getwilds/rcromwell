@@ -31,7 +31,8 @@ cromwellOutputs <- function(workflow_id, cromURL = Sys.getenv("CROMWELLURL", uns
     # grab only the outputs list and unlist into a dataframe
     outputsDf <- purrr::map_dfr(cromResponse$outputs, function(x) {
       Z <- data.frame("pathToOutput" = unlist(x), stringsAsFactors = F)
-      dplyr::mutate(Z, shardIndex = gsub("/.*$", "", gsub("^.*shard-", "", Z$pathToOutput)))
+      Z$shardIndex <- gsub("/.*$", "", gsub("^.*shard-", "", Z$pathToOutput))
+      Z
     }, .id = "workflowMeta")
     outputsDf$shardIndex[outputsDf$shardIndex == ""] <- NA
     # separate out the workflowName and workflowOutputType columns
