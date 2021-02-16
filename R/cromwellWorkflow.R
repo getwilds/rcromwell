@@ -80,22 +80,15 @@ cromwellWorkflow <- function(workflow_id, cromURL = Sys.getenv("CROMWELLURL", un
         resultdf <- purrr::reduce(list(remainder, drag, submit), dplyr::full_join, by = "workflow_id")
       }
       resultdf$submission <- lubridate::with_tz(lubridate::ymd_hms(resultdf$submission), tzone = "US/Pacific")
-      if ("start" %in% colnames(resultdf) == T) {
-        # if the workflow has started
-        if (is.na(resultdf$start) == F) {
-          # and if the value of start is not NA
+      if ("start" %in% colnames(resultdf)) {
           resultdf$start <- lubridate::with_tz(lubridate::ymd_hms(resultdf$start), tzone = "US/Pacific")
         } else {
-          # if start is NA, then make sure it's set to NA????  Stupid.
+          # If the workflow hasn't started, then create the column but set to NA
           resultdf$start <- NA
         }
-        if ("end" %in% colnames(resultdf) == T) {
-          # and if end is present
-          if (is.na(resultdf$end) == F) {
-            # and it is not NA
+      if ("end" %in% colnames(resultdf)) {
             resultdf$end <- lubridate::with_tz(lubridate::ymd_hms(resultdf$end), tzone = "US/Pacific")
-            resultdf$workflowDuration <- round(difftime(end, start, units = "mins"), 3)
-          }
+            resultdf$workflowDuration <- round(difftime(resultdf$end, resultdf$start, units = "mins"), 3)
         } else {
           # if end doesn't exist or it is already NA (???), make it and workflowDuration but set to NA
           resultdf$end <- NA
@@ -104,19 +97,12 @@ cromwellWorkflow <- function(workflow_id, cromURL = Sys.getenv("CROMWELLURL", un
           } else {
             resultdf$workflowDuration <- 0}
         }
-      } else {
-        # if start doesn't exist, then create it and set it to NA
-        resultdf$start <- NA
-        # if start doesn't exist, then probably end and workflow Duration don't either.
-        resultdf$end <- NA
-        resultdf$workflowDuration <- 0
-      }
       resultdf <- dplyr::mutate_all(resultdf, as.character)
       resultdf$workflowDuration <- as.numeric(resultdf$workflowDuration)
     } else {
       # if id is not in the names, then
       resultdf <- data.frame("workflow_id" = "No metadata available.", stringsAsFactors = F)
     }
+  }
     return(resultdf)
   }
-}
