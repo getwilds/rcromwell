@@ -33,6 +33,25 @@ cromwellFailures <- function(workflow_id, cromURL = Sys.getenv("CROMWELLURL", un
     ), as = "parsed")
   if (is.list(cromfail$calls) == T) {
     bobfail <- purrr::pluck(cromfail, "calls")
+    if (sum(grepl("ScatterAt", names(bobfail))) > 0 ) {
+      subs <- names(bobfail)[grepl("ScatterAt", names(bobfail))==T]
+      subworkflow <- bobfail[subs]
+      bobfail <- bobfail[!names(bobfail) %in% subs]
+      subworkflowMeta <- purrr::map(subs, function(x) {
+        b <- purrr::flatten(subworkflow[x])
+        names(b) <- paste0("subshard-", seq(1:length(b)))
+        return(b)})
+      names(subworkflowMeta) <- subs
+      # Likely needs some logic here to capture when subworkflows are found but don't yet have calls to get metadata from
+      justSubFails <- purrr::map_dfr(subworkflowMeta, function(subcallData) {
+          a<- purrr::map_dfr(subcallData, function(shardData) {
+          faildf <- purrr::map_dfr(subcallData, function(callData) {
+              unlist(callData)})
+          faildf$workflow_id <- workflow_id
+            return(faildf)})
+          },.id = "subWorkflowName")
+    }
+
     if (length(bobfail) > 0) {
       faildf <- purrr::map(bobfail, function(callData) {
         purrr::map_dfr(callData, function(shardData) {
@@ -47,18 +66,24 @@ cromwellFailures <- function(workflow_id, cromURL = Sys.getenv("CROMWELLURL", un
       faildf <- cbind(faildf, temp1)
       faildf$callName <- NULL
       faildf  <- dplyr::rename(faildf, "callName" = "call")
+
       if ("failures.message" %in% colnames(faildf)) {
         faildf <- dplyr::filter(faildf, is.na(failures.message) == F)
       } else {
         faildf <- faildf[0,]
       }
+      if ( exists("justSubFails")) {
+        faildf <- suppressMessages(dplyr::full_join(faildf, justSubFails))
+      }
     } else {
-      faildf <-
-        data.frame("workflow_id" = "No failure metadata available.", stringsAsFactors = F)
-    }
-  } else {
+      if ( exists("justSubFails"))  { faildf <- justSubFails
+        } else {
+          faildf <- data.frame("workflow_id" = "No failure metadata available.", stringsAsFactors = F)
+        }
+      }
+    } else {
     faildf <-
       data.frame("workflow_id" = "No failure metadata available.", stringsAsFactors = F)
-  }
+    }
   return(faildf)
 }
