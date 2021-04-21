@@ -23,8 +23,8 @@ cromwellJobs <- function(days = 1, workflowName = NULL, workflowStatus = NULL,
     message(paste0("Querying cromwell for jobs in the last ", days, " days."))
   }
   beforeNow <- Sys.Date() - round(days, 0)
-  queryString <-paste0("submission=", beforeNow, "T00%3A00Z"); queryString
-  if (is.null(workflowName)==F){
+  queryString <-paste0("submission=", beforeNow, "T00%3A00Z")
+  if (is.null(workflowName)==F) {
     queryString <- paste(queryString, paste("name=", workflowName, sep = "", collapse = "&"), sep = "&")
   }
   if (is.null(workflowStatus) == F) {
@@ -44,12 +44,16 @@ cromwellJobs <- function(days = 1, workflowName = NULL, workflowStatus = NULL,
     if ("start" %in% colnames(cromTable) == T) {
       cromTable$start <- lubridate::with_tz(lubridate::ymd_hms(cromTable$start), tzone = "US/Pacific") }
     if ("end" %in% colnames(cromTable) == T) {
-      cromTable$end <-lubridate::with_tz(lubridate::ymd_hms(cromTable$end), tzone = "US/Pacific") }
-    cromTable$workflowDuration <- ifelse("end" %in% colnames(cromTable),
-                                         round(difftime(cromTable$end, cromTable$submission, units = "mins"),3),
-                                         round(difftime(lubridate::now(tz = "US/Pacific"), cromTable$submission, units = "mins"),3))
+      cromTable$end <-lubridate::with_tz(lubridate::ymd_hms(cromTable$end), tzone = "US/Pacific")
+      cromTable$workflowDuration <- round(difftime(cromTable$end, cromTable$submission, units = "mins"),3)
+      }
+    if ("end" %in% colnames(cromTable) == F) {
+      cromTable$workflowDuration <- round(difftime(lubridate::now(tz = "US/Pacific"), cromTable$submission, units = "mins"),3)}
     } else {
     cromTable <- data.frame("workflow_id" = NA,
                             stringsAsFactors = F) }
+  convertToChar <- c("submission", "start", "end", "workflwoDuration")
+  theseCols <- colnames(cromTable) %in% convertToChar
+  cromTable[theseCols] <- lapply(cromTable[theseCols], as.character)
   return(cromTable)
 }
