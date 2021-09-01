@@ -17,9 +17,7 @@ Get AWS job logs
 }
 \details{
 Requires valid Cromwell URL to be set in the environment and valid AWS credentials as well.
-}
-\examples{
-TBD
+NOTE: this function has been removed due to changes in the Hutch AWS architecture.
 }
 \author{
 Amy Paguirigan

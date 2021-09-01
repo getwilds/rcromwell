@@ -43,6 +43,7 @@ pathToServerScript = "/home/username/cromwell-home/cromServer.sh"
 pathToParams = "/home/username/cromwell-home/cromwellParams.sh"
 port = "2020"
 pathToConfig = "/home/username/cromwell-home/fh-slurm-cromwell.conf"
+NOTE:  This has been discontinued in favor of setting up Cromwell in a more secure way.
 }
 \author{
 Amy Paguirigan

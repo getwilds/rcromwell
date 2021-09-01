@@ -6,9 +6,7 @@
 #' @author Amy Paguirigan
 #' @details
 #' Requires valid Cromwell URL to be set in the environment and valid AWS credentials as well.
-#' @examples
-#' TBD
-#' @export
+#' NOTE: this function has been removed due to changes in the Hutch AWS architecture.
 getAWSLogs <-
   function(jobId=NULL) {
     if("" %in% c(Sys.getenv("S3A"), Sys.getenv("S3SA"))) {

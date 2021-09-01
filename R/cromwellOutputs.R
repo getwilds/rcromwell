@@ -4,13 +4,13 @@
 #'
 #'
 #' @param workflow_id Unique workflow id of the job.
-#' @param cromURL The full string of the Cromwell URL to query if not using this locally (e.g. http://gizmog10:8000). (Optional)
+#' @param cromURL The full string of the Cromwell URL to query  (e.g. http://gizmog10:8000). (Optional)
 #' @return Returns a dataframe containing the workflowName, workflowOutputType,
 #' pathToOutput, shardIndex for the specified outputs of a workflow_id
 #' @author Amy Paguirigan
 #' @details
 #' Requires valid Cromwell server URL to be set in the environment, or the use
-#' of the cromURL param if you want to specify upon call the URL to use. (use `setCromwellURL()`)
+#' of the cromURL param if you want to specify upon call the URL to use.
 #' @export
 cromwellOutputs <- function(workflow_id, cromURL = Sys.getenv("CROMWELLURL", unset = "needsURL")) {
   if(cromURL == "needsURL") {

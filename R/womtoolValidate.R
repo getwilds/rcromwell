@@ -3,12 +3,12 @@
 #'
 #' @param WDL Local path to the wdl file describing the workflow. (Required)
 #' @param allInputs Local path to the json containing ALL the inputs the parameters to use with the workflow - if a batch and parameters json are present they must first be combined. (Optional)
-#' @param cromURL The full string of the Cromwell URL to query if not using this locally (e.g. http://gizmog10:8000). (Optional)
+#' @param cromURL The full string of the Cromwell URL to query (e.g. http://gizmog10:8000). (Optional)
 #' @return Returns the response from the API post which includes the workflow ID that you'll need to monitor the job.
 #' @author Amy Paguirigan
 #' @details
 #' Requires valid Cromwell server URL to be set in the environment, or the use
-#' of the cromURL param if you want to specify upon call the URL to use. (use `setCromwellURL()`)
+#' of the cromURL param if you want to specify upon call the URL to use.
 #' @examples
 #' TBD
 #' @export

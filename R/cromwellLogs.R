@@ -6,8 +6,8 @@
 #' @return Returns the response from the API post
 #' @author Amy Paguirigan
 #' @details
-#' Requires valid Cromwell server URL to be set in the environment. (use `setCromwellURL()`)
-#' @export
+#' Requires valid Cromwell server URL to be set in the environment.
+#' NOTE: this function has been temporarily removed for more testing and updating.
 cromwellLogs <- function(workflow_id) {
   if ("" %in% Sys.getenv("CROMWELLURL")) {
     stop("CROMWELLURL is not set.")

@@ -8,12 +8,12 @@
 #' @param Options Local path to the json containing workflow options to apply.(Optional)
 #' @param Labels A data frame containing the labels for this workflow.(Optional)
 #' @param Dependencies A zip'd file of subworkflow dependencies. (Optional)
-#' @param cromURL The full string of the Cromwell URL to query if not using this locally (e.g. http://gizmog10:8000). (Optional)
+#' @param cromURL The full string of the Cromwell URL to send jobs to (e.g. http://gizmog10:8000). (Optional)
 #' @return Returns the response from the API post which includes the workflow ID that you'll need to monitor the job.
 #' @author Amy Paguirigan
 #' @details
-#' Requires valid Cromwell server URL to be set in the environment, or the use
-#' of the cromURL param if you want to specify upon call the URL to use. (use `setCromwellURL()`)
+#' Requires valid Cromwell server URL to be set in the environment (CROMWELLURL), or the use
+#' of the cromURL param if you want to specify upon call the URL to use.
 #' @examples
 #' TBD
 #' @export

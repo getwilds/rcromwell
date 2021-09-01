@@ -7,7 +7,7 @@
 cromwellVersion(cromURL = Sys.getenv("CROMWELLURL", unset = "needsURL"))
 }
 \arguments{
-\item{cromURL}{The full string of the Cromwell URL to query if not using this locally (e.g. http://gizmog10:8000). (Optional)}
+\item{cromURL}{The full string of the Cromwell URL to query  (e.g. http://gizmog10:8000). (Optional)}
 }
 \value{
 Cromwell version
@@ -16,7 +16,7 @@ Cromwell version
 Get the version of a Cromwell server
 }
 \details{
-Requires valid Cromwell server URL to be set in the environment. (use \code{setCromwellURL()})
+Requires valid Cromwell server URL to be set in the environment or specify "cromURL".
 }
 \examples{
 TBD

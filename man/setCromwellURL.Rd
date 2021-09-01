@@ -23,6 +23,7 @@ Set CROMWELLURL variable based on a gizmo SLURM jobId
 }
 \details{
 Will require your Fred Hutch Id and will prompt you to enter your Fred Hutch password.
+NOTE:  this function has been dicontinued due to setting up Cromwell in a more secure way.
 }
 \author{
 Amy Paguirigan

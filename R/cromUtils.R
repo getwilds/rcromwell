@@ -2,12 +2,12 @@
 #
 #'
 #' @param workflow_id The workflow ID to return options for.
-#' @param cromURL The full string of the Cromwell URL to query if not using this locally (e.g. http://gizmog10:8000). (Optional)
+#' @param cromURL The full string of the Cromwell URL to query (e.g. http://gizmog10:8000).(Optional)
 #' @return Returns a data frame of the options for a workflow previously run
 #' @author Amy Paguirigan
 #' @details
 #' Requires valid Cromwell server URL to be set in the environment, or the use
-#' of the cromURL param if you want to specify upon call the URL to use. (use `setCromwellURL()`)
+#' of the cromURL param if you want to specify upon call the URL to use.
 #' @export
 workflowOptions <- function(workflow_id, cromURL = Sys.getenv("CROMWELLURL", unset = "needsURL")) {
   if(cromURL == "needsURL") {
@@ -22,12 +22,12 @@ workflowOptions <- function(workflow_id, cromURL = Sys.getenv("CROMWELLURL", uns
 #
 #'
 #' @param workflow_id The workflow ID to return inputs for.
-#' @param cromURL The full string of the Cromwell URL to query if not using this locally (e.g. http://gizmog10:8000). (Optional)
+#' @param cromURL The full string of the Cromwell URL to query (e.g. http://gizmog10:8000).
 #' @return Returns a data frame of the inputs for a workflow previously run
 #' @author Amy Paguirigan
 #' @details
 #' Requires valid Cromwell server URL to be set in the environment, or the use
-#' of the cromURL param if you want to specify upon call the URL to use. (use `setCromwellURL()`)
+#' of the cromURL param if you want to specify upon call the URL to use.
 #' @export
 workflowInputs <- function(workflow_id, cromURL = Sys.getenv("CROMWELLURL", unset = "needsURL")) {
   if(cromURL == "needsURL") {

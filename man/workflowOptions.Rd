@@ -12,7 +12,7 @@ workflowOptions(
 \arguments{
 \item{workflow_id}{The workflow ID to return options for.}
 
-\item{cromURL}{The full string of the Cromwell URL to query if not using this locally (e.g. http://gizmog10:8000). (Optional)}
+\item{cromURL}{The full string of the Cromwell URL to query (e.g. http://gizmog10:8000).(Optional)}
 }
 \value{
 Returns a data frame of the options for a workflow previously run
@@ -22,7 +22,7 @@ Pull the workflow options provided for a Cromwell workflow job
 }
 \details{
 Requires valid Cromwell server URL to be set in the environment, or the use
-of the cromURL param if you want to specify upon call the URL to use. (use \code{setCromwellURL()})
+of the cromURL param if you want to specify upon call the URL to use.
 }
 \author{
 Amy Paguirigan

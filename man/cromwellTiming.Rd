@@ -12,7 +12,7 @@ cromwellTiming(
 \arguments{
 \item{workflow_id}{Unique workflow id of the job.}
 
-\item{cromURL}{The full string of the Cromwell URL to query if not using this locally (e.g. http://gizmog10:8000). (Optional)}
+\item{cromURL}{The full string of the Cromwell URL to query (e.g. http://gizmog10:8000). (Optional)}
 }
 \value{
 Opens a timing diagram in a browser
@@ -22,7 +22,7 @@ Get a timing diagram for a Cromwell workflow
 }
 \details{
 Requires valid Cromwell server URL to be set in the environment, or the use
-of the cromURL param if you want to specify upon call the URL to use. (use \code{setCromwellURL()})
+of the cromURL param if you want to specify upon call the URL to use.
 }
 \examples{
 TBD

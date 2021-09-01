@@ -12,17 +12,17 @@ cromwellCache(
 \arguments{
 \item{workflow_id}{The workflow ID to return call caching metadata for.}
 
-\item{cromURL}{The full string of the Cromwell URL to query if not using this locally (e.g. http://gizmog10:8000). (Optional)}
+\item{cromURL}{The full string of the Cromwell URL to query (e.g. http://gizmog10:8000). (Optional)}
 }
 \value{
-Returns a long form data frame of metadata on call caching in a workflow. NOTE: Currently does not support subworkflows.
+Returns a long form data frame of metadata on call caching in a workflow. NOTE: Currently does not support subworkflows well.
 }
 \description{
 Gets info about call caching status for the calls of a workflow
 }
 \details{
 Requires valid Cromwell server URL to be set in the environment, or the use
-of the cromURL param if you want to specify upon call the URL to use. (use \code{setCromwellURL()})
+of the cromURL param if you want to specify upon call the URL to us.
 }
 \author{
 Amy Paguirigan

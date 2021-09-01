@@ -16,7 +16,8 @@ Returns the response from the API post
 Gets logs for a workflow in Cromwell
 }
 \details{
-Requires valid Cromwell server URL to be set in the environment. (use \code{setCromwellURL()})
+Requires valid Cromwell server URL to be set in the environment.
+NOTE: this function has been temporarily removed for more testing and updating.
 }
 \author{
 Amy Paguirigan

@@ -3,12 +3,12 @@
 #' Retrieve and process call metadata for a specific workflow.
 #'
 #' @param workflow_id The workflow ID to return call metadata on.
-#' @param cromURL The full string of the Cromwell URL to query if not using this locally (e.g. http://gizmog10:8000). (Optional)
-#' @return Returns a long form data frame of metadata on calls. NOTE: does not currently support subWorkflows.
+#' @param cromURL The full string of the Cromwell URL to query (e.g. http://gizmog10:8000).(Optional)
+#' @return Returns a long form data frame of metadata on calls. NOTE: does not currently support subWorkflows well yet.
 #' @author Amy Paguirigan
 #' @details
 #' Requires valid Cromwell server URL to be set in the environment, or the use
-#' of the cromURL param if you want to specify upon call the URL to use. (use `setCromwellURL()`)
+#' of the cromURL param if you want to specify upon call the URL to use.
 #' Now supports nested scatters.
 #' @examples
 #' ## Request what jobs have been submitted to your Cromwell instance in the past 7 days.

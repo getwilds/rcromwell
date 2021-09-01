@@ -1,11 +1,11 @@
 
 #' Get the version of a Cromwell server
 #'
-#'@param cromURL The full string of the Cromwell URL to query if not using this locally (e.g. http://gizmog10:8000). (Optional)
+#'@param cromURL The full string of the Cromwell URL to query  (e.g. http://gizmog10:8000). (Optional)
 #' @return Cromwell version
 #' @author Amy Paguirigan
 #' @details
-#' Requires valid Cromwell server URL to be set in the environment. (use `setCromwellURL()`)
+#' Requires valid Cromwell server URL to be set in the environment or specify "cromURL".
 #' @examples
 #' TBD
 #' @export

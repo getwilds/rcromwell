@@ -9,7 +9,7 @@
 #' @author Amy Paguirigan
 #' @details
 #' Will require your Fred Hutch Id and will prompt you to enter your Fred Hutch password.
-#' @export
+#' NOTE:  this function has been dicontinued due to setting up Cromwell in a more secure way.
 setCromwellURL <- function(FredHutchId = NULL, jobId = NULL, port = "2020", local = TRUE) {
   if (is.null(FredHutchId) == T) {
     stop("Please supply your Fred Hutch id.")

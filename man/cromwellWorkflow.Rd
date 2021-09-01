@@ -12,7 +12,7 @@ cromwellWorkflow(
 \arguments{
 \item{workflow_id}{The workflow ID to return metadata for.}
 
-\item{cromURL}{The full string of the Cromwell URL to query if not using this locally (e.g. http://gizmog10:8000). (Optional)}
+\item{cromURL}{The full string of the Cromwell URL to query (e.g. http://gizmog10:8000). (Optional)}
 }
 \value{
 Returns a long form data frame of metadata on a workflow.
@@ -22,7 +22,7 @@ Retrieve and process all labels, submission and workflow level metadata for a sp
 }
 \details{
 Requires valid Cromwell server URL to be set in the environment, or the use
-of the cromURL param if you want to specify upon call the URL to use. (use \code{setCromwellURL()})
+of the cromURL param if you want to specify upon call the URL to use.
 }
 \examples{
 ## Request what jobs have been submitted to your Cromwell instance in the past 7 days.

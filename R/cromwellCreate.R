@@ -19,7 +19,7 @@
 #' pathToParams = "/home/username/cromwell-home/cromwellParams.sh"
 #' port = "2020"
 #' pathToConfig = "/home/username/cromwell-home/fh-slurm-cromwell.conf"
-#' @export
+#' NOTE:  This has been discontinued in favor of setting up Cromwell in a more secure way.
 cromwellCreate <- function(FredHutchId = NULL, port = "2020",
                            pathToServerLogs = NULL,
                            pathToServerScript = NULL,
