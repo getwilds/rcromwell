@@ -181,8 +181,8 @@ cromwellCall <- function(workflow_id, cromURL = Sys.getenv("CROMWELLURL", unset 
     if (exists("justSubCalls")) {
       justCalls <- suppressMessages(dplyr::full_join(justCalls, justSubCalls))
     }
-    } else {
-      # returns a data frame if no data is avaialable so that this can be used with Shiny apps easier
+    } else if(exists("justSubCalls")) {justCalls <- justSubCalls} else {
+      # returns a data frame if no data is available so that this can be used with Shiny apps easier
       justCalls <- data.frame("workflow_id" = "No call metadata available.", stringsAsFactors = F)
     }
   } else {
