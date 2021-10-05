@@ -97,7 +97,7 @@ cromwellCall <- function(workflow_id, cromURL = Sys.getenv("CROMWELLURL", unset 
         if ("end" %in% colnames(justSubCalls) == T) {
           # and if end is present
           justSubCalls$end <-lubridate::with_tz(lubridate::ymd_hms(justSubCalls$end), tzone = "US/Pacific")
-          justSubCalls <- justSubCalls %>% mutate(callDuration = ifelse(is.na(justSubCalls$end) == T,
+          justSubCalls <- justSubCalls %>% dplyr::mutate(callDuration = ifelse(is.na(justSubCalls$end) == T,
                                                                         round(difftime(lubridate::now(tz = "US/Pacific"), justSubCalls$start, units = "mins"),3),
                                                                         round(difftime(justSubCalls$end, justSubCalls$start, units = "mins"), 3)))
         } else {
@@ -161,7 +161,7 @@ cromwellCall <- function(workflow_id, cromURL = Sys.getenv("CROMWELLURL", unset 
         if ("end" %in% colnames(justCalls) == T) {
           # and if end is present
           justCalls$end <-lubridate::with_tz(lubridate::ymd_hms(justCalls$end), tzone = "US/Pacific")
-          justCalls <- justCalls %>% mutate(callDuration = ifelse(is.na(justCalls$end) == T,
+          justCalls <- justCalls %>% dplyr::mutate(callDuration = ifelse(is.na(justCalls$end) == T,
                  round(difftime(lubridate::now(tz = "US/Pacific"), justCalls$start, units = "mins"),3),
                  round(difftime(justCalls$end, justCalls$start, units = "mins"), 3)))
         } else {
