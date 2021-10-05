@@ -31,7 +31,7 @@ cromwellSubmitBatch <-
     bodyList <- list(
       workflowSource = httr::upload_file(WDL))
 
-    if(is.null(Params) == F & is.null(Batch) == F) { bodyList <- c(bodyList, workflowInputs = list(httr::upload_file(Params), httr::upload_file(Batch)))
+    if(is.null(Params) == F & is.null(Batch) == F) { bodyList <- c(bodyList, workflowInputs = list(httr::upload_file(Params))); bodyList <- c(bodyList, workflowInputs_2 = list(httr::upload_file(Batch)))
     } else if (is.null(Params) == F) { bodyList <- c(bodyList, workflowInputs = list(httr::upload_file(Params)))
     } else if  (is.null(Batch) == F) { bodyList <- c(bodyList, workflowInputs = list(httr::upload_file(Batch))) }
 
