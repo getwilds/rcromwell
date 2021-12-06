@@ -38,8 +38,9 @@ cromwellJobs <- function(days = 1, workflowName = NULL, workflowStatus = NULL,
       )
     ))$results
   cromTable <- purrr::map_dfr(cromDat, dplyr::bind_rows)
-  if (nrow(cromTable) > 0) {
-    cromTable <- dplyr::rename(cromTable, "workflow_id" = "id", "workflowName" = "name")
+  if (nrow(cromTable) > 0 & "id" %in% names(cromTable)) {
+    cromTable <- dplyr::rename(cromTable, "workflow_id" = "id")
+    if ("name" %in% colnames(cromTable)) {cromTable <- dplyr::rename(cromTable, "workflowName" = "name")}
     cromTable$submission <- lubridate::with_tz(lubridate::ymd_hms(cromTable$submission), tzone = "US/Pacific")
     if ("start" %in% colnames(cromTable) == T) {
       cromTable$start <- lubridate::with_tz(lubridate::ymd_hms(cromTable$start), tzone = "US/Pacific") }
@@ -52,7 +53,7 @@ cromwellJobs <- function(days = 1, workflowName = NULL, workflowStatus = NULL,
     } else {
     cromTable <- data.frame("workflow_id" = NA,
                             stringsAsFactors = F) }
-  convertToChar <- c("submission", "start", "end", "workflwoDuration")
+  convertToChar <- c("submission", "start", "end", "workflowDuration")
   theseCols <- colnames(cromTable) %in% convertToChar
   cromTable[theseCols] <- lapply(cromTable[theseCols], as.character)
   return(cromTable)
