@@ -2,28 +2,18 @@
 % Please edit documentation in R/setCromwellURL.R
 \name{setCromwellURL}
 \alias{setCromwellURL}
-\title{Set CROMWELLURL variable based on a gizmo SLURM jobId}
+\title{Set the URL for your Cromwell server's API}
 \usage{
-setCromwellURL(FredHutchId = NULL, jobId = NULL, port = "2020", local = TRUE)
+setCromwellURL(nodeAndPort = NULL)
 }
 \arguments{
-\item{FredHutchId}{Your Fred Hutch username}
-
-\item{jobId}{The SLURM job id for your Cromwell server}
-
-\item{port}{The port you specified in your Cromwell config file (\code{fh-slurm-cromwell.config}), default is "2020" from the template here: https://github.com/FredHutch/diy-cromwell-server.}
-
-\item{local}{Are you running this on your local machine (TRUE) or on the rhino's (FALSE)}
+\item{nodeAndPort}{Your node and port of the running Cromwell server on Gizmo (e.g., gizmoz85:12345)}
 }
 \value{
 Sets your environment variable CROMWELLURL to be that of the Cromwell server for the job specified.
 }
 \description{
-Set CROMWELLURL variable based on a gizmo SLURM jobId
-}
-\details{
-Will require your Fred Hutch Id and will prompt you to enter your Fred Hutch password.
-NOTE:  this function has been dicontinued due to setting up Cromwell in a more secure way.
+Set the URL for your Cromwell server's API
 }
 \author{
 Amy Paguirigan

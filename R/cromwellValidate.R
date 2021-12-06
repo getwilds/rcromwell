@@ -12,7 +12,7 @@
 #' @examples
 #' TBD
 #' @export
-womtoolValidate <-
+cromwellValidate <-
   function(WDL, allInputs=NULL, cromURL = Sys.getenv("CROMWELLURL", unset = "needsURL")) {
     if(cromURL == "needsURL") {
       stop("CROMWELLURL is not set in your environment, or specify the URL to query via cromURL.")
