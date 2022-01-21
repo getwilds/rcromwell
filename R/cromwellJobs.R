@@ -46,11 +46,13 @@ cromwellJobs <- function(days = 1, workflowName = NULL, workflowStatus = NULL,
       cromTable$start <- lubridate::with_tz(lubridate::ymd_hms(cromTable$start), tzone = "US/Pacific") }
     if ("end" %in% colnames(cromTable) == T) {
       cromTable$end <-lubridate::with_tz(lubridate::ymd_hms(cromTable$end), tzone = "US/Pacific")
-      cromTable$workflowDuration <- round(difftime(cromTable$end, cromTable$submission, units = "mins"),3)
-      }
+      cromTable$workflowDuration <- ifelse(is.na(cromTable$end),
+                                           round(difftime(lubridate::now(tz = "US/Pacific"), cromTable$submission, units = "mins"),3),
+                                           round(difftime(cromTable$end, cromTable$submission, units = "mins"),3))
+    }
     if ("end" %in% colnames(cromTable) == F) {
       cromTable$workflowDuration <- round(difftime(lubridate::now(tz = "US/Pacific"), cromTable$submission, units = "mins"),3)}
-    } else {
+  } else {
     cromTable <- data.frame("workflow_id" = NA,
                             stringsAsFactors = F) }
   convertToChar <- c("submission", "start", "end", "workflowDuration")
