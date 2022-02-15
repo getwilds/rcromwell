@@ -1,9 +1,10 @@
-### vortexing/fhwdlR:v2.0.3
+### vortexing/fhwdlr:v2.0.3
 ## Pull the R base image
 FROM rocker/r-base:4.1.1
 # Update
-RUN apt-get update
-RUN apt-get install -y libssl-dev libxml2-dev libcurl4-openssl-dev
+RUN apt-get update --fix-missing
+RUN apt-get install -y libssl-dev libxml2-dev libcurl4-openssl-dev 
+RUN apt-get install -y libssh-dev
 # Install required packages
 RUN R -e "install.packages('remotes', dependencies = TRUE)"
 # Install from github

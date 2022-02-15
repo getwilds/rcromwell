@@ -25,41 +25,12 @@ remotes::install_github('FredHutch/fh.wdlR@v1.0')
 ## Set up your Cromwell Server
 Use instructions over in the [diy-cromwell-server repo](https://github.com/FredHutch/diy-cromwell-server) to get the configuration files needed and some testing workflows.  
 
-### Create your Cromwell server via R
-Once you have set up your config files to a place in our filesystem where `rhino` can get to them (like your `home` directory or somehwere in `Fast`), then you can use the `cromwellCreate` function to set up a Cromwell server on `gizmo`.  
-
-```{r}
-library(fh.wdlR)
-cromwellCreate(FredHutchId = "username", port = "2020",
-        pathToServerLogs = "/home/username/cromwell/cromwell-serverlogs/%A.txt",
-        pathToServerScript = "/home/username/cromwell/cromServer.sh",
-        pathToParams = "/home/username/cromwell/cromwellParams.sh")
-```
-
-When you use the `cromwellCreate` function it will return the necessary information for using the API via a browser AND will automatically set your `CROMWELLURL` environment variable to the correct location for the remaining job submission and management functions in the R package.
-
-### Set Credentials of an existing Cromwell server
-
-If you have already set up a Cromwell server, you'll need the environment variable `CROMWELLURL` to be set to the URL of your current Cromwell server for the job submission and metadata management functions to work.  The URL is made up of the gizmo node it's running on and the port you specified in the config file (e.g. "http://gizmof11:2020").
-```{r}
-Sys.setenv(CROMWELLURL="yourcromwellserverURL")
-```
-
 
 ## Example workflow process
 
 ```{r}
-## Start your server
-cromwellCreate(FredHutchId = "username", port = "2020",
-        pathToServerLogs = "/home/username/cromwell/cromwell-serverlogs/%A.txt",
-        pathToServerScript = "/home/username/cromwell/cromServer.sh",
-        pathToParams = "/home/username/cromwell/cromwellParams.sh")
-
-## Maybe the cluster is busy and you need to check back after your server was allocated resources:    
-setCromwellURL(FredHutchId = "username", jobId = "<45533124>", port = "2020")
-
-## Maybe you just need to set the environment variable later and you know the gizmo node name and port:
-Sys.setenv("CROMWELLURL" = "http://gizmoxxx:2020")
+## Set your Cromwell URL
+setCromwellURL(nodeAndPort = "gizmoXXX:20202")
 ```
 
 ### Validate your workflow using Womtool
