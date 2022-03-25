@@ -39,8 +39,9 @@ cromwellCall <- function(workflow_id, cromURL = Sys.getenv("CROMWELLURL", unset 
     # if the workflow has made calls, nab them
     bob <- purrr::pluck(crommetadata, "calls")
     # If there is a scatter subworkflow, then take that data out and crunch it separately.
-    if (sum(grepl("ScatterAt", names(bob))) > 0 ) {
-      subs <- names(bob)[grepl("ScatterAt", names(bob))==T]
+    # or if the subworkflow is an aliased one it'll have a "." in it's name and possible scatters inside that.
+    if (sum(grepl("ScatterAt", names(bob))) > 0 | sum(grepl("\\.", names(bob))) > 0) {
+      subs <- names(bob)[grepl("ScatterAt", names(bob))==T | grepl("\\.", names(bob))==T]
       subworkflow <- bob[subs]
       bob <- bob[!names(bob) %in% subs]
       subworkflowMeta <- purrr::map(subs, function(x) {
@@ -51,8 +52,9 @@ cromwellCall <- function(workflow_id, cromURL = Sys.getenv("CROMWELLURL", unset 
       names(subworkflowMeta) <- subs
       # Likely needs some logic here to capture when subworkflows are found but don't yet have calls to get metadata from
       justSubCalls <- purrr::map_dfr(subworkflowMeta, function(subcallData) {
-        purrr::map_dfr(subcallData, function(shardData) {
+        b<- purrr::map_dfr(subcallData, function(shardData) {
         calls <- shardData$subWorkflowMetadata$calls
+        ##  Heres where to deal with subworkflows that have scatters... if (grepl("ScatterAt", names(shardData$subWorkflowMetadata$calls))) ...
         names(calls)
         out <- purrr::map_dfr(calls, function(taskData) {
           purrr::map_dfr(taskData, function(shards){
@@ -81,6 +83,7 @@ cromwellCall <- function(workflow_id, cromURL = Sys.getenv("CROMWELLURL", unset 
           })
 
         }, .id = "fullName")
+        out$subworkflow_id <- shardData$subWorkflowMetadata$id
         return(out) })  %>% purrr::map_dfr(., function(x) { x }, .id = "subWorkflowName") }, .id = "detailedSubName")
       # split fullname into workflowName and callName
       justSubCalls <- tidyr::separate(data = justSubCalls,
