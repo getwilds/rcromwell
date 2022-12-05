@@ -16,11 +16,10 @@ Imports:
     purrr,
     tidyr,
     lubridate,
-    paws,
-    ssh
+    paws
 License: GPL-3
 Depends: R (>= 3.6.0)
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.2
 Encoding: UTF-8
 LazyData: true
