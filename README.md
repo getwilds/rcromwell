@@ -33,10 +33,10 @@ Use instructions over in the [diy-cromwell-server repo](https://github.com/FredH
 setCromwellURL(nodeAndPort = "gizmoXXX:20202")
 ```
 
-### Validate your workflow using Womtool
+### Validate your workflow formatting
 ```{r}
 list.files(pattern = "*.wdl")
-valid <- womtoolValidate(WDL = "myworkflow.wdl"); valid[["errors"]]
+valid <- cromwellValidate(WDL = "myworkflow.wdl"); valid[["errors"]]
 ```
 ## Go fix your issues, now send your workflow to Crowmell
 
