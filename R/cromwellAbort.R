@@ -23,13 +23,6 @@ cromwellAbort <- function(workflow_id, cromURL = Sys.getenv("CROMWELLURL", unset
         "abort"
       )
     )
-    # httr::POST(
-    #   url = paste0(
-    #   cromURL,
-    #   "/api/workflows/v1/",
-    #   workflow_id,
-    #   "/abort"
-    # ))
   cromResponse <-
     data.frame(cromAbort, stringsAsFactors = F)
   return(cromResponse)
