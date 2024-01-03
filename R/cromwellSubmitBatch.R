@@ -40,12 +40,12 @@ cromwellSubmitBatch <-
     if(is.null(Labels) == F) bodyList <- c(bodyList, labels = list(jsonlite::toJSON(as.list(Labels), auto_unbox = TRUE)))
 
     cromDat <-
-      httr::POST(
+      httpPOST(
         url = paste0(cromURL, "/api/workflows/v1"),
         body = bodyList,
         encode = "multipart"
       )
     cromResponse <-
-      data.frame(httr::content(cromDat), stringsAsFactors = F)
+      data.frame(cromDat, stringsAsFactors = F)
     return(cromResponse)
   }

@@ -13,9 +13,7 @@ cromwellVersion <- function(cromURL = Sys.getenv("CROMWELLURL", unset = "needsUR
   if(cromURL == "needsURL") {
     stop("CROMWELLURL is not set in your environment, or specify the URL to query via cromURL.")
   } else {
-    message("Getting timing diagram from Cromwell.") }
-  httr::content(httr::GET(paste0(
-    cromURL,
-    "/engine/v1/version"
-  )))
+    message("Getting timing diagram from Cromwell.")
+  }
+  httpGET(make_url("engine/v1/version"))
 }
