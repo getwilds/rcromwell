@@ -27,9 +27,6 @@ Validates a workflow for submission
 Requires valid Cromwell server URL to be set in the environment, or the use
 of the cromURL param if you want to specify upon call the URL to use.
 }
-\examples{
-TBD
-}
 \author{
 Amy Paguirigan
 }
