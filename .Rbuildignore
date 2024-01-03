@@ -1,6 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^\.github$
-^\Makefile$
-*.jar
+^Makefile$
+^.*\.jar$
 docker
