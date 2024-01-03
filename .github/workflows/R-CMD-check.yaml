@@ -1,8 +1,8 @@
 on:
   push:
-    branches: [main, http]
+    branches: [main, dev]
   pull_request:
-    branches: [main, http]
+    branches: [main, dev]
 
 name: R-CMD-check
 
