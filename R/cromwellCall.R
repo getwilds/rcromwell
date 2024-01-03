@@ -24,14 +24,10 @@ cromwellCall <- function(workflow_id, cromURL = Sys.getenv("CROMWELLURL", unset 
     message(paste0("Querying for call metadata for workflow id: ", workflow_id))
   }
   crommetadata <-
-    httr::content(httr::GET(
-      paste0(
-        cromURL,
-        "/api/workflows/v1/",
-        workflow_id,
-        "/metadata?expandSubWorkflows=true"
-      )
-    ), as = "parsed")
+    httpGET(
+      url = make_url("api/workflows/v1", workflow_id, "metadata"),
+      query = list(expandSubWorkflows = "true"),
+      as = "parsed")
   # if the response is a character vector, then return it and stop
   if (is.character(crommetadata) == T) stop(crommetadata)
   # if the response is a list, meaning it has some content, continue

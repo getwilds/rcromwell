@@ -17,11 +17,10 @@ cromwellCache <- function(workflow_id, cromURL = Sys.getenv("CROMWELLURL", unset
     message(paste0("Querying for call caching metadata for workflow id: ", workflow_id)) }
 
     crommetadata <-
-      httr::content(httr::GET(
-        paste0(
-          cromURL, "/api/workflows/v1/", workflow_id, "/metadata?expandSubWorkflows=false"
-        )
-      ), as = "parsed")
+      httpGET(
+        url = make_url("api/workflows/v1", workflow_id, "metadata"),
+        query = list(expandSubWorkflows = "false"),
+        as = "parsed")
 
   if (length(crommetadata$calls) > 0) {
     # if there are calls to be queried, continue

@@ -1,9 +1,6 @@
 test_that("cromwellAbort", {
-  hello <- system.file("examples/hello.wdl", package = "fh.wdlR")
-  inputs <- system.file("examples/inputs.json", package = "fh.wdlR")
-
   vcr::use_cassette("cromwellAbort", {
-    job <- cromwellSubmitBatch(WDL=hello, Params=inputs)
+    job <- cromwellSubmitBatch(WDL=file_hello, Params=file_inputs)
 
     # Sys.sleep(20) # Needed only for recording new fixture
 

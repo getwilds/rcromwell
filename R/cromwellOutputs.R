@@ -19,13 +19,12 @@ cromwellOutputs <- function(workflow_id, cromURL = Sys.getenv("CROMWELLURL", uns
     message(paste0("Querying for outputs list for workflow id: ", workflow_id))
   }
   # Make API call for output content and parse the content returned
-  cromResponse <-httr::content(
-    httr::GET(url = paste0(
-      cromURL,
-      "/api/workflows/v1/",
-      workflow_id,
-      "/outputs"
-    )), as  = "parsed")
+  cromResponse <- httpGET(url =
+      make_url(
+        "api/workflows/v1",
+        workflow_id,
+        "outputs"
+    ), as  = "parsed")
   # if the length of the outputs is 0 then there are no outputs available yet.
   if (length(cromResponse$outputs) > 0) {
     # grab only the outputs list and unlist into a dataframe

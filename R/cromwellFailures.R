@@ -9,12 +9,13 @@
 #' @details
 #' Requires valid Cromwell server URL to be set in the environment, or the use
 #' of the cromURL param if you want to specify upon call the URL to use.
-#' @examples
+#' @examples \dontrun{
 #' ## Request what jobs have been submitted to your Cromwell instance in the past 7 days.
 #' recentJobs <- cromwellJobs(days = 7)
 #' ## Request workflow metadata for a specific job that was run in your Cromwell instance.
 #' thisWorkflowID <- recentJobs$workflow_id[1]
 #' failsMeta <- cromwellFailures(workflow_id = thisWorkflowID)
+#' }
 #' @export
 cromwellFailures <- function(workflow_id, cromURL = Sys.getenv("CROMWELLURL", unset = "needsURL")) {
   if(cromURL == "needsURL") {
@@ -23,14 +24,10 @@ cromwellFailures <- function(workflow_id, cromURL = Sys.getenv("CROMWELLURL", un
     message(paste0("Querying for failure metadata for workflow id: ", workflow_id))
   }
   cromfail <-
-    httr::content(httr::GET(
-      paste0(
-        cromURL,
-        "/api/workflows/v1/",
-        workflow_id,
-        "/metadata?includeKey=failures&includeKey=jobId"
-      )
-    ), as = "parsed")
+    httpGET(
+      url = make_url("api/workflows/v1", workflow_id, "metadata"),
+      query = list(includeKey = "failures", includeKey = "jobId"),
+      as = "parsed")
   if (is.list(cromfail$calls) == T) {
     bobfail <- purrr::pluck(cromfail, "calls")
     if (sum(grepl("ScatterAt", names(bobfail))) > 0 ) {
