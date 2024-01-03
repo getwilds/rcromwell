@@ -4,6 +4,6 @@ invisible(vcr::vcr_configure(
 ))
 vcr::check_cassette_names()
 
-file_hello <- system.file("examples/hello.wdl", package = "fh.wdlR")
-file_inputs <- system.file("examples/inputs.json", package = "fh.wdlR")
-file_inputs_bad <- system.file("examples/inputs_bad.json", package = "fh.wdlR")
+file_hello <- system.file("examples/hello.wdl", package = "rcromwell")
+file_inputs <- system.file("examples/inputs.json", package = "rcromwell")
+file_inputs_bad <- system.file("examples/inputs_bad.json", package = "rcromwell")

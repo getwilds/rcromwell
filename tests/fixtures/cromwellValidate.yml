@@ -4,7 +4,7 @@ http_interactions:
     uri: http://localhost:8000/api/womtool/v1/describe
     body:
       encoding: ''
-      string: workflowSource=list(path = "/Users/schambe3/github/getwilds/fh.wdlR/inst/examples/hello.wdl",
+      string: workflowSource=list(path = "/Users/schambe3/github/getwilds/rcromwell/inst/examples/hello.wdl",
         type = "application/octet-stream", name = NULL)
     headers:
       Accept: application/json, text/xml, application/xml, */*

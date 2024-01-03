@@ -1,28 +1,25 @@
-# fh.wdlR
-A repo containing a basic R package for using Cromwell with WDL workflows at Fred Hutch. (Contact Amy Paguirigan for help).
+# rcromwell
+
+R package for using Cromwell with WDL workflows.
 
 
 ## Install from GitHub
-You will need the following packages installed first:
-```{r}
-install.packages(pkgs = c("httr", "jsonlite", "magrittr",
-                "dplyr", "ssh", "purrr", "tidyr"))
-```
 
-Then you can install the most recent version of `fh.wdlR` by:
+Install the most recent version of `rcromwell`:
 
 ```r
 require(remotes)
-remotes::install_github('FredHutch/fh.wdlR')
+remotes::install_github('getwilds/rcromwell')
 ```
 
 Install a specific release version (in this case v1.0) by:
 ```r
 require(remotes)
-remotes::install_github('FredHutch/fh.wdlR@v1.0')
+remotes::install_github('getwilds/rcromwell@v1.0')
 ```
 
 ## Set up your Cromwell Server
+
 Use instructions over in the [diy-cromwell-server repo](https://github.com/FredHutch/diy-cromwell-server) to get the configuration files needed and some testing workflows.  
 
 
@@ -34,6 +31,7 @@ setCromwellURL(nodeAndPort = "gizmoXXX:20202")
 ```
 
 ### Validate your workflow formatting
+
 ```{r}
 list.files(pattern = "*.wdl")
 valid <- cromwellValidate(WDL = "myworkflow.wdl"); valid[["errors"]]
@@ -49,7 +47,9 @@ thisJob <- cromwellSubmitBatch(WDL = "myworkflow.wdl",
 # thisJob$id is now the unique Cromwell ID for your entire workflow - you can use that to request all sorts of metadata!!!
 thisOne<- thisJob$id; thisOne
 ```
+
 ## Now get all your metadata and track the workflow!!
+
 ```{r}
 # Returns a data frame of all jobs run in the past number of days (uses your database)
 jobs <- cromwellJobs(days = 2)
@@ -86,6 +86,7 @@ out <- cromwellOutputs(thisOne)
 ```
 
 ## Misc stuff
+
 ```{r}
 # Ugly list of raw metadata should you need it for workflow troubleshooting
 WTF <- cromwellGlob(thisOne); WTF[["failures"]]

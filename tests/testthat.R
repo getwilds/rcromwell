@@ -1,4 +1,4 @@
 library(testthat)
-library(fh.wdlR)
+library(rcromwell)
 
-test_check("fh.wdlR")
+test_check("rcromwell")
