@@ -17,13 +17,20 @@ cromwellAbort <- function(workflow_id, cromURL = Sys.getenv("CROMWELLURL", unset
   } else {
     print("Aborting job in Cromwell.") }
   cromAbort <-
-    httr::POST(url = paste0(
-      cromURL,
-      "/api/workflows/v1/",
-      workflow_id,
-      "/abort"
-    ))
+    httpPOST(url =
+      make_url("api/workflows/v1",
+        workflow_id,
+        "abort"
+      )
+    )
+    # httr::POST(
+    #   url = paste0(
+    #   cromURL,
+    #   "/api/workflows/v1/",
+    #   workflow_id,
+    #   "/abort"
+    # ))
   cromResponse <-
-    data.frame(httr::content(cromAbort), stringsAsFactors = F)
+    data.frame(cromAbort, stringsAsFactors = F)
   return(cromResponse)
 }

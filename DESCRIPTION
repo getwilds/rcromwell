@@ -20,6 +20,12 @@ Imports:
 License: GPL-3
 Depends: R (>= 3.6.0)
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.2
+RoxygenNote: 7.2.3
 Encoding: UTF-8
 LazyData: true
+Suggests:
+    testthat (>= 3.0.0),
+    vcr (>= 0.6.0)
+Remotes:
+    ropensci/vcr@porta-potty
+Config/testthat/edition: 3

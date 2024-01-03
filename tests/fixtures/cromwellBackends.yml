@@ -1,0 +1,26 @@
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:8000/api/workflows/v1/backends
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept: application/json, text/xml, application/xml, */*
+  response:
+    status:
+      status_code: 200
+      category: Success
+      reason: OK
+      message: 'Success: (200) OK'
+    headers:
+      server: akka-http/10.1.15
+      date: Tue, 02 Jan 2024 22:49:11 GMT
+      content-type: application/json
+      content-length: '56'
+    body:
+      encoding: ''
+      file: no
+      string: '{"defaultBackend":"Local","supportedBackends":["Local"]}'
+  recorded_at: 2024-01-02 22:49:11 GMT
+  recorded_with: vcr/1.2.2.91, webmockr/0.9.0
