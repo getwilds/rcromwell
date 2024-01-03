@@ -14,10 +14,11 @@ cromwellTiming <- function(workflow_id, cromURL = Sys.getenv("CROMWELLURL", unse
     stop("CROMWELLURL is not set in your environment, or specify the URL to query via cromURL.")
   } else {
     print("Getting timing diagram from Cromwell.") }
-  utils::browseURL(paste0(
-    cromURL,
-    "/api/workflows/v1/",
-    workflow_id,
-    "/timing"
-  ))
+  utils::browseURL(
+    make_url(
+      "api/workflows/v1",
+      workflow_id,
+      "timing"
+    )
+  )
 }
