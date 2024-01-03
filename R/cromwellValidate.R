@@ -13,21 +13,24 @@
 #' TBD
 #' @export
 cromwellValidate <-
-  function(WDL, allInputs=NULL, cromURL = Sys.getenv("CROMWELLURL", unset = "needsURL")) {
-    if(cromURL == "needsURL") {
+  function(WDL, allInputs = NULL, cromURL = Sys.getenv("CROMWELLURL", unset = "needsURL")) {
+    if (cromURL == "needsURL") {
       stop("CROMWELLURL is not set in your environment, or specify the URL to query via cromURL.")
     } else {
-      message("Validating a workflow for Cromwell.") }
+      message("Validating a workflow for Cromwell.")
+    }
 
     bodyList <- list(workflowSource = httr::upload_file(WDL))
-    if(is.null(allInputs) == F) bodyList <- c(bodyList, workflowInputs = list(httr::upload_file(allInputs)))
-
-    cromDat <-
-      httr::POST(
-        url = paste0(cromURL, "/api/womtool/v1/describe"),
-        body = bodyList,
-        encode = "multipart"
+    if (!is.null(allInputs)) {
+      bodyList <- c(
+        bodyList,
+        workflowInputs = list(httr::upload_file(allInputs))
       )
-    cromResponse <-httr::content(cromDat)
-    return(cromResponse)
+    }
+
+    httpPOST(
+      url = make_url("api/womtool/v1/describe"),
+      body = bodyList,
+      encode = "multipart"
+    )
   }
