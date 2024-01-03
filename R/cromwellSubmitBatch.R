@@ -14,8 +14,6 @@
 #' @details
 #' Requires valid Cromwell server URL to be set in the environment (CROMWELLURL), or the use
 #' of the cromURL param if you want to specify upon call the URL to use.
-#' @examples
-#' TBD
 #' @export
 cromwellSubmitBatch <-
   function(WDL, Batch=NULL, Params=NULL, Options=NULL, Labels=NULL, Dependencies = NULL,

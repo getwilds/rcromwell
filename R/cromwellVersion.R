@@ -6,8 +6,6 @@
 #' @author Amy Paguirigan
 #' @details
 #' Requires valid Cromwell server URL to be set in the environment or specify "cromURL".
-#' @examples
-#' TBD
 #' @export
 cromwellVersion <- function(cromURL = Sys.getenv("CROMWELLURL", unset = "needsURL")) {
   if(cromURL == "needsURL") {
