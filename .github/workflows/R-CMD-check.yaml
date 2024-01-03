@@ -37,3 +37,6 @@ jobs:
       - uses: r-lib/actions/check-r-package@v2
         env:
           CROMWELLURL: http://localhost:8000
+
+      - name: cleanup cromwell
+        run: kill $(ps -eaf | grep 'cromwell-[0-9][0-9].jar' | awk '{ print $2 }')
