@@ -4,9 +4,9 @@ http_interactions:
     uri: http://localhost:8000/api/workflows/v1
     body:
       encoding: ''
-      string: workflowSource=list(path = "/Users/schambe3/github/getwilds/fh.wdlR/inst/examples/hello.wdl",
+      string: workflowSource=list(path = "/Users/schambe3/github/getwilds/rcromwell/inst/examples/hello.wdl",
         type = "application/octet-stream", name = NULL),workflowInputs=list(path =
-        "/Users/schambe3/github/getwilds/fh.wdlR/inst/examples/inputs.json", type
+        "/Users/schambe3/github/getwilds/rcromwell/inst/examples/inputs.json", type
         = "application/json", name = NULL)
     headers:
       Accept: application/json, text/xml, application/xml, */*

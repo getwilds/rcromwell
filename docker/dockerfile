@@ -8,6 +8,6 @@ RUN apt-get install -y libssh-dev
 # Install required packages
 RUN R -e "install.packages('remotes', dependencies = TRUE)"
 # Install from github
-RUN R -e "remotes::install_github('FredHutch/fh.wdlR@v2.0.3', dependencies = TRUE)"
+RUN R -e "remotes::install_github('getwilds/rcromwell@v2.0.3', dependencies = TRUE)"
 # Override the R CMD for workflow managers
 CMD ["/bin/bash"]
