@@ -27,7 +27,7 @@ jobs:
       - name: spin up cromwell
         run: |
           wget https://github.com/broadinstitute/cromwell/releases/download/86/cromwell-86.jar
-          java -jar cromwell-86.jar server
+          java -jar cromwell-86.jar server &&
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
