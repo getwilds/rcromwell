@@ -18,18 +18,18 @@ http_interactions:
       message: 'Success: (201) Created'
     headers:
       server: akka-http/10.1.15
-      date: Tue, 02 Jan 2024 22:58:12 GMT
+      date: Wed, 03 Jan 2024 18:13:47 GMT
       content-type: application/json
       content-length: '66'
     body:
       encoding: ''
       file: no
-      string: '{"id":"e1e23d1e-1152-4e70-a6a3-97a513013b33","status":"Submitted"}'
-  recorded_at: 2024-01-02 22:58:12 GMT
+      string: '{"id":"ae19e854-0aee-4a42-8772-eb69a1c8b5b1","status":"Submitted"}'
+  recorded_at: 2024-01-03 18:13:57 GMT
   recorded_with: vcr/1.2.2.91, webmockr/0.9.0
 - request:
     method: get
-    uri: http://localhost:8000/api/workflows/v1/e1e23d1e-1152-4e70-a6a3-97a513013b33/logs
+    uri: http://localhost:8000/api/workflows/v1/ae19e854-0aee-4a42-8772-eb69a1c8b5b1/logs
     body:
       encoding: ''
       string: ''
@@ -37,22 +37,18 @@ http_interactions:
       Accept: application/json, text/xml, application/xml, */*
   response:
     status:
-      status_code: 404
-      category: Client error
-      reason: Not Found
-      message: 'Client error: (404) Not Found'
+      status_code: 200
+      category: Success
+      reason: OK
+      message: 'Success: (200) OK'
     headers:
       server: akka-http/10.1.15
-      date: Tue, 02 Jan 2024 22:58:12 GMT
+      date: Wed, 03 Jan 2024 18:13:57 GMT
       content-type: application/json
-      content-length: '101'
+      content-length: '45'
     body:
       encoding: ''
       file: no
-      string: |-
-        {
-          "status": "fail",
-          "message": "Unrecognized workflow ID: e1e23d1e-1152-4e70-a6a3-97a513013b33"
-        }
-  recorded_at: 2024-01-02 22:58:12 GMT
+      string: '{"id":"ae19e854-0aee-4a42-8772-eb69a1c8b5b1"}'
+  recorded_at: 2024-01-03 18:13:57 GMT
   recorded_with: vcr/1.2.2.91, webmockr/0.9.0

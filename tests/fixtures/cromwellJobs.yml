@@ -1,0 +1,26 @@
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:8000/api/workflows/v1/query?submission=2024-01-02T00%3A00Z
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept: application/json, text/xml, application/xml, */*
+  response:
+    status:
+      status_code: 200
+      category: Success
+      reason: OK
+      message: 'Success: (200) OK'
+    headers:
+      server: akka-http/10.1.15
+      date: Wed, 03 Jan 2024 18:40:17 GMT
+      content-type: application/json
+      content-length: '1617'
+    body:
+      encoding: ''
+      file: no
+      string: '{"results":[{"end":"2024-01-03T18:32:57.052Z","id":"c82c6ed9-1d55-4158-8a38-56d68fc783ef","metadataArchiveStatus":"Unarchived","name":"test","start":"2024-01-03T18:32:42.750Z","status":"Succeeded","submission":"2024-01-03T18:32:28.784Z"},{"end":"2024-01-03T18:25:17.505Z","id":"7d6fe390-a7e1-4064-be60-efbc33716473","metadataArchiveStatus":"Unarchived","name":"test","start":"2024-01-03T18:25:02.185Z","status":"Succeeded","submission":"2024-01-03T18:24:55.236Z"},{"end":"2024-01-03T18:23:37.385Z","id":"53275a7e-0885-494f-bd98-557edc21c762","metadataArchiveStatus":"Unarchived","name":"test","start":"2024-01-03T18:23:22.060Z","status":"Succeeded","submission":"2024-01-03T18:23:03.647Z"},{"end":"2024-01-03T18:20:58.188Z","id":"de5486ba-48f2-4418-8b28-e7c171afdab8","metadataArchiveStatus":"Unarchived","name":"test","start":"2024-01-03T18:20:41.848Z","status":"Succeeded","submission":"2024-01-03T18:20:36.561Z"},{"end":"2024-01-03T18:14:17.610Z","id":"ae19e854-0aee-4a42-8772-eb69a1c8b5b1","metadataArchiveStatus":"Unarchived","name":"test","start":"2024-01-03T18:14:01.280Z","status":"Succeeded","submission":"2024-01-03T18:13:47.533Z"},{"end":"2024-01-03T18:13:57.587Z","id":"5cfba198-65de-4d09-a429-e70133783f12","metadataArchiveStatus":"Unarchived","name":"test","start":"2024-01-03T18:13:41.248Z","status":"Succeeded","submission":"2024-01-03T18:13:21.122Z"},{"end":"2024-01-03T18:13:37.890Z","id":"78df11ac-fa19-4cfa-92f6-6d6d1adf843a","metadataArchiveStatus":"Unarchived","name":"test","start":"2024-01-03T18:13:21.239Z","status":"Succeeded","submission":"2024-01-03T18:13:09.797Z"}],"totalResultsCount":7}'
+  recorded_at: 2024-01-03 18:40:17 GMT
+  recorded_with: vcr/1.2.2.91, webmockr/0.9.0

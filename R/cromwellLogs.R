@@ -13,14 +13,14 @@ cromwellLogs <- function(workflow_id) {
     stop("CROMWELLURL is not set.")
   }  else
     message("Getting list of logs from Cromwell.")
-  cromDat <-
-    httr::GET(url = paste0(
-      Sys.getenv("CROMWELLURL"),
-      "/api/workflows/v1/",
+  cromResponse <-
+    httpGET(url = make_url(
+      "api/workflows/v1",
       workflow_id,
-      "/logs"
-    ))
-  cromResponse <- httr::content(cromDat, as = "parsed")
+      "logs"
+    ),
+    as = "parsed"
+  )
   calls <- purrr::pluck(cromResponse, "calls")
   callsFlat <- purrr::map_dfr(calls, function(x) {
     justcalls <- purrr::map_dfr(x, function(s) {

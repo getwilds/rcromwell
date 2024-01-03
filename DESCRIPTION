@@ -15,7 +15,8 @@ Imports:
     dplyr,
     purrr,
     tidyr,
-    lubridate
+    lubridate,
+    rlang
 License: GPL-3
 Depends: R (>= 3.6.0)
 Roxygen: list(markdown = TRUE)

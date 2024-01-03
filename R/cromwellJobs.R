@@ -2,6 +2,7 @@
 #'
 #' Requests metadata about Cromwell workflow jobs during a time period specified.
 #'
+#' @importFrom rlang set_names
 #' @param days The number of days of history to return, defaults to 1 day.
 #' @param workflowName An array of strings of valid workflow names you want in your job list.
 #' @param workflowStatus A array of strings of valid workflow statuses you want in your job list (e.g., submitted, running, succeeded, failed, aborting, aborted)
@@ -13,7 +14,7 @@
 #' of the cromURL param if you want to specify upon call the URL to use.
 #' @examples
 #' ## Request what jobs have been submitted to your Cromwell instance in the past 7 days.
-#' recentJobs <- cromwellJobs(days = 7)
+#' # recentJobs <- cromwellJobs(days = 7)
 #' @export
 cromwellJobs <- function(days = 1, workflowName = NULL, workflowStatus = NULL,
                          cromURL = Sys.getenv("CROMWELLURL", unset = "needsURL")) {
@@ -22,21 +23,15 @@ cromwellJobs <- function(days = 1, workflowName = NULL, workflowStatus = NULL,
   } else {
     message(paste0("Querying cromwell for jobs in the last ", days, " days."))
   }
-  beforeNow <- Sys.Date() - round(days, 0)
-  queryString <-paste0("submission=", beforeNow, "T00%3A00Z")
-  if (is.null(workflowName)==F) {
-    queryString <- paste(queryString, paste("name=", workflowName, sep = "", collapse = "&"), sep = "&")
+  query <- list(submission = paste0(Sys.Date() - round(days, 0), "T00:00Z"))
+  if (!is.null(workflowName)) {
+    query <- c(query, rlang::set_names(as.list(workflowName), "name"))
   }
-  if (is.null(workflowStatus) == F) {
-    queryString <- paste(queryString, paste("status=", workflowStatus, sep = "", collapse = "&"), sep = "&")
+  if (!is.null(workflowStatus)) {
+    query <- c(query, rlang::set_names(as.list(workflowStatus), "status"))
   }
   cromDat <-
-    httr::content(httr::GET(
-      paste0(
-        cromURL,
-        "/api/workflows/v1/query?", queryString
-      )
-    ))$results
+    httpGET(make_url("api/workflows/v1/query"), query = query)$results
   cromTable <- purrr::map_dfr(cromDat, dplyr::bind_rows)
   if (nrow(cromTable) > 0 & "id" %in% names(cromTable)) {
     cromTable <- dplyr::rename(cromTable, "workflow_id" = "id")

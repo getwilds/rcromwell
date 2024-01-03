@@ -25,25 +25,17 @@ cromwellGlob <- function(workflow_id, expandSubWorkflows = F, cromURL = Sys.gete
   }
   if (expandSubWorkflows == F) {
     crommetadata <-
-      httr::content(httr::GET(
-        paste0(
-          cromURL,
-          "/api/workflows/v1/",
-          workflow_id,
-          "/metadata?expandSubWorkflows=false"
-        )
-      ), as = "parsed")
+      httpGET(
+        url = make_url("api/workflows/v1", workflow_id, "metadata"),
+        query = list(expandSubWorkflows="false"),
+        as = "parsed")
   }
   if (expandSubWorkflows == T) {
     crommetadata <-
-      httr::content(httr::GET(
-        paste0(
-          cromURL,
-          "/api/workflows/v1/",
-          workflow_id,
-          "/metadata?expandSubWorkflows=true"
-        )
-      ), as = "parsed")
+      httpGET(
+        url = make_url("api/workflows/v1", workflow_id, "metadata"),
+        query = list(expandSubWorkflows="true"),
+        as = "parsed")
   }
   return(crommetadata)
 }
