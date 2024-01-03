@@ -8,8 +8,6 @@
 #' @details
 #' Requires valid Cromwell server URL to be set in the environment, or the use
 #' of the cromURL param if you want to specify upon call the URL to use.
-#' @examples
-#' TBD
 #' @export
 cromwellTiming <- function(workflow_id, cromURL = Sys.getenv("CROMWELLURL", unset = "needsURL")) {
   if(cromURL == "needsURL") {

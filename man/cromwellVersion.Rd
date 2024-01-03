@@ -18,9 +18,6 @@ Get the version of a Cromwell server
 \details{
 Requires valid Cromwell server URL to be set in the environment or specify "cromURL".
 }
-\examples{
-TBD
-}
 \author{
 Amy Paguirigan
 }
