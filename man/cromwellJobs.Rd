@@ -32,7 +32,7 @@ of the cromURL param if you want to specify upon call the URL to use.
 }
 \examples{
 ## Request what jobs have been submitted to your Cromwell instance in the past 7 days.
-recentJobs <- cromwellJobs(days = 7)
+# recentJobs <- cromwellJobs(days = 7)
 }
 \author{
 Amy Paguirigan

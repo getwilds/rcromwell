@@ -39,7 +39,7 @@ cromwellSubmitBatch <-
 
     cromDat <-
       httpPOST(
-        url = paste0(cromURL, "/api/workflows/v1"),
+        url = make_url("api/workflows/v1"),
         body = bodyList,
         encode = "multipart"
       )

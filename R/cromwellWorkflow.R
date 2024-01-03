@@ -22,14 +22,10 @@ cromwellWorkflow <- function(workflow_id, cromURL = Sys.getenv("CROMWELLURL", un
   } else {
     print(paste0("Querying for metadata for workflow id: ", workflow_id))
   }
-  crommetadata <- httr::content(httr::GET(
-      paste0(
-        cromURL,
-        "/api/workflows/v1/",
-        workflow_id,
-        "/metadata?expandSubWorkflows=false&excludeKey=calls"
-      )
-    ), as = "parsed")
+  crommetadata <- httpGET(
+      url = make_url("api/workflows/v1", workflow_id, "metadata"),
+      query = list(expandSubWorkflows = "false", excludeKey = "calls"),
+      as = "parsed")
   if (is.list(crommetadata)==F) {
     stop("Likely the API timed out, please resubmit your request or check your Cromwell server.")
   }
