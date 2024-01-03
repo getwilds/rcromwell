@@ -26,11 +26,13 @@ of the cromURL param if you want to specify upon call the URL to use.
 Now supports nested scatters.
 }
 \examples{
+\dontrun{
 ## Request what jobs have been submitted to your Cromwell instance in the past 7 days.
 recentJobs <- cromwellJobs(days = 7)
 ## Request workflow metadata for a specific job that was run in your Cromwell instance.
 thisWorkflowID <- recentJobs$workflow_id[1]
 callsMeta <- cromwellCall(workflow_id = thisWorkflowID)
+}
 }
 \author{
 Amy Paguirigan

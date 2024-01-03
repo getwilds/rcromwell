@@ -28,11 +28,13 @@ Requires valid Cromwell server URL to be set in the environment, or the use
 of the cromURL param if you want to specify upon call the URL to use.
 }
 \examples{
+\dontrun{
 ## Request what jobs have been submitted to your Cromwell instance in the past 7 days.
 recentJobs <- cromwellJobs(days = 7)
 ## Request workflow metadata for a specific job that was run in your Cromwell instance.
 thisWorkflowID <- recentJobs$workflow_id[1]
 workflowMeta <- cromwellGlob(workflow_id = thisWorkflowID)
+}
 }
 \author{
 Amy Paguirigan
