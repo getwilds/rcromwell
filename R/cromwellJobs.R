@@ -12,9 +12,10 @@
 #' @details
 #' Requires valid Cromwell server URL to be set in the environment, or the use
 #' of the cromURL param if you want to specify upon call the URL to use.
-#' @examples
+#' @examples \dontrun{
 #' ## Request what jobs have been submitted to your Cromwell instance in the past 7 days.
-#' # recentJobs <- cromwellJobs(days = 7)
+#' recentJobs <- cromwellJobs(days = 7)
+#' }
 #' @export
 cromwellJobs <- function(days = 1, workflowName = NULL, workflowStatus = NULL,
                          cromURL = Sys.getenv("CROMWELLURL", unset = "needsURL")) {
