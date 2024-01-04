@@ -4,12 +4,7 @@
 \alias{cromwellJobs}
 \title{Pull information about recent Cromwell workflow jobs}
 \usage{
-cromwellJobs(
-  days = 1,
-  workflowName = NULL,
-  workflowStatus = NULL,
-  cromURL = Sys.getenv("CROMWELLURL", unset = "needsURL")
-)
+cromwellJobs(days = 1, workflowName = NULL, workflowStatus = NULL)
 }
 \arguments{
 \item{days}{The number of days of history to return, defaults to 1 day.}
@@ -17,8 +12,6 @@ cromwellJobs(
 \item{workflowName}{An array of strings of valid workflow names you want in your job list.}
 
 \item{workflowStatus}{A array of strings of valid workflow statuses you want in your job list (e.g., submitted, running, succeeded, failed, aborting, aborted)}
-
-\item{cromURL}{The full string of the Cromwell URL to query  (e.g. http://gizmog10:8000). (Optional)}
 }
 \value{
 Returns a long form data frame of metadata on workflow jobs submitted to a specific Cromwell instance.
@@ -26,10 +19,11 @@ Returns a long form data frame of metadata on workflow jobs submitted to a speci
 \description{
 Requests metadata about Cromwell workflow jobs during a time period specified.
 }
-\details{
-Requires valid Cromwell server URL to be set in the environment, or the use
-of the cromURL param if you want to specify upon call the URL to use.
+\section{Important}{
+
+Requires valid Cromwell server URL to be set. See \link{cromwellSettings}
 }
+
 \examples{
 \dontrun{
 ## Request what jobs have been submitted to your Cromwell instance in the past 7 days.

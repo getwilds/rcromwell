@@ -4,15 +4,10 @@
 \alias{cromwellTiming}
 \title{Get a timing diagram for a Cromwell workflow}
 \usage{
-cromwellTiming(
-  workflow_id,
-  cromURL = Sys.getenv("CROMWELLURL", unset = "needsURL")
-)
+cromwellTiming(workflow_id)
 }
 \arguments{
 \item{workflow_id}{Unique workflow id of the job.}
-
-\item{cromURL}{The full string of the Cromwell URL to query (e.g. http://gizmog10:8000). (Optional)}
 }
 \value{
 Opens a timing diagram in a browser
@@ -20,10 +15,11 @@ Opens a timing diagram in a browser
 \description{
 Get a timing diagram for a Cromwell workflow
 }
-\details{
-Requires valid Cromwell server URL to be set in the environment, or the use
-of the cromURL param if you want to specify upon call the URL to use.
+\section{Important}{
+
+Requires valid Cromwell server URL to be set. See \link{cromwellSettings}
 }
+
 \author{
 Amy Paguirigan
 }

@@ -14,3 +14,11 @@ make_url <- function(...) {
 	base_url <- Sys.getenv('CROMWELLURL')
 	file.path(base_url, ...)
 }
+
+check_url <- function() {
+  x <- Sys.getenv("CROMWELLURL")
+  if (identical(x, "")) {
+    stop("Set the env var `CROMWELLURL`. ",
+      "See ?cromwellSettings", call. = FALSE)
+  }
+}

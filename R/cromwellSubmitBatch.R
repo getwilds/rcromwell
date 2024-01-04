@@ -8,21 +8,14 @@
 #' @param Options Local path to the json containing workflow options to apply.(Optional)
 #' @param Labels A data frame containing the labels for this workflow.(Optional)
 #' @param Dependencies A zip'd file of subworkflow dependencies. (Optional)
-#' @param cromURL The full string of the Cromwell URL to send jobs to (e.g. http://gizmog10:8000). (Optional)
 #' @return Returns the response from the API post which includes the workflow ID that you'll need to monitor the job.
 #' @author Amy Paguirigan
-#' @details
-#' Requires valid Cromwell server URL to be set in the environment (CROMWELLURL), or the use
-#' of the cromURL param if you want to specify upon call the URL to use.
+#' @inheritSection workflowOptions Important
 #' @export
 cromwellSubmitBatch <-
-  function(WDL, Batch=NULL, Params=NULL, Options=NULL, Labels=NULL, Dependencies = NULL,
-           cromURL = Sys.getenv("CROMWELLURL", unset = "needsURL")) {
-    if(cromURL == "needsURL") {
-      stop("CROMWELLURL is not set in your environment, or specify the URL to query via cromURL.")
-    } else {
-      message("Submitting a batch workflow to Cromwell.")
-    }
+  function(WDL, Batch=NULL, Params=NULL, Options=NULL, Labels=NULL, Dependencies = NULL) {
+    check_url()
+    crom_mssg("Submitting a batch workflow to Cromwell")
     if(is.null(Batch) & is.null(Params) == T) {
       warning("You did not submit either Batch inputs or Params inputs for this workflow.  Was that on purpose?")
     }

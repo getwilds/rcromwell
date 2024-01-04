@@ -10,8 +10,7 @@ cromwellSubmitBatch(
   Params = NULL,
   Options = NULL,
   Labels = NULL,
-  Dependencies = NULL,
-  cromURL = Sys.getenv("CROMWELLURL", unset = "needsURL")
+  Dependencies = NULL
 )
 }
 \arguments{
@@ -26,8 +25,6 @@ cromwellSubmitBatch(
 \item{Labels}{A data frame containing the labels for this workflow.(Optional)}
 
 \item{Dependencies}{A zip'd file of subworkflow dependencies. (Optional)}
-
-\item{cromURL}{The full string of the Cromwell URL to send jobs to (e.g. http://gizmog10:8000). (Optional)}
 }
 \value{
 Returns the response from the API post which includes the workflow ID that you'll need to monitor the job.
@@ -35,10 +32,11 @@ Returns the response from the API post which includes the workflow ID that you'l
 \description{
 Supports the submission of a fully defined workflow job to a Cromwell instance.
 }
-\details{
-Requires valid Cromwell server URL to be set in the environment (CROMWELLURL), or the use
-of the cromURL param if you want to specify upon call the URL to use.
+\section{Important}{
+
+Requires valid Cromwell server URL to be set. See \link{cromwellSettings}
 }
+
 \author{
 Amy Paguirigan
 }
