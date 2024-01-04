@@ -4,3 +4,6 @@
 ^Makefile$
 ^.*\.jar$
 docker
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
