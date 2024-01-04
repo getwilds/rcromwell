@@ -3,7 +3,7 @@ RSCRIPT = Rscript --no-init-file
 FILE_TARGET := "R/${FILE}"
 
 # .PHONY is used so that make will not treat the target as a filename
-.PHONY: install build doc eg check test readme
+.PHONY: install build doc docs eg check test readme
 
 install: doc build
 	R CMD INSTALL . && rm *.tar.gz
@@ -28,6 +28,9 @@ test:
 
 readme:
 	${RSCRIPT} -e "knitr::knit('README.Rmd')"
+
+docs:
+	${RSCRIPT} -e "pkgdown::build_site(); pkgdown::preview_site(preview=TRUE)"
 
 lint_package:
 	${RSCRIPT} -e "lintr::lint_package()"
