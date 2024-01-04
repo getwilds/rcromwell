@@ -4,15 +4,10 @@
 \alias{cromwellWorkflow}
 \title{Pull metadata for a specific Cromwell workflow job}
 \usage{
-cromwellWorkflow(
-  workflow_id,
-  cromURL = Sys.getenv("CROMWELLURL", unset = "needsURL")
-)
+cromwellWorkflow(workflow_id)
 }
 \arguments{
 \item{workflow_id}{The workflow ID to return metadata for.}
-
-\item{cromURL}{The full string of the Cromwell URL to query (e.g. http://gizmog10:8000). (Optional)}
 }
 \value{
 Returns a long form data frame of metadata on a workflow.
@@ -21,8 +16,7 @@ Returns a long form data frame of metadata on a workflow.
 Retrieve and process all labels, submission and workflow level metadata for a specific workflow.
 }
 \details{
-Requires valid Cromwell server URL to be set in the environment, or the use
-of the cromURL param if you want to specify upon call the URL to use.
+Requires valid Cromwell server URL to be set in the environment
 }
 \examples{
 \dontrun{

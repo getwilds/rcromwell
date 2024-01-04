@@ -4,27 +4,26 @@
 \alias{cromwellCall}
 \title{Retrieve metadata for the calls made in a Cromwell workflow job}
 \usage{
-cromwellCall(
-  workflow_id,
-  cromURL = Sys.getenv("CROMWELLURL", unset = "needsURL")
-)
+cromwellCall(workflow_id)
 }
 \arguments{
 \item{workflow_id}{The workflow ID to return call metadata on.}
-
-\item{cromURL}{The full string of the Cromwell URL to query (e.g. http://gizmog10:8000).(Optional)}
 }
 \value{
-Returns a long form data frame of metadata on calls. NOTE: does not currently support subWorkflows well yet.
+Returns a long form data frame of metadata on calls.
+NOTE: does not currently support subWorkflows well yet.
 }
 \description{
 Retrieve and process call metadata for a specific workflow.
 }
 \details{
-Requires valid Cromwell server URL to be set in the environment, or the use
-of the cromURL param if you want to specify upon call the URL to use.
 Now supports nested scatters.
 }
+\section{Important}{
+
+Requires valid Cromwell server URL to be set. See \link{cromwellSettings}
+}
+
 \examples{
 \dontrun{
 ## Request what jobs have been submitted to your Cromwell instance in the past 7 days.

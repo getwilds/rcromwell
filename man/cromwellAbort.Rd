@@ -4,15 +4,10 @@
 \alias{cromwellAbort}
 \title{Abort a workflow job on Cromwell}
 \usage{
-cromwellAbort(
-  workflow_id,
-  cromURL = Sys.getenv("CROMWELLURL", unset = "needsURL")
-)
+cromwellAbort(workflow_id)
 }
 \arguments{
 \item{workflow_id}{Unique workflow id of the job you wish to kill.}
-
-\item{cromURL}{The full string of the Cromwell URL to query (e.g. http://gizmog10:8000). (Optional)}
 }
 \value{
 Returns the response from the API post
@@ -20,10 +15,11 @@ Returns the response from the API post
 \description{
 Aborts any given workflow job on Cromwell.
 }
-\details{
-Requires valid Cromwell server URL to be set in the environment, or the use
-of the cromURL param if you want to specify upon call the URL to use.
+\section{Important}{
+
+Requires valid Cromwell server URL to be set. See \link{cromwellSettings}
 }
+
 \author{
 Amy Paguirigan
 }

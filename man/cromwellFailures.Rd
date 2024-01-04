@@ -4,15 +4,10 @@
 \alias{cromwellFailures}
 \title{Pull metadata for the failed calls made in a Cromwell workflow job}
 \usage{
-cromwellFailures(
-  workflow_id,
-  cromURL = Sys.getenv("CROMWELLURL", unset = "needsURL")
-)
+cromwellFailures(workflow_id)
 }
 \arguments{
 \item{workflow_id}{The workflow ID to return call failure metadata for.}
-
-\item{cromURL}{The full string of the Cromwell URL to query (e.g. http://gizmog10:8000). (Optional)}
 }
 \value{
 Returns a long form data frame of metadata on failed calls in a workflow.
@@ -20,10 +15,11 @@ Returns a long form data frame of metadata on failed calls in a workflow.
 \description{
 Gets info about failed calls for a specific workflow
 }
-\details{
-Requires valid Cromwell server URL to be set in the environment, or the use
-of the cromURL param if you want to specify upon call the URL to use.
+\section{Important}{
+
+Requires valid Cromwell server URL to be set. See \link{cromwellSettings}
 }
+
 \examples{
 \dontrun{
 ## Request what jobs have been submitted to your Cromwell instance in the past 7 days.

@@ -4,15 +4,10 @@
 \alias{workflowInputs}
 \title{Pull the workflow inputs provided for a Cromwell workflow job}
 \usage{
-workflowInputs(
-  workflow_id,
-  cromURL = Sys.getenv("CROMWELLURL", unset = "needsURL")
-)
+workflowInputs(workflow_id)
 }
 \arguments{
 \item{workflow_id}{The workflow ID to return inputs for.}
-
-\item{cromURL}{The full string of the Cromwell URL to query (e.g. http://gizmog10:8000).}
 }
 \value{
 Returns a data frame of the inputs for a workflow previously run
@@ -20,10 +15,11 @@ Returns a data frame of the inputs for a workflow previously run
 \description{
 Pull the workflow inputs provided for a Cromwell workflow job
 }
-\details{
-Requires valid Cromwell server URL to be set in the environment, or the use
-of the cromURL param if you want to specify upon call the URL to use.
+\section{Important}{
+
+Requires valid Cromwell server URL to be set. See \link{cromwellSettings}
 }
+
 \author{
 Amy Paguirigan
 }

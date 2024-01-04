@@ -5,14 +5,10 @@
 #' @param workflow_id Unique workflow id of the job.
 #' @return Returns the response from the API post
 #' @author Amy Paguirigan
-#' @details
-#' Requires valid Cromwell server URL to be set in the environment.
-#' NOTE: this function has been temporarily removed for more testing and updating.
+#' @details Requires valid Cromwell server URL to be set in the environment
 cromwellLogs <- function(workflow_id) {
-  if ("" %in% Sys.getenv("CROMWELLURL")) {
-    stop("CROMWELLURL is not set.")
-  }  else
-    message("Getting list of logs from Cromwell.")
+  check_url()
+  crom_mssg("Getting list of logs from Cromwell")
   cromResponse <-
     httpGET(url = make_url(
       "api/workflows/v1",
@@ -24,8 +20,9 @@ cromwellLogs <- function(workflow_id) {
   calls <- purrr::pluck(cromResponse, "calls")
   callsFlat <- purrr::map_dfr(calls, function(x) {
     justcalls <- purrr::map_dfr(x, function(s) {
+      # flatten them and make them a data frame
       shard <-
-        data.frame(rbind(unlist(s)), stringsAsFactors = F) # flatten them and make them a data frame
+        data.frame(rbind(unlist(s)), stringsAsFactors = F)
     })
   }, .id = "callName")
   callsFlat$workflow_id <- workflow_id

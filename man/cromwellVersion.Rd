@@ -4,19 +4,16 @@
 \alias{cromwellVersion}
 \title{Get the version of a Cromwell server}
 \usage{
-cromwellVersion(cromURL = Sys.getenv("CROMWELLURL", unset = "needsURL"))
-}
-\arguments{
-\item{cromURL}{The full string of the Cromwell URL to query  (e.g. http://gizmog10:8000). (Optional)}
+cromwellVersion()
 }
 \value{
-Cromwell version
+(character) the Cromwell version
 }
 \description{
 Get the version of a Cromwell server
 }
 \details{
-Requires valid Cromwell server URL to be set in the environment or specify "cromURL".
+Requires valid Cromwell server URL to be set in the environment
 }
 \author{
 Amy Paguirigan

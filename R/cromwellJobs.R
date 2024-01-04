@@ -6,24 +6,17 @@
 #' @param days The number of days of history to return, defaults to 1 day.
 #' @param workflowName An array of strings of valid workflow names you want in your job list.
 #' @param workflowStatus A array of strings of valid workflow statuses you want in your job list (e.g., submitted, running, succeeded, failed, aborting, aborted)
-#' @param cromURL The full string of the Cromwell URL to query  (e.g. http://gizmog10:8000). (Optional)
 #' @return Returns a long form data frame of metadata on workflow jobs submitted to a specific Cromwell instance.
 #' @author Amy Paguirigan
-#' @details
-#' Requires valid Cromwell server URL to be set in the environment, or the use
-#' of the cromURL param if you want to specify upon call the URL to use.
+#' @inheritSection workflowOptions Important
 #' @examples \dontrun{
 #' ## Request what jobs have been submitted to your Cromwell instance in the past 7 days.
 #' recentJobs <- cromwellJobs(days = 7)
 #' }
 #' @export
-cromwellJobs <- function(days = 1, workflowName = NULL, workflowStatus = NULL,
-                         cromURL = Sys.getenv("CROMWELLURL", unset = "needsURL")) {
-  if(cromURL == "needsURL") {
-    stop("CROMWELLURL is not set in your environment, or specify the URL to query via cromURL.")
-  } else {
-    message(paste0("Querying cromwell for jobs in the last ", days, " days."))
-  }
+cromwellJobs <- function(days = 1, workflowName = NULL, workflowStatus = NULL) {
+  check_url()
+  crom_mssg(paste0("Querying cromwell for jobs in the last ", days, " days."))
   query <- list(submission = paste0(Sys.Date() - round(days, 0), "T00:00Z"))
   if (!is.null(workflowName)) {
     query <- c(query, rlang::set_names(as.list(workflowName), "name"))

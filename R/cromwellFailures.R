@@ -3,12 +3,9 @@
 #' Gets info about failed calls for a specific workflow
 #'
 #' @param workflow_id The workflow ID to return call failure metadata for.
-#' @param cromURL The full string of the Cromwell URL to query (e.g. http://gizmog10:8000). (Optional)
 #' @return Returns a long form data frame of metadata on failed calls in a workflow.
 #' @author Amy Paguirigan
-#' @details
-#' Requires valid Cromwell server URL to be set in the environment, or the use
-#' of the cromURL param if you want to specify upon call the URL to use.
+#' @inheritSection workflowOptions Important
 #' @examples \dontrun{
 #' ## Request what jobs have been submitted to your Cromwell instance in the past 7 days.
 #' recentJobs <- cromwellJobs(days = 7)
@@ -17,12 +14,9 @@
 #' failsMeta <- cromwellFailures(workflow_id = thisWorkflowID)
 #' }
 #' @export
-cromwellFailures <- function(workflow_id, cromURL = Sys.getenv("CROMWELLURL", unset = "needsURL")) {
-  if(cromURL == "needsURL") {
-    stop("CROMWELLURL is not set in your environment, or specify the URL to query via cromURL.")
-  } else {
-    message(paste0("Querying for failure metadata for workflow id: ", workflow_id))
-  }
+cromwellFailures <- function(workflow_id) {
+  check_url()
+  crom_mssg(paste0("Querying for failure metadata for workflow id: ", workflow_id))
   cromfail <-
     httpGET(
       url = make_url("api/workflows/v1", workflow_id, "metadata"),
