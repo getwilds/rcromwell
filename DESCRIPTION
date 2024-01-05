@@ -26,6 +26,8 @@ Roxygen: list(markdown = TRUE, roclets = c("collate", "namespace", "rd",
 RoxygenNote: 7.2.3
 Encoding: UTF-8
 Suggests:
+    knitr,
+    rmarkdown,
     roxyglobals,
     testthat (>= 3.0.0),
     vcr (>= 0.6.0)
@@ -34,3 +36,4 @@ Remotes:
 Config/testthat/edition: 3
 Config/roxyglobals/filename: globals.R
 Config/roxyglobals/unique: FALSE
+VignetteBuilder: knitr

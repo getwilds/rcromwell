@@ -1,0 +1,133 @@
+---
+title: "Getting Started"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting Started}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+
+
+```r
+library(rcromwell)
+library(dplyr)
+#> 
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
+```
+
+## Set your Cromwell URL
+
+
+```r
+cromwell_config("http://localhost:8000")
+#> $rcromwell_settings
+#> $rcromwell_settings$url
+#> [1] "http://localhost:8000"
+#> 
+#> $rcromwell_settings$verbose
+#> [1] TRUE
+```
+
+## Send a workflow to Crowmell
+
+
+```r
+file_hello <- system.file("examples/hello.wdl", package = "rcromwell")
+file_inputs <- system.file("examples/inputs.json", package = "rcromwell")
+thisJob <- cromwell_submit_batch(wdl = file_hello, params = file_inputs)
+#> Submitting a batch workflow to Cromwell
+thisOne <- thisJob$id
+```
+
+`thisJob$id` (af1c9bf4-45ac-4f41-b563-fc7f53676db8) is the unique Cromwell ID for your entire workflow - you can use that to request all sorts of metadata!!!
+
+## Now get all your metadata and track the workflow!!
+
+Return a data frame of all jobs run in the past number of days (uses your database)
+
+
+```r
+cromwell_jobs(days = 2)
+#> Querying cromwell for jobs in the last 2 days.
+#> # A tibble: 52 × 8
+#>    workflow_id metadataArchiveStatus workflow_name start status submission end  
+#>    <chr>       <chr>                 <chr>         <chr> <chr>  <chr>      <chr>
+#>  1 8c418d8c-c… Unarchived            test          2024… Runni… 2024-01-0… <NA> 
+#>  2 53ac66b1-a… Unarchived            test          2024… Succe… 2024-01-0… 2024…
+#>  3 f6f919f5-4… Unarchived            test          2024… Succe… 2024-01-0… 2024…
+#>  4 f7464c7e-9… Unarchived            test          2024… Succe… 2024-01-0… 2024…
+#>  5 0a286772-2… Unarchived            test          2024… Succe… 2024-01-0… 2024…
+#>  6 b0be7e6e-6… Unarchived            test          2024… Succe… 2024-01-0… 2024…
+#>  7 700c3598-9… Unarchived            test          2024… Succe… 2024-01-0… 2024…
+#>  8 04bbe5ab-b… Unarchived            test          2024… Succe… 2024-01-0… 2024…
+#>  9 612b4a6c-4… Unarchived            test          2024… Succe… 2024-01-0… 2024…
+#> 10 088fb55e-2… Unarchived            test          2024… Succe… 2024-01-0… 2024…
+#> # ℹ 42 more rows
+#> # ℹ 1 more variable: workflowDuration <chr>
+```
+
+Return a data frame (one line if you only submit one workflow id) containing workflow level metadata
+
+
+
+
+```r
+w <- cromwell_workflow(thisOne)
+#> Querying for metadata for workflow id: af1c9bf4-45ac-4f41-b563-fc7f53676db8
+```
+
+Print the current status of the workflow(s) is(are)
+
+
+```r
+w$status
+#> [1] "Running"
+```
+
+Return a data frame containing all call level metadata
+
+
+```r
+df <- cromwell_call(thisOne)
+#> Querying for call metadata for workflow id: af1c9bf4-45ac-4f41-b563-fc7f53676db8
+```
+
+Handy set of dplyr commands to tell you about how the various calls are doing
+
+
+```r
+df %>%
+  group_by(callName, executionStatus) %>%
+  summarize(status = n()) %>%
+  arrange(executionStatus)
+#> `summarise()` has grouped output by 'callName'. You can override using the
+#> `.groups` argument.
+#> # A tibble: 1 × 3
+#> # Groups:   callName [1]
+#>   callName executionStatus status
+#>   <chr>    <chr>            <int>
+#> 1 hello    Running              1
+```
+
+Returns a data frame containing call level call caching metadata
+
+
+```r
+cromwell_cache(thisOne)
+#> Querying for call caching metadata for workflow id: af1c9bf4-45ac-4f41-b563-fc7f53676db8
+#> # A tibble: 1 × 8
+#>   workflowName callName callCaching.allowResultReuse callCaching.effectiveCall…¹
+#>   <chr>        <chr>    <chr>                        <chr>                      
+#> 1 test         hello    FALSE                        CallCachingOff             
+#> # ℹ abbreviated name: ¹​callCaching.effectiveCallCachingMode
+#> # ℹ 4 more variables: inputs.name <chr>, shardIndex <chr>, workflow_id <chr>,
+#> #   executionStatus <chr>
+```

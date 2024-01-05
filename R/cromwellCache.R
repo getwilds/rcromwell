@@ -65,7 +65,7 @@ cromwell_cache <- function(workflow_id) {
     )
   } else {
     geocache <-
-      dplyr::as_tibble("workflow_id" = "No call caching metadata available.")
+      dplyr::tibble("workflow_id" = "No call caching metadata available.")
   }
   return(geocache)
 }

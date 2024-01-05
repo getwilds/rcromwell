@@ -1,0 +1,82 @@
+---
+title: "Getting Started"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting Started}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(rcromwell)
+library(dplyr)
+```
+
+## Set your Cromwell URL
+
+```{r set-url}
+cromwell_config("http://localhost:8000")
+```
+
+## Send a workflow to Crowmell
+
+```{r submit-batch}
+file_hello <- system.file("examples/hello.wdl", package = "rcromwell")
+file_inputs <- system.file("examples/inputs.json", package = "rcromwell")
+thisJob <- cromwell_submit_batch(wdl = file_hello, params = file_inputs)
+thisOne <- thisJob$id
+```
+
+`thisJob$id` (`r thisJob$id`) is the unique Cromwell ID for your entire workflow - you can use that to request all sorts of metadata!!!
+
+## Now get all your metadata and track the workflow!!
+
+Return a data frame of all jobs run in the past number of days (uses your database)
+
+```{r}
+cromwell_jobs(days = 2)
+```
+
+Return a data frame (one line if you only submit one workflow id) containing workflow level metadata
+
+```{r include=FALSE}
+Sys.sleep(25)
+```
+
+```{r}
+w <- cromwell_workflow(thisOne)
+```
+
+Print the current status of the workflow(s) is(are)
+
+```{r}
+w$status
+```
+
+Return a data frame containing all call level metadata
+
+```{r}
+df <- cromwell_call(thisOne)
+```
+
+Handy set of dplyr commands to tell you about how the various calls are doing
+
+```{r}
+df %>%
+  group_by(callName, executionStatus) %>%
+  summarize(status = n()) %>%
+  arrange(executionStatus)
+```
+
+Returns a data frame containing call level call caching metadata
+
+```{r}
+cromwell_cache(thisOne)
+```
