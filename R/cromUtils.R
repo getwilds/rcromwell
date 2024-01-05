@@ -6,9 +6,10 @@
 #' @section Important:
 #' Requires valid Cromwell server URL to be set. See [cromwellSettings]
 #' @export
-#' @examples
+#' @examples \dontrun{
 #' jobs <- cromwellJobs()
 #' workflowOptions(jobs$workflow_id[1])
+#' }
 workflowOptions <- function(workflow_id) {
   check_url()
   dplyr::as_tibble(jsonlite::fromJSON(cromwellWorkflow(workflow_id)$options))

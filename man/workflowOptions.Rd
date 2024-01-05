@@ -21,8 +21,10 @@ Requires valid Cromwell server URL to be set. See \link{cromwellSettings}
 }
 
 \examples{
+\dontrun{
 jobs <- cromwellJobs()
 workflowOptions(jobs$workflow_id[1])
+}
 }
 \author{
 Amy Paguirigan
