@@ -33,7 +33,7 @@ docs:
 	${RSCRIPT} -e "pkgdown::build_site(); pkgdown::preview_site(preview=TRUE)"
 
 lint_package:
-	${RSCRIPT} -e "lintr::lint_package()"
+	${RSCRIPT} -e "lintr::lint_dir('R')"
 
 style_file:
 	${RSCRIPT} -e 'styler::style_file(${FILE_TARGET})'
