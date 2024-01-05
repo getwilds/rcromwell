@@ -7,3 +7,5 @@ docker
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
+^.lintr$
+man-roxygen/

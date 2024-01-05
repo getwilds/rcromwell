@@ -1,7 +1,6 @@
 #' Get a timing diagram for a Cromwell workflow
 #'
-#'
-#' @param workflow_id Unique workflow id of the job.
+#' @template workflowid
 #' @return Opens a timing diagram in a browser
 #' @author Amy Paguirigan
 #' @inheritSection workflowOptions Important

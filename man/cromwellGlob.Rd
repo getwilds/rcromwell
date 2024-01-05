@@ -4,12 +4,13 @@
 \alias{cromwellGlob}
 \title{Pull a glob of metadata for a specific Cromwell workflow job}
 \usage{
-cromwellGlob(workflow_id, expandSubWorkflows = F)
+cromwellGlob(workflow_id, expandSubWorkflows = FALSE)
 }
 \arguments{
-\item{workflow_id}{The workflow ID to return metadata for.}
+\item{workflow_id}{(character) A single workflow ID}
 
-\item{expandSubWorkflows}{Boolean, whether to expand subworkflows in the results or not, default is FALSE.}
+\item{expandSubWorkflows}{Boolean, whether to expand subworkflows in the
+results or not, default is FALSE.}
 }
 \value{
 Returns a gross list of lists of metadata on a workflow.
@@ -24,9 +25,11 @@ Requires valid Cromwell server URL to be set. See \link{cromwellSettings}
 
 \examples{
 \dontrun{
-## Request what jobs have been submitted to your Cromwell instance in the past 7 days.
+## Request what jobs have been submitted to your Cromwell instance in the
+## past 7 days.
 recentJobs <- cromwellJobs(days = 7)
-## Request workflow metadata for a specific job that was run in your Cromwell instance.
+## Request workflow metadata for a specific job that was run in your
+## Cromwell instance.
 thisWorkflowID <- recentJobs$workflow_id[1]
 workflowMeta <- cromwellGlob(workflow_id = thisWorkflowID)
 }

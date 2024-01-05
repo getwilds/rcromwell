@@ -7,13 +7,13 @@
 cromwellAbort(workflow_id)
 }
 \arguments{
-\item{workflow_id}{Unique workflow id of the job you wish to kill.}
+\item{workflow_id}{(character) A single workflow ID}
 }
 \value{
 Returns the response from the API post
 }
 \description{
-Aborts any given workflow job on Cromwell.
+Abort a workflow job on Cromwell
 }
 \section{Important}{
 

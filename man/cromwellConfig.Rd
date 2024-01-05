@@ -27,6 +27,6 @@ it is set even if this function is run without passing anything to
 \dontrun{
 cromwellConfig()
 cromwellConfig("https://mycromwellinstance.com")
-cromwellConfig(verbose=FALSE)
+cromwellConfig(verbose = FALSE)
 }
 }

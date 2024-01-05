@@ -12,9 +12,11 @@ cromwellVersion()
 \description{
 Get the version of a Cromwell server
 }
-\details{
-Requires valid Cromwell server URL to be set in the environment
+\section{Important}{
+
+Requires valid Cromwell server URL to be set. See \link{cromwellSettings}
 }
+
 \author{
 Amy Paguirigan
 }

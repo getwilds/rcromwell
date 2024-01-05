@@ -9,10 +9,13 @@ cromwellValidate(WDL, allInputs = NULL)
 \arguments{
 \item{WDL}{Local path to the wdl file describing the workflow. (Required)}
 
-\item{allInputs}{Local path to the json containing ALL the inputs the parameters to use with the workflow - if a batch and parameters json are present they must first be combined. (Optional)}
+\item{allInputs}{Local path to the json containing ALL the inputs the
+parameters to use with the workflow - if a batch and parameters json
+are present they must first be combined. (Optional)}
 }
 \value{
-Returns the response from the API post which includes the workflow ID that you'll need to monitor the job.
+Returns the response from the API post which includes the workflow
+ID that you'll need to monitor the job.
 }
 \description{
 Validates a workflow for submission

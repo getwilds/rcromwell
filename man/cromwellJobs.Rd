@@ -2,22 +2,26 @@
 % Please edit documentation in R/cromwellJobs.R
 \name{cromwellJobs}
 \alias{cromwellJobs}
-\title{Pull information about recent Cromwell workflow jobs}
+\title{Requests metadata about Cromwell workflow jobs during a time period specified}
 \usage{
 cromwellJobs(days = 1, workflowName = NULL, workflowStatus = NULL)
 }
 \arguments{
 \item{days}{The number of days of history to return, defaults to 1 day.}
 
-\item{workflowName}{An array of strings of valid workflow names you want in your job list.}
+\item{workflowName}{An array of strings of valid workflow names you want in
+your job list.}
 
-\item{workflowStatus}{A array of strings of valid workflow statuses you want in your job list (e.g., submitted, running, succeeded, failed, aborting, aborted)}
+\item{workflowStatus}{A array of strings of valid workflow statuses you want
+in your job list (e.g., submitted, running, succeeded, failed,
+aborting, aborted)}
 }
 \value{
-Returns a long form data frame of metadata on workflow jobs submitted to a specific Cromwell instance.
+Returns a long form data frame of metadata on workflow jobs
+submitted to a specific Cromwell instance.
 }
 \description{
-Requests metadata about Cromwell workflow jobs during a time period specified.
+Requests metadata about Cromwell workflow jobs during a time period specified
 }
 \section{Important}{
 
@@ -26,7 +30,8 @@ Requires valid Cromwell server URL to be set. See \link{cromwellSettings}
 
 \examples{
 \dontrun{
-## Request what jobs have been submitted to your Cromwell instance in the past 7 days.
+## Request what jobs have been submitted to your Cromwell instance in the
+## past 7 days.
 recentJobs <- cromwellJobs(days = 7)
 }
 }

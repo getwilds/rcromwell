@@ -7,7 +7,7 @@
 cromwellLogs(workflow_id)
 }
 \arguments{
-\item{workflow_id}{Unique workflow id of the job.}
+\item{workflow_id}{(character) A single workflow ID}
 }
 \value{
 Returns the response from the API post
@@ -15,9 +15,11 @@ Returns the response from the API post
 \description{
 Gets logs for a workflow in Cromwell
 }
-\details{
-Requires valid Cromwell server URL to be set in the environment
+\section{Important}{
+
+Requires valid Cromwell server URL to be set. See \link{cromwellSettings}
 }
+
 \author{
 Amy Paguirigan
 }

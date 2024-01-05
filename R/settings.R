@@ -1,5 +1,3 @@
-pkg_env <- new.env()
-
 #' Cromwell Settings
 #'
 #' @name cromwellSettings
@@ -51,20 +49,22 @@ NULL
 #' @examples \dontrun{
 #' cromwellConfig()
 #' cromwellConfig("https://mycromwellinstance.com")
-#' cromwellConfig(verbose=FALSE)
+#' cromwellConfig(verbose = FALSE)
 #' }
 cromwellConfig <- function(cromwell_url = NULL, verbose = TRUE) {
-	if (is.null(cromwell_url)) cromwell_url <- Sys.getenv("CROMWELLURL")
-	rlang::is_character(cromwell_url)
-	Sys.setenv(CROMWELLURL = cromwell_url)
+  if (is.null(cromwell_url)) cromwell_url <- Sys.getenv("CROMWELLURL")
+  rlang::is_character(cromwell_url)
+  Sys.setenv(CROMWELLURL = cromwell_url)
 
-	rlang::is_logical(verbose)
-	pkg_env$verbose <- verbose
+  rlang::is_logical(verbose)
+  pkg_env$verbose <- verbose
 
-	list(rcromwell_settings =
-		list(url = cromwell_url, verbose = pkg_env$verbose))
+  list(
+    rcromwell_settings =
+      list(url = cromwell_url, verbose = pkg_env$verbose)
+  )
 }
 
 crom_mssg <- function(...) {
-	if (pkg_env$verbose) message(...)
+  if (pkg_env$verbose) message(...)
 }

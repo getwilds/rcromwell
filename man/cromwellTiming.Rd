@@ -7,7 +7,7 @@
 cromwellTiming(workflow_id)
 }
 \arguments{
-\item{workflow_id}{Unique workflow id of the job.}
+\item{workflow_id}{(character) A single workflow ID}
 }
 \value{
 Opens a timing diagram in a browser
