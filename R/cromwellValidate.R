@@ -2,8 +2,11 @@
 #'
 #'
 #' @param WDL Local path to the wdl file describing the workflow. (Required)
-#' @param allInputs Local path to the json containing ALL the inputs the parameters to use with the workflow - if a batch and parameters json are present they must first be combined. (Optional)
-#' @return Returns the response from the API post which includes the workflow ID that you'll need to monitor the job.
+#' @param allInputs Local path to the json containing ALL the inputs the
+#' parameters to use with the workflow - if a batch and parameters json
+#' are present they must first be combined. (Optional)
+#' @return Returns the response from the API post which includes the workflow
+#' ID that you'll need to monitor the job.
 #' @author Amy Paguirigan
 #' @inheritSection workflowOptions Important
 #' @export

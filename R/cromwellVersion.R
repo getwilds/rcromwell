@@ -2,8 +2,7 @@
 #'
 #' @return (character) the Cromwell version
 #' @author Amy Paguirigan
-#' @details
-#' Requires valid Cromwell server URL to be set in the environment
+#' @inheritSection workflowOptions Important
 #' @export
 cromwellVersion <- function() {
   check_url()

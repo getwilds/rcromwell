@@ -2,35 +2,40 @@
 #'
 #' Retrieve a glob of workflow level metadata for a specific workflow.
 #'
-#' @param workflow_id The workflow ID to return metadata for.
-#' @param expandSubWorkflows Boolean, whether to expand subworkflows in the results or not, default is FALSE.
+#' @template workflowid
+#' @param expandSubWorkflows Boolean, whether to expand subworkflows in the
+#' results or not, default is FALSE.
 #' @return Returns a gross list of lists of metadata on a workflow.
 #' @author Amy Paguirigan
 #' @inheritSection workflowOptions Important
 #' @examples \dontrun{
-#' ## Request what jobs have been submitted to your Cromwell instance in the past 7 days.
+#' ## Request what jobs have been submitted to your Cromwell instance in the
+#' ## past 7 days.
 #' recentJobs <- cromwellJobs(days = 7)
-#' ## Request workflow metadata for a specific job that was run in your Cromwell instance.
+#' ## Request workflow metadata for a specific job that was run in your
+#' ## Cromwell instance.
 #' thisWorkflowID <- recentJobs$workflow_id[1]
 #' workflowMeta <- cromwellGlob(workflow_id = thisWorkflowID)
 #' }
 #' @export
-cromwellGlob <- function(workflow_id, expandSubWorkflows = F) {
+cromwellGlob <- function(workflow_id, expandSubWorkflows = FALSE) {
   check_url()
   crom_mssg(paste0("Querying for metadata for workflow id: ", workflow_id))
-  if (expandSubWorkflows == F) {
+  url <- make_url("api/workflows/v1", workflow_id, "metadata")
+  if (!expandSubWorkflows) {
     crommetadata <-
       httpGET(
-        url = make_url("api/workflows/v1", workflow_id, "metadata"),
-        query = list(expandSubWorkflows="false"),
-        as = "parsed")
-  }
-  if (expandSubWorkflows == T) {
+        url = url,
+        query = list(expandSubWorkflows = "false"),
+        as = "parsed"
+      )
+  } else {
     crommetadata <-
       httpGET(
-        url = make_url("api/workflows/v1", workflow_id, "metadata"),
-        query = list(expandSubWorkflows="true"),
-        as = "parsed")
+        url = url,
+        query = list(expandSubWorkflows = "true"),
+        as = "parsed"
+      )
   }
   return(crommetadata)
 }

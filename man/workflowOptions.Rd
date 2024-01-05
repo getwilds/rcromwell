@@ -7,7 +7,7 @@
 workflowOptions(workflow_id)
 }
 \arguments{
-\item{workflow_id}{The workflow ID to return options for.}
+\item{workflow_id}{(character) A single workflow ID}
 }
 \value{
 Returns a data frame of the options for a workflow previously run
@@ -20,6 +20,10 @@ Pull the workflow options provided for a Cromwell workflow job
 Requires valid Cromwell server URL to be set. See \link{cromwellSettings}
 }
 
+\examples{
+jobs <- cromwellJobs()
+workflowOptions(jobs$workflow_id[1])
+}
 \author{
 Amy Paguirigan
 }

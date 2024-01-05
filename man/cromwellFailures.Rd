@@ -7,10 +7,11 @@
 cromwellFailures(workflow_id)
 }
 \arguments{
-\item{workflow_id}{The workflow ID to return call failure metadata for.}
+\item{workflow_id}{(character) A single workflow ID}
 }
 \value{
-Returns a long form data frame of metadata on failed calls in a workflow.
+Returns a long form data frame of metadata on failed calls in a
+workflow.
 }
 \description{
 Gets info about failed calls for a specific workflow
@@ -22,9 +23,11 @@ Requires valid Cromwell server URL to be set. See \link{cromwellSettings}
 
 \examples{
 \dontrun{
-## Request what jobs have been submitted to your Cromwell instance in the past 7 days.
+## Request what jobs have been submitted to your Cromwell instance in the
+## past 7 days.
 recentJobs <- cromwellJobs(days = 7)
-## Request workflow metadata for a specific job that was run in your Cromwell instance.
+## Request workflow metadata for a specific job that was run in your
+## Cromwell instance.
 thisWorkflowID <- recentJobs$workflow_id[1]
 failsMeta <- cromwellFailures(workflow_id = thisWorkflowID)
 }

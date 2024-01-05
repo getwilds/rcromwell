@@ -1,24 +1,26 @@
 httpGET <- function(url, as = NULL, ...) {
-	result <- httr::GET(url, ...)
-	httr::stop_for_status(result)
-	httr::content(result, as = as)
+  result <- httr::GET(url, ...)
+  httr::stop_for_status(result)
+  httr::content(result, as = as)
 }
 
 httpPOST <- function(url, as = NULL, ...) {
-	result <- httr::POST(url, ...)
-	httr::stop_for_status(result)
-	httr::content(result, as = as)
+  result <- httr::POST(url, ...)
+  httr::stop_for_status(result)
+  httr::content(result, as = as)
 }
 
 make_url <- function(...) {
-	base_url <- Sys.getenv('CROMWELLURL')
-	file.path(base_url, ...)
+  base_url <- Sys.getenv("CROMWELLURL")
+  file.path(base_url, ...)
 }
 
 check_url <- function() {
   x <- Sys.getenv("CROMWELLURL")
   if (identical(x, "")) {
     stop("Set the env var `CROMWELLURL`. ",
-      "See ?cromwellSettings", call. = FALSE)
+      "See ?cromwellSettings",
+      call. = FALSE
+    )
   }
 }

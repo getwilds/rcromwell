@@ -7,11 +7,11 @@
 cromwellCache(workflow_id)
 }
 \arguments{
-\item{workflow_id}{The workflow ID to return call caching metadata for.}
+\item{workflow_id}{(character) A single workflow ID}
 }
 \value{
-Returns a long form data frame of metadata on call caching in a workflow.
-NOTE: Currently does not support subworkflows well.
+Returns a long form data frame of metadata on call caching in a
+workflow. NOTE: Currently does not support subworkflows well.
 }
 \description{
 Gets info about call caching status for the calls of a workflow

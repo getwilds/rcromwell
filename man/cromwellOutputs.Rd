@@ -7,7 +7,7 @@
 cromwellOutputs(workflow_id)
 }
 \arguments{
-\item{workflow_id}{Unique workflow id of the job.}
+\item{workflow_id}{(character) A single workflow ID}
 }
 \value{
 Returns a dataframe containing the workflowName, workflowOutputType,

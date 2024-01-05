@@ -1,7 +1,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://localhost:8000/api/workflows/v1/7337eef7-082a-426c-a3c8-5b91a81a1d99/outputs
+    uri: http://localhost:8000/api/workflows/v1/c324aa59-081f-4071-83d4-f6f722584c12/outputs
     body:
       encoding: ''
       string: ''
@@ -15,12 +15,12 @@ http_interactions:
       message: 'Success: (200) OK'
     headers:
       server: akka-http/10.1.15
-      date: Wed, 03 Jan 2024 20:24:37 GMT
+      date: Thu, 04 Jan 2024 20:57:45 GMT
       content-type: application/json
       content-length: '203'
     body:
       encoding: ''
       file: no
-      string: '{"outputs":{"test.hello.response":"/Users/schambe3/github/cromwell/cromwell-executions/test/7337eef7-082a-426c-a3c8-5b91a81a1d99/call-hello/execution/stdout"},"id":"7337eef7-082a-426c-a3c8-5b91a81a1d99"}'
-  recorded_at: 2024-01-03 20:24:37 GMT
+      string: '{"outputs":{"test.hello.response":"/Users/schambe3/github/cromwell/cromwell-executions/test/c324aa59-081f-4071-83d4-f6f722584c12/call-hello/execution/stdout"},"id":"c324aa59-081f-4071-83d4-f6f722584c12"}'
+  recorded_at: 2024-01-04 20:57:45 GMT
   recorded_with: vcr/1.2.2.91, webmockr/0.9.0

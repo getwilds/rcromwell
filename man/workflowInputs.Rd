@@ -7,7 +7,7 @@
 workflowInputs(workflow_id)
 }
 \arguments{
-\item{workflow_id}{The workflow ID to return inputs for.}
+\item{workflow_id}{(character) A single workflow ID}
 }
 \value{
 Returns a data frame of the inputs for a workflow previously run
