@@ -9,3 +9,4 @@ docker
 ^pkgdown$
 ^.lintr$
 man-roxygen/
+^README\.Rmd$
