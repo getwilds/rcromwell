@@ -109,7 +109,7 @@
 </h3>
 <p>Return a data frame of all jobs run in the past number of days (uses your database)</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">jobs</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cromwell_jobs.html">cromwell_jobs</a></span><span class="op">(</span>days <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/cromwell_jobs.html">cromwell_jobs</a></span><span class="op">(</span>days <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p>Return a data frame (one line if you only submit one workflow id) containing workflow level metadata</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">w</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cromwell_workflow.html">cromwell_workflow</a></span><span class="op">(</span><span class="va">thisOne</span><span class="op">)</span></span></code></pre></div>
@@ -118,35 +118,41 @@
 <code class="sourceCode R"><span><span class="va">w</span><span class="op">$</span><span class="va">status</span></span></code></pre></div>
 <p>Return a data frame containing all call level metadata</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">c</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cromwell_call.html">cromwell_call</a></span><span class="op">(</span><span class="va">thisOne</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cromwell_call.html">cromwell_call</a></span><span class="op">(</span><span class="va">thisOne</span><span class="op">)</span></span></code></pre></div>
 <p>Handy set of dplyr commands to tell you about how the various calls are doing</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">c</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu">group_by</span><span class="op">(</span><span class="va">callName</span>, <span class="va">executionStatus</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu">summarize</span><span class="op">(</span>status <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu">arrange</span><span class="op">(</span><span class="va">executionStatus</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">callName</span>, <span class="va">executionStatus</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">summarize</span><span class="op">(</span>status <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">arrange</span><span class="op">(</span><span class="va">executionStatus</span><span class="op">)</span></span></code></pre></div>
 <p>Returns a data frame containing call level call caching metadata</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ca</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cromwell_cache.html">cromwell_cache</a></span><span class="op">(</span><span class="va">thisOne</span><span class="op">)</span></span></code></pre></div>
 <p>Handy set of dplyr commands to tell you about what sort of call caching is happening</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ca</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu">group_by</span><span class="op">(</span><span class="va">callCaching.hit</span>, <span class="va">callName</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu">summarize</span><span class="op">(</span>hits <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">ca</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">callCaching.hit</span>, <span class="va">callName</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">summarize</span><span class="op">(</span>hits <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Opens up a popup in your browser with a timing diagram in it.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/cromwell_timing.html">cromwell_timing</a></span><span class="op">(</span><span class="va">thisOne</span><span class="op">)</span></span></code></pre></div>
 <p>Returns a data frame containing call level failure metadata</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cromwell_failures.html">cromwell_failures</a></span><span class="op">(</span><span class="va">thisOne</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/cromwell_failures.html">cromwell_failures</a></span><span class="op">(</span><span class="va">thisOne</span><span class="op">)</span></span></code></pre></div>
 <p>Will tell Cromwell to abort the current workflow - note this cannot be undone and it will take a while to stop all the jobs.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">abort</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cromwell_abort.html">cromwell_abort</a></span><span class="op">(</span><span class="va">thisOne</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/cromwell_abort.html">cromwell_abort</a></span><span class="op">(</span><span class="va">thisOne</span><span class="op">)</span></span></code></pre></div>
 <p>When a workflow is done, request information about the workflow outputs.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cromwell_outputs.html">cromwell_outputs</a></span><span class="op">(</span><span class="va">thisOne</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/cromwell_outputs.html">cromwell_outputs</a></span><span class="op">(</span><span class="va">thisOne</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="misc-stuff">Misc stuff<a class="anchor" aria-label="anchor" href="#misc-stuff"></a>
 </h3>
 <p>Ugly list of raw metadata should you need it for workflow troubleshooting</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/cromwell_glob.html">cromwell_glob</a></span><span class="op">(</span><span class="va">thisOne</span><span class="op">)</span>; <span class="va">WTF</span><span class="op">[[</span><span class="st">"failures"</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">wtf</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cromwell_glob.html">cromwell_glob</a></span><span class="op">(</span><span class="va">thisOne</span><span class="op">)</span></span>
+<span><span class="va">wtf</span><span class="op">[[</span><span class="st">"failures"</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 </div>
 </div>
 </div>
