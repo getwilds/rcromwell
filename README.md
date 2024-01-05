@@ -1,4 +1,5 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+<!-- BEWARE: THIS CODE DOESN'T RUN - IT'S JUST PSEUDO CODE FOR NOW -->
 
 
 
@@ -36,6 +37,8 @@ Use instructions over in the [diy-cromwell-server repo](https://github.com/FredH
 Set your Cromwell URL
 
 ```r
+library(rcromwell)
+library(dplyr)
 cromwell_config("http://gizmoXXX:20202")
 ```
 
