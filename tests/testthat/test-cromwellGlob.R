@@ -1,6 +1,6 @@
 test_that("cromwellGlob", {
   vcr::use_cassette("cromwellGlob", {
-    res <- cromwellSubmitBatch(WDL = file_hello, Params = file_inputs)
+    res <- cromwellSubmitBatch(wdl = file_hello, params = file_inputs)
     # Sys.sleep(20) # Needed only for recording new fixture
     res <- cromwellGlob(res$id)
   })

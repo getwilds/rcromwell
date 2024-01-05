@@ -4,15 +4,15 @@
 \alias{cromwellJobs}
 \title{Requests metadata about Cromwell workflow jobs during a time period specified}
 \usage{
-cromwellJobs(days = 1, workflowName = NULL, workflowStatus = NULL)
+cromwellJobs(days = 1, workflow_name = NULL, workflow_status = NULL)
 }
 \arguments{
 \item{days}{The number of days of history to return, defaults to 1 day.}
 
-\item{workflowName}{An array of strings of valid workflow names you want in
+\item{workflow_name}{An array of strings of valid workflow names you want in
 your job list.}
 
-\item{workflowStatus}{A array of strings of valid workflow statuses you want
+\item{workflow_status}{A array of strings of valid workflow statuses you want
 in your job list (e.g., submitted, running, succeeded, failed,
 aborting, aborted)}
 }

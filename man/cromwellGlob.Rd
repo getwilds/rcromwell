@@ -4,12 +4,12 @@
 \alias{cromwellGlob}
 \title{Pull a glob of metadata for a specific Cromwell workflow job}
 \usage{
-cromwellGlob(workflow_id, expandSubWorkflows = FALSE)
+cromwellGlob(workflow_id, expand_sub_workflows = FALSE)
 }
 \arguments{
 \item{workflow_id}{(character) A single workflow ID}
 
-\item{expandSubWorkflows}{Boolean, whether to expand subworkflows in the
+\item{expand_sub_workflows}{Boolean, whether to expand subworkflows in the
 results or not, default is FALSE.}
 }
 \value{

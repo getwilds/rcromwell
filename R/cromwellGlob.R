@@ -3,7 +3,7 @@
 #' Retrieve a glob of workflow level metadata for a specific workflow.
 #'
 #' @template workflowid
-#' @param expandSubWorkflows Boolean, whether to expand subworkflows in the
+#' @param expand_sub_workflows Boolean, whether to expand subworkflows in the
 #' results or not, default is FALSE.
 #' @return Returns a gross list of lists of metadata on a workflow.
 #' @author Amy Paguirigan
@@ -18,11 +18,11 @@
 #' workflowMeta <- cromwellGlob(workflow_id = thisWorkflowID)
 #' }
 #' @export
-cromwellGlob <- function(workflow_id, expandSubWorkflows = FALSE) {
+cromwellGlob <- function(workflow_id, expand_sub_workflows = FALSE) {
   check_url()
   crom_mssg(paste0("Querying for metadata for workflow id: ", workflow_id))
   url <- make_url("api/workflows/v1", workflow_id, "metadata")
-  if (!expandSubWorkflows) {
+  if (!expand_sub_workflows) {
     crommetadata <-
       httpGET(
         url = url,

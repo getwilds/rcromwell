@@ -4,12 +4,12 @@
 \alias{cromwellValidate}
 \title{Validates a workflow for submission}
 \usage{
-cromwellValidate(WDL, allInputs = NULL)
+cromwellValidate(wdl, all_inputs = NULL)
 }
 \arguments{
-\item{WDL}{Local path to the wdl file describing the workflow. (Required)}
+\item{wdl}{Local path to the wdl file describing the workflow. (Required)}
 
-\item{allInputs}{Local path to the json containing ALL the inputs the
+\item{all_inputs}{Local path to the json containing ALL the inputs the
 parameters to use with the workflow - if a batch and parameters json
 are present they must first be combined. (Optional)}
 }
