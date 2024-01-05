@@ -29,6 +29,11 @@ test:
 readme:
 	${RSCRIPT} -e "knitr::knit('README.Rmd')"
 
+vign_getting_started:
+	cd vignettes;\
+	${RSCRIPT} -e "Sys.setenv(NOT_CRAN='true'); knitr::knit('${PACKAGE}.Rmd.og', output = '${PACKAGE}.Rmd')";\
+	cd ..
+
 docs:
 	${RSCRIPT} -e "pkgdown::build_site(); pkgdown::preview_site(preview=TRUE)"
 
