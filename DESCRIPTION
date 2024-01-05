@@ -7,6 +7,9 @@ Authors@R:
            role = c("aut", "cre"),
            email = "apaguiri@fredhutch.org",
            comment = c(ORCID = "0000-0002-6819-9736"))
+URL: http://getwilds.org/rcromwell/ (website)
+    https://github.com/getwilds/rcromwell (devel)
+BugReports: https://github.com/getwilds/rcromwell/issues
 Description: A repo containing a basic R package for using Cromwell with WDL workflows via R.
 Imports:
     httr,
