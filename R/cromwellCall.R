@@ -6,24 +6,24 @@
 #' @return Returns a long form data frame of metadata on calls.
 #' NOTE: does not currently support subWorkflows well yet.
 #' @author Amy Paguirigan
-#' @inheritSection workflowOptions Important
+#' @inheritSection workflow_options Important
 #' @details Now supports nested scatters.
 #' @autoglobal
 #' @examples \dontrun{
 #' ## Request what jobs have been submitted to your Cromwell instance in the
 #' ## past 7 days.
-#' recentJobs <- cromwellJobs(days = 7)
+#' recentJobs <- cromwell_jobs(days = 7)
 #' ## Request workflow metadata for a specific job that was run in your
 #' ## Cromwell instance.
 #' thisWorkflowID <- recentJobs$workflow_id[1]
-#' callsMeta <- cromwellCall(workflow_id = thisWorkflowID)
+#' callsMeta <- cromwell_call(workflow_id = thisWorkflowID)
 #' }
 #' @export
-cromwellCall <- function(workflow_id) {
+cromwell_call <- function(workflow_id) {
   check_url()
   crom_mssg(paste0("Querying for call metadata for workflow id: ", workflow_id))
   crommetadata <-
-    httpGET(
+    http_get(
       url = make_url("api/workflows/v1", workflow_id, "metadata"),
       query = list(expandSubWorkflows = "true"),
       as = "parsed"
@@ -40,44 +40,44 @@ cromwellCall <- function(workflow_id) {
       subs <- names(bob)[grepl("ScatterAt", names(bob))]
       subworkflow <- bob[subs]
       bob <- bob[!names(bob) %in% subs]
-      subworkflowMeta <- purrr::map(subs, function(x) {
+      sub_wf_meta <- purrr::map(subs, function(x) {
         b <- purrr::flatten(subworkflow[x])
         names(b) <- paste0("subshard-", seq_len(length(b)))
         return(b)
       })
-      names(subworkflowMeta) <- subs
+      names(sub_wf_meta) <- subs
       # Likely needs some logic here to capture when subworkflows are found but
       # don't yet have calls to get metadata from
-      justSubCalls <- purrr::map_dfr(subworkflowMeta, function(subcallData) {
-        purrr::map_dfr(subcallData, function(shardData) {
-          calls <- shardData$subWorkflowMetadata$calls
+      just_sub_calls <- purrr::map_dfr(sub_wf_meta, function(subcall_data) {
+        purrr::map_dfr(subcall_data, function(shard_data) {
+          calls <- shard_data$subWorkflowMetadata$calls
           names(calls)
-          out <- purrr::map_dfr(calls, function(taskData) {
-            purrr::map_dfr(taskData, function(shards) {
+          out <- purrr::map_dfr(calls, function(task_data) {
+            purrr::map_dfr(task_data, function(shards) {
               # only keep data that isn't a list itself!
               y <- purrr::discard(shards, is.list)
-              Z <- dplyr::as_tibble(rbind(unlist(y)))
+              z <- dplyr::as_tibble(rbind(unlist(y)))
               # if the subworkflow failed, also return the failure metadata
               # that is available
               if (shards$executionStatus == "Failed") {
-                failureData <-
+                failure_data <-
                   unlist(purrr::pluck(
                     purrr::pluck(shards, "failures", .default = NA),
                     "causedBy", "message",
                     .default = NA
                   ))
-                if (!is.na(failureData)) {
-                  Zf <- dplyr::as_tibble(failureData[failureData != ""])
-                  Z <- cbind(Z, Zf)
+                if (!is.na(failure_data)) {
+                  zf <- dplyr::as_tibble(failure_data[failure_data != ""])
+                  z <- cbind(z, zf)
                 }
               }
               if (!is.null(shards$runtimeAttributes)) {
                 # if there are runtimeAttributes then.. pull them out
-                runTime <- purrr::pluck(shards, "runtimeAttributes")
-                Z1 <- dplyr::as_tibble(rbind(unlist(runTime)))
-                Z <- cbind(Z, Z1)
+                run_time <- purrr::pluck(shards, "runtimeAttributes")
+                z1 <- dplyr::as_tibble(rbind(unlist(run_time)))
+                z <- cbind(z, z1)
               }
-              return(Z)
+              return(z)
             })
           }, .id = "fullName")
           return(out)
@@ -86,8 +86,8 @@ cromwellCall <- function(workflow_id) {
         }, .id = "subWorkflowName")
       }, .id = "detailedSubName")
       # split fullname into workflowName and callName
-      justSubCalls <- tidyr::separate(
-        data = justSubCalls,
+      just_sub_calls <- tidyr::separate(
+        data = just_sub_calls,
         col = fullName,
         into = c("workflowName", "callName"),
         sep = "\\.",
@@ -95,81 +95,81 @@ cromwellCall <- function(workflow_id) {
       )
       # This lets you take this output in a map_dfr and just do rbind
       # as the function
-      justSubCalls$workflow_id <- workflow_id
+      just_sub_calls$workflow_id <- workflow_id
       ## Big Chunk of dealing with start and end times.
-      if ("start" %in% colnames(justSubCalls)) {
+      if ("start" %in% colnames(just_sub_calls)) {
         # if the workflow has started
-        justSubCalls$start <- lubridate::with_tz(
-          lubridate::ymd_hms(justSubCalls$start),
+        just_sub_calls$start <- lubridate::with_tz(
+          lubridate::ymd_hms(just_sub_calls$start),
           tzone = pkg_env$tzone
         )
-        if ("end" %in% colnames(justSubCalls)) {
+        if ("end" %in% colnames(just_sub_calls)) {
           # and if end is present
-          justSubCalls$end <- lubridate::with_tz(
-            lubridate::ymd_hms(justSubCalls$end),
+          just_sub_calls$end <- lubridate::with_tz(
+            lubridate::ymd_hms(just_sub_calls$end),
             tzone = pkg_env$tzone
           )
-          justSubCalls <- justSubCalls %>%
-            dplyr::mutate(callDuration = ifelse(is.na(justSubCalls$end),
+          just_sub_calls <- just_sub_calls %>%
+            dplyr::mutate(callDuration = ifelse(is.na(just_sub_calls$end),
               round(difftime(lubridate::now(tz = pkg_env$tzone),
-                justSubCalls$start,
+                just_sub_calls$start,
                 units = "mins"
               ), 3),
-              round(difftime(justSubCalls$end,
-                justSubCalls$start,
+              round(difftime(just_sub_calls$end,
+                just_sub_calls$start,
                 units = "mins"
               ), 3)
             ))
         } else {
           # if end doesn't exist or it is already NA (???), make it and
           # workflowDuration but set to NA
-          justSubCalls$end <- NA
-          justSubCalls$callDuration <- round(
+          just_sub_calls$end <- NA
+          just_sub_calls$callDuration <- round(
             difftime(lubridate::now(tz = pkg_env$tzone),
-              justSubCalls$start,
+              just_sub_calls$start,
               units = "mins"
             ), 3
           )
         }
       } else {
         # if start doesn't exist, then create it and set it to NA
-        justSubCalls$start <- NA
-        justSubCalls$end <- NA
-        justSubCalls$callDuration <- 0
+        just_sub_calls$start <- NA
+        just_sub_calls$end <- NA
+        just_sub_calls$callDuration <- 0
       }
-      justSubCalls <- dplyr::mutate_all(justSubCalls, as.character)
-      justSubCalls$callDuration <- as.numeric(justSubCalls$callDuration)
-      justSubCalls$commandLine <- NULL # usually we don't need the command line
+      just_sub_calls <- dplyr::mutate_all(just_sub_calls, as.character)
+      just_sub_calls$callDuration <- as.numeric(just_sub_calls$callDuration)
+      just_sub_calls$commandLine <- NULL
     }
 
     if (length(bob) > 0) {
       # this is redundant but a better error catch isn't quite clear yet.
-      justCalls <- purrr::map(bob, function(callData) {
-        purrr::map_dfr(callData, function(shardData) {
+      just_calls <- purrr::map(bob, function(call_data) {
+        purrr::map_dfr(call_data, function(shard_data) {
           # only keep data that isn't a list itself!
-          y <- purrr::discard(shardData, is.list)
-          Z <- dplyr::as_tibble(rbind(unlist(y)))
+          y <- purrr::discard(shard_data, is.list)
+          z <- dplyr::as_tibble(rbind(unlist(y)))
           # if the workflow failed, also return the failure metadata that
           # is available
-          if (shardData$executionStatus == "Failed") {
-            failureData <-
+          if (shard_data$executionStatus == "Failed") {
+            failure_data <-
               unlist(purrr::pluck(
-                purrr::pluck(shardData, "failures", .default = NA),
+                purrr::pluck(shard_data, "failures", .default = NA),
                 "causedBy", "message",
                 .default = NA
               ))
-            if (!is.na(failureData)) {
-              Zf <- dplyr::as_tibble(failureData[failureData != ""])
-              Z <- cbind(Z, Zf)
+            if (!is.na(failure_data)) {
+              zf <- dplyr::as_tibble(failure_data[failure_data != ""])
+              z <- cbind(z, zf)
             }
           }
-          if (!is.null(shardData$runtimeAttributes)) {
+          if (!is.null(shard_data$runtimeAttributes)) {
             # if there are runtimeAttributes then.. pull them out
-            runTime <- purrr::pluck(shardData, "runtimeAttributes")
-            Z1 <- dplyr::as_tibble(rbind(unlist(runTime)))
-            Z <- cbind(Z, Z1)
+            run_time <- purrr::pluck(shard_data, "runtimeAttributes")
+            z1 <- dplyr::as_tibble(rbind(unlist(run_time)))
+            z <- cbind(z, z1)
           }
-          return(Z)
+          return(z)
         })
       }) %>% purrr::map_dfr(., function(x) {
         x
@@ -177,8 +177,8 @@ cromwellCall <- function(workflow_id) {
       # melt it all down by callName
 
       # split fullname into workflowName and callName
-      justCalls <- tidyr::separate(
-        data = justCalls,
+      just_calls <- tidyr::separate(
+        data = just_calls,
         col = fullName,
         into = c("workflowName", "callName"),
         sep = "\\.",
@@ -187,60 +187,65 @@ cromwellCall <- function(workflow_id) {
 
       # This lets you take this output in a map_dfr and just do rbind as
       # the function
-      justCalls$workflow_id <- workflow_id
+      just_calls$workflow_id <- workflow_id
       ## Big Chunk of dealing with start and end times.
-      if ("start" %in% colnames(justCalls)) {
+      if ("start" %in% colnames(just_calls)) {
         # if the workflow has started
-        justCalls$start <-
-          lubridate::with_tz(lubridate::ymd_hms(justCalls$start),
+        just_calls$start <-
+          lubridate::with_tz(lubridate::ymd_hms(just_calls$start),
             tzone = pkg_env$tzone
           )
-        if ("end" %in% colnames(justCalls)) {
+        if ("end" %in% colnames(just_calls)) {
           # and if end is present
-          justCalls$end <- lubridate::with_tz(lubridate::ymd_hms(justCalls$end),
-            tzone = pkg_env$tzone
-          )
-          justCalls <- justCalls %>%
-            dplyr::mutate(callDuration = ifelse(is.na(justCalls$end),
+          just_calls$end <-
+            lubridate::with_tz(lubridate::ymd_hms(just_calls$end),
+              tzone = pkg_env$tzone
+            )
+          just_calls <- just_calls %>%
+            dplyr::mutate(callDuration = ifelse(is.na(just_calls$end),
               round(difftime(lubridate::now(tz = pkg_env$tzone),
-                justCalls$start,
+                just_calls$start,
                 units = "mins"
               ), 3),
-              round(difftime(justCalls$end, justCalls$start, units = "mins"), 3)
+              round(difftime(just_calls$end,
+                just_calls$start,
+                units = "mins"
+              ), 3)
             ))
         } else {
           # if end doesn't exist or it is already NA (???), make it and
           # workflowDuration but set to NA
-          justCalls$end <- NA
-          justCalls$callDuration <-
+          just_calls$end <- NA
+          just_calls$callDuration <-
             round(difftime(lubridate::now(tz = pkg_env$tzone),
-              justCalls$start,
+              just_calls$start,
               units = "mins"
             ), 3)
         }
       } else {
         # if start doesn't exist, then create it and set it to NA
-        justCalls$start <- NA
-        justCalls$end <- NA
-        justCalls$callDuration <- 0
+        just_calls$start <- NA
+        just_calls$end <- NA
+        just_calls$callDuration <- 0
       }
-      justCalls <- dplyr::mutate_all(justCalls, as.character)
-      justCalls$callDuration <- as.numeric(justCalls$callDuration)
+      just_calls <- dplyr::mutate_all(just_calls, as.character)
+      just_calls$callDuration <- as.numeric(just_calls$callDuration)
 
-      if (exists("justSubCalls")) {
-        justCalls <- suppressMessages(dplyr::full_join(justCalls, justSubCalls))
+      if (exists("just_sub_calls")) {
+        just_calls <-
+          suppressMessages(dplyr::full_join(just_calls, just_sub_calls))
       }
-    } else if (exists("justSubCalls")) {
-      justCalls <- justSubCalls
+    } else if (exists("just_sub_calls")) {
+      just_calls <- just_sub_calls
     } else {
       # returns a data frame if no data is available so that this can be used
       # with Shiny apps easier
-      justCalls <- dplyr::tibble("workflow_id" = "No call metadata available.")
+      just_calls <- dplyr::tibble("workflow_id" = "No call metadata available.")
     }
   } else {
     # returns a data frame if no data is avaialable so that this can be used
     # with Shiny apps easier
-    justCalls <- dplyr::tibble("workflow_id" = "No call metadata available.")
+    just_calls <- dplyr::tibble("workflow_id" = "No call metadata available.")
   }
-  return(justCalls)
+  return(just_calls)
 }

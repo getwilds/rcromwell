@@ -2,9 +2,9 @@
 #'
 #' @return (character) the Cromwell version
 #' @author Amy Paguirigan
-#' @inheritSection workflowOptions Important
+#' @inheritSection workflow_options Important
 #' @export
-cromwellVersion <- function() {
+cromwell_version <- function() {
   check_url()
-  httpGET(make_url("engine/v1/version"))
+  http_get(make_url("engine/v1/version"))
 }

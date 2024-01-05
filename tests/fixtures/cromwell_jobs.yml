@@ -1,0 +1,26 @@
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:8000/api/workflows/v1/query?submission=2024-01-04T00%3A00Z
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept: application/json, text/xml, application/xml, */*
+  response:
+    status:
+      status_code: 200
+      category: Success
+      reason: OK
+      message: 'Success: (200) OK'
+    headers:
+      server: akka-http/10.1.15
+      date: Fri, 05 Jan 2024 16:40:22 GMT
+      content-type: application/json
+      content-length: '3224'
+    body:
+      encoding: ''
+      file: no
+      string: '{"results":[{"end":"2024-01-05T16:40:14.538Z","id":"d7837f49-412f-4849-be45-ad1d387c39e3","metadataArchiveStatus":"Unarchived","name":"test","start":"2024-01-05T16:39:57.172Z","status":"Succeeded","submission":"2024-01-05T16:39:52.063Z"},{"end":"2024-01-05T16:39:17.136Z","id":"aab8233b-681c-43d0-aeaa-146d3773a1ff","metadataArchiveStatus":"Unarchived","start":"2024-01-05T16:39:17.127Z","status":"Failed","submission":"2024-01-05T16:39:03.372Z"},{"end":"2024-01-05T16:38:55.467Z","id":"7f953f6c-3e78-457f-95d1-52c3891d0e4f","metadataArchiveStatus":"Unarchived","name":"test","start":"2024-01-05T16:38:37.090Z","status":"Succeeded","submission":"2024-01-05T16:38:20.629Z"},{"end":"2024-01-05T16:37:25.195Z","id":"e45a30ed-3674-4ac4-96ba-dc3985aa469d","metadataArchiveStatus":"Unarchived","name":"test","start":"2024-01-05T16:37:17.012Z","status":"Succeeded","submission":"2024-01-05T16:36:55.936Z"},{"id":"2c642b5a-826c-4601-9fa9-cd01b4c92e3b","metadataArchiveStatus":"Unarchived","status":"Aborted","submission":"2024-01-05T16:35:09.567Z"},{"end":"2024-01-05T16:36:05.117Z","id":"0beb2a06-29e3-4da3-8d09-35469703920c","metadataArchiveStatus":"Unarchived","name":"test","start":"2024-01-05T16:35:56.934Z","status":"Succeeded","submission":"2024-01-05T16:34:35.511Z"},{"id":"bfa38643-6dc5-41d7-9543-5370c0c410c5","metadataArchiveStatus":"Unarchived","status":"Aborted","submission":"2024-01-05T16:34:35.154Z"},{"end":"2024-01-05T16:36:45.156Z","id":"289d1d3a-79e8-456a-a8d8-3876cdcfb64b","metadataArchiveStatus":"Unarchived","name":"test","start":"2024-01-05T16:36:36.971Z","status":"Succeeded","submission":"2024-01-05T16:34:35.577Z"},{"end":"2024-01-05T16:36:24.107Z","id":"a0cc879b-ac07-4a9e-a5ac-e951cc2457e9","metadataArchiveStatus":"Unarchived","name":"test","start":"2024-01-05T16:36:16.950Z","status":"Succeeded","submission":"2024-01-05T16:34:35.542Z"},{"end":"2024-01-05T16:35:16.896Z","id":"755c64b0-be95-4899-9853-7b974ac722fe","metadataArchiveStatus":"Unarchived","start":"2024-01-05T16:35:16.884Z","status":"Failed","submission":"2024-01-05T16:34:35.408Z"},{"end":"2024-01-05T16:35:05.046Z","id":"f42f1ee5-f052-4a57-a618-d12c5f5a4811","metadataArchiveStatus":"Unarchived","name":"test","start":"2024-01-05T16:34:56.863Z","status":"Succeeded","submission":"2024-01-05T16:34:35.373Z"},{"end":"2024-01-05T16:34:45.018Z","id":"17d2bec5-4954-41f4-8d5b-72c5514f49bc","metadataArchiveStatus":"Unarchived","name":"test","start":"2024-01-05T16:34:36.837Z","status":"Succeeded","submission":"2024-01-05T16:34:35.326Z"},{"end":"2024-01-05T16:37:04.157Z","id":"e1e036bc-d017-4f9d-aea6-35e2dd98616d","metadataArchiveStatus":"Unarchived","name":"test","start":"2024-01-05T16:36:56.993Z","status":"Succeeded","submission":"2024-01-05T16:34:35.655Z"},{"end":"2024-01-05T16:35:45.087Z","id":"c5ac1653-b673-4ec7-b3b0-536b03f62ebb","metadataArchiveStatus":"Unarchived","name":"test","start":"2024-01-05T16:35:36.910Z","status":"Succeeded","submission":"2024-01-05T16:34:35.445Z"},{"end":"2024-01-04T20:57:20.360Z","id":"c324aa59-081f-4071-83d4-f6f722584c12","metadataArchiveStatus":"Unarchived","name":"test","start":"2024-01-04T20:57:09.107Z","status":"Succeeded","submission":"2024-01-04T20:57:00.117Z"}],"totalResultsCount":15}'
+  recorded_at: 2024-01-05 16:40:22 GMT
+  recorded_with: vcr/1.2.2.91, webmockr/0.9.0

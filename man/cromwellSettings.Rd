@@ -14,9 +14,9 @@ The only way to do so is by setting the env var:
 \code{CROMWELLURL}
 
 You can set this env var in many different ways. From within R you can
-do this with \code{\link[=cromwellConfig]{cromwellConfig()}} like:
+do this with \code{\link[=cromwell_config]{cromwell_config()}} like:
 
-\code{cromwellConfig(url = "your/url")}
+\code{cromwell_config(url = "your/url")}
 
 Which is equivalent to
 
@@ -39,6 +39,6 @@ that will be picked up by R when it starts.
 
 
 You can set your preference for whether you get messages informing you
-of various tasks \code{rcromwell} is performing. See \code{\link[=cromwellConfig]{cromwellConfig()}}
+of various tasks \code{rcromwell} is performing. See \code{\link[=cromwell_config]{cromwell_config()}}
 }
 

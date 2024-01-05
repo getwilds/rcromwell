@@ -3,11 +3,11 @@
 #' @template workflowid
 #' @return Returns the response from the API post
 #' @author Amy Paguirigan
-#' @inheritSection workflowOptions Important
+#' @inheritSection workflow_options Important
 #' @export
-cromwellAbort <- function(workflow_id) {
+cromwell_abort <- function(workflow_id) {
   check_url()
   crom_mssg("Aborting job in Cromwell")
-  httpPOST(url = make_url("api/workflows/v1", workflow_id, "abort")) %>%
+  http_post(url = make_url("api/workflows/v1", workflow_id, "abort")) %>%
     dplyr::as_tibble()
 }

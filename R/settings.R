@@ -9,9 +9,9 @@
 #' `CROMWELLURL`
 #'
 #' You can set this env var in many different ways. From within R you can
-#' do this with [cromwellConfig()] like:
+#' do this with [cromwell_config()] like:
 #'
-#' `cromwellConfig(url = "your/url")`
+#' `cromwell_config(url = "your/url")`
 #'
 #' Which is equivalent to
 #'
@@ -31,7 +31,7 @@
 #' @section Verbose messaging:
 #'
 #' You can set your preference for whether you get messages informing you
-#' of various tasks `rcromwell` is performing. See [cromwellConfig()]
+#' of various tasks `rcromwell` is performing. See [cromwell_config()]
 NULL
 
 #' Cromwell Configuration
@@ -47,11 +47,11 @@ NULL
 #' it is set even if this function is run without passing anything to
 #' `cromwell_url`
 #' @examples \dontrun{
-#' cromwellConfig()
-#' cromwellConfig("https://mycromwellinstance.com")
-#' cromwellConfig(verbose = FALSE)
+#' cromwell_config()
+#' cromwell_config("https://mycromwellinstance.com")
+#' cromwell_config(verbose = FALSE)
 #' }
-cromwellConfig <- function(cromwell_url = NULL, verbose = TRUE) {
+cromwell_config <- function(cromwell_url = NULL, verbose = TRUE) {
   if (is.null(cromwell_url)) cromwell_url <- Sys.getenv("CROMWELLURL")
   rlang::is_character(cromwell_url)
   Sys.setenv(CROMWELLURL = cromwell_url)

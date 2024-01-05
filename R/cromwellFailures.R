@@ -7,48 +7,48 @@
 #' workflow.
 #' @author Amy Paguirigan
 #' @autoglobal
-#' @inheritSection workflowOptions Important
+#' @inheritSection workflow_options Important
 #' @examples \dontrun{
 #' ## Request what jobs have been submitted to your Cromwell instance in the
 #' ## past 7 days.
-#' recentJobs <- cromwellJobs(days = 7)
+#' recentJobs <- cromwell_jobs(days = 7)
 #' ## Request workflow metadata for a specific job that was run in your
 #' ## Cromwell instance.
 #' thisWorkflowID <- recentJobs$workflow_id[1]
-#' failsMeta <- cromwellFailures(workflow_id = thisWorkflowID)
+#' failsMeta <- cromwell_failures(workflow_id = thisWorkflowID)
 #' }
 #' @export
-cromwellFailures <- function(workflow_id) {
+cromwell_failures <- function(workflow_id) {
   check_url()
   crom_mssg(paste0(
     "Querying for failure metadata for workflow id: ",
     workflow_id
   ))
 
-  cromfail <-
-    httpGET(
+  response <-
+    http_get(
       url = make_url("api/workflows/v1", workflow_id, "metadata"),
       query = list(includeKey = "failures", includeKey = "jobId"),
       as = "parsed"
     )
-  if (is.list(cromfail$calls)) {
-    bobfail <- purrr::pluck(cromfail, "calls")
+  if (is.list(response$calls)) {
+    bobfail <- purrr::pluck(response, "calls")
     if (sum(grepl("ScatterAt", names(bobfail))) > 0) {
       subs <- names(bobfail)[grepl("ScatterAt", names(bobfail))]
-      subworkflow <- bobfail[subs]
+      sub_workflow <- bobfail[subs]
       bobfail <- bobfail[!names(bobfail) %in% subs]
-      subworkflowMeta <- purrr::map(subs, function(x) {
-        b <- purrr::flatten(subworkflow[x])
+      subworkflow_meta <- purrr::map(subs, function(x) {
+        b <- purrr::flatten(sub_workflow[x])
         names(b) <- paste0("subshard-", seq_len(length(b)))
         return(b)
       })
-      names(subworkflowMeta) <- subs
+      names(subworkflow_meta) <- subs
       # Likely needs some logic here to capture when subworkflows are found
       # but don't yet have calls to get metadata from
-      justSubFails <- purrr::map_dfr(subworkflowMeta, function(subcallData) {
-        purrr::map_dfr(subcallData, function(shardData) {
-          faildf <- purrr::map_dfr(subcallData, function(callData) {
-            unlist(callData)
+      sub_fails <- purrr::map_dfr(subworkflow_meta, function(subcall_data) {
+        purrr::map_dfr(subcall_data, function(shard_data) {
+          faildf <- purrr::map_dfr(subcall_data, function(call_data) {
+            unlist(call_data)
           })
           faildf$workflow_id <- workflow_id
           return(faildf)
@@ -57,9 +57,9 @@ cromwellFailures <- function(workflow_id) {
     }
 
     if (length(bobfail) > 0) {
-      faildf <- purrr::map(bobfail, function(callData) {
-        purrr::map_dfr(callData, function(shardData) {
-          dplyr::as_tibble(rbind(unlist(shardData)))
+      faildf <- purrr::map(bobfail, function(call_data) {
+        purrr::map_dfr(call_data, function(shard_data) {
+          dplyr::as_tibble(rbind(unlist(shard_data)))
         })
       }) %>% purrr::map_dfr(., function(x) {
         x
@@ -79,12 +79,12 @@ cromwellFailures <- function(workflow_id) {
       } else {
         faildf <- faildf[0, ]
       }
-      if (exists("justSubFails")) {
-        faildf <- suppressMessages(dplyr::full_join(faildf, justSubFails))
+      if (exists("sub_fails")) {
+        faildf <- suppressMessages(dplyr::full_join(faildf, sub_fails))
       }
     } else {
-      if (exists("justSubFails")) {
-        faildf <- justSubFails
+      if (exists("sub_fails")) {
+        faildf <- sub_fails
       } else {
         faildf <- dplyr::tibble("workflow_id" = "No failure metadata available")
       }

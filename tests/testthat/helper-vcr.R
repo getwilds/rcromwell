@@ -9,4 +9,4 @@ file_inputs <- system.file("examples/inputs.json", package = "rcromwell")
 file_inputs_bad <- system.file("examples/inputs_bad.json", package = "rcromwell")
 
 # suppress messages for the test run
-cromwellConfig(verbose = FALSE)
+cromwell_config(verbose = FALSE)

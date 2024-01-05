@@ -8,23 +8,23 @@
 #' @return Returns the response from the API post which includes the workflow
 #' ID that you'll need to monitor the job.
 #' @author Amy Paguirigan
-#' @inheritSection workflowOptions Important
+#' @inheritSection workflow_options Important
 #' @export
-cromwellValidate <- function(wdl, all_inputs = NULL) {
+cromwell_validate <- function(wdl, all_inputs = NULL) {
   check_url()
   crom_mssg("Validating a workflow for Cromwell")
 
-  bodyList <- list(workflowSource = httr::upload_file(wdl))
+  body <- list(workflowSource = httr::upload_file(wdl))
   if (!is.null(all_inputs)) {
-    bodyList <- c(
-      bodyList,
+    body <- c(
+      body,
       workflowInputs = list(httr::upload_file(all_inputs))
     )
   }
 
-  httpPOST(
+  http_post(
     url = make_url("api/womtool/v1/describe"),
-    body = bodyList,
+    body = body,
     encode = "multipart"
   )
 }
