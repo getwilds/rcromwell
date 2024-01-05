@@ -2,12 +2,12 @@
 #'
 #' @return Cromwell backend options
 #' @author Amy Paguirigan
-#' @inheritSection workflowOptions Important
+#' @inheritSection workflow_options Important
 #' @export
-cromwellBackends <- function() {
+cromwell_backends <- function() {
   check_url()
   crom_mssg("Getting backend options from Cromwell")
-  all <- httpGET(make_url("api/workflows/v1/backends"))
+  all <- http_get(make_url("api/workflows/v1/backends"))
   all$supportedBackends <- unlist(all$supportedBackends)
   return(all)
 }

@@ -7,12 +7,12 @@
 #' Requires valid Cromwell server URL to be set. See [cromwellSettings]
 #' @export
 #' @examples \dontrun{
-#' jobs <- cromwellJobs()
-#' workflowOptions(jobs$workflow_id[1])
+#' jobs <- cromwell_jobs()
+#' workflow_options(jobs$workflow_id[1])
 #' }
-workflowOptions <- function(workflow_id) {
+workflow_options <- function(workflow_id) {
   check_url()
-  dplyr::as_tibble(jsonlite::fromJSON(cromwellWorkflow(workflow_id)$options))
+  dplyr::as_tibble(jsonlite::fromJSON(cromwell_workflow(workflow_id)$options))
 }
 
 #' Pull the workflow inputs provided for a Cromwell workflow job
@@ -20,9 +20,9 @@ workflowOptions <- function(workflow_id) {
 #' @template workflowid
 #' @return Returns a data frame of the inputs for a workflow previously run
 #' @author Amy Paguirigan
-#' @inheritSection workflowOptions Important
+#' @inheritSection workflow_options Important
 #' @export
-workflowInputs <- function(workflow_id) {
+workflow_inputs <- function(workflow_id) {
   check_url()
-  dplyr::as_tibble(jsonlite::fromJSON(cromwellWorkflow(workflow_id)$inputs))
+  dplyr::as_tibble(jsonlite::fromJSON(cromwell_workflow(workflow_id)$inputs))
 }

@@ -16,9 +16,9 @@
 #' @return Returns the response from the API post which includes the workflow
 #' ID that you'll need to monitor the job.
 #' @author Amy Paguirigan
-#' @inheritSection workflowOptions Important
+#' @inheritSection workflow_options Important
 #' @export
-cromwellSubmitBatch <-
+cromwell_submit_batch <-
   function(wdl, batch = NULL, params = NULL, options = NULL, labels = NULL,
            dependencies = NULL) {
     check_url()
@@ -29,40 +29,40 @@ cromwellSubmitBatch <-
         "Was that on purpose?"
       )
     }
-    bodyList <- list(
+    body <- list(
       workflowSource = httr::upload_file(wdl)
     )
 
     if (!is.null(params) && !is.null(batch)) {
-      bodyList <- c(bodyList, workflowInputs = list(httr::upload_file(params)))
-      bodyList <- c(bodyList, workflowInputs_2 = list(httr::upload_file(batch)))
+      body <- c(body, workflowInputs = list(httr::upload_file(params)))
+      body <- c(body, workflowInputs_2 = list(httr::upload_file(batch)))
     } else if (!is.null(params)) {
-      bodyList <- c(bodyList, workflowInputs = list(httr::upload_file(params)))
+      body <- c(body, workflowInputs = list(httr::upload_file(params)))
     } else if (!is.null(batch)) {
-      bodyList <- c(bodyList, workflowInputs = list(httr::upload_file(batch)))
+      body <- c(body, workflowInputs = list(httr::upload_file(batch)))
     }
 
     if (!is.null(dependencies)) {
-      bodyList <- c(bodyList,
+      body <- c(body,
         workflowDependencies = list(httr::upload_file(dependencies))
       )
     }
     if (!is.null(options)) {
-      bodyList <- c(bodyList,
-        workflowOptions = list(httr::upload_file(options))
+      body <- c(body,
+        workflow_options = list(httr::upload_file(options))
       )
     }
     if (!is.null(labels)) {
-      bodyList <- c(bodyList,
+      body <- c(body,
         labels = list(jsonlite::toJSON(as.list(labels), auto_unbox = TRUE))
       )
     }
 
-    cromDat <-
-      httpPOST(
+    crom_dat <-
+      http_post(
         url = make_url("api/workflows/v1"),
-        body = bodyList,
+        body = body,
         encode = "multipart"
       )
-    dplyr::as_tibble(cromDat)
+    dplyr::as_tibble(crom_dat)
   }
