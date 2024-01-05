@@ -37,6 +37,7 @@ NULL
 #' Cromwell Configuration
 #'
 #' @export
+#' @importFrom rlang is_character is_logical
 #' @param cromwell_url (character) Cromwell server URL. The full url,
 #' for example "http://localhost:8000" or "https://mycromwell.com"
 #' @param verbose (logical) verbose messaging. default: `TRUE`. this

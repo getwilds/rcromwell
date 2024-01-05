@@ -3,6 +3,7 @@
 #' Retrieve and process call metadata for a specific workflow.
 #'
 #' @template workflowid
+#' @importFrom tidyr separate
 #' @return Returns a long form data frame of metadata on calls.
 #' NOTE: does not currently support subWorkflows well yet.
 #' @author Amy Paguirigan

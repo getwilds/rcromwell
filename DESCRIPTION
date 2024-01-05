@@ -14,7 +14,6 @@ Description: A repo containing a basic R package for using Cromwell with WDL wor
 Imports:
     httr,
     jsonlite,
-    magrittr,
     dplyr,
     purrr,
     tidyr,
