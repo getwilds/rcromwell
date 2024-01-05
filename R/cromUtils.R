@@ -1,6 +1,7 @@
 #' Pull the workflow options provided for a Cromwell workflow job
 #'
 #' @template workflowid
+#' @importFrom jsonlite fromJSON
 #' @return Returns a data frame of the options for a workflow previously run
 #' @author Amy Paguirigan
 #' @section Important:
