@@ -72,7 +72,7 @@ thisJob <- cromwell_submit_batch(WDL = "myworkflow.wdl",
 Return a data frame of all jobs run in the past number of days (uses your database)
 
 ```r
-jobs <- cromwell_jobs(days = 2)
+cromwell_jobs(days = 2)
 ```
 
 Return a data frame (one line if you only submit one workflow id) containing workflow level metadata
@@ -90,13 +90,16 @@ w$status
 Return a data frame containing all call level metadata
 
 ```r
-c <- cromwell_call(thisOne)
+df <- cromwell_call(thisOne)
 ```
 
 Handy set of dplyr commands to tell you about how the various calls are doing
 
 ```r
-c %>% group_by(callName, executionStatus) %>% summarize(status = n()) %>% arrange(executionStatus)
+df %>%
+  group_by(callName, executionStatus) %>%
+  summarize(status = n()) %>%
+  arrange(executionStatus)
 ```
 
 Returns a data frame containing call level call caching  metadata
@@ -108,7 +111,9 @@ ca <- cromwell_cache(thisOne)
 Handy set of dplyr commands to tell you about what sort of call caching is happening
 
 ```r
-ca %>% group_by(callCaching.hit, callName) %>% summarize(hits = n())
+ca %>%
+  group_by(callCaching.hit, callName) %>%
+  summarize(hits = n())
 ```
 
 Opens up a popup in your browser with a timing diagram in it.
@@ -120,19 +125,19 @@ cromwell_timing(thisOne)
 Returns a data frame containing call level failure metadata
 
 ```r
-f <- cromwell_failures(thisOne)
+cromwell_failures(thisOne)
 ```
 
 Will tell Cromwell to abort the current workflow - note this cannot be undone and it will take a while to stop all the jobs.
 
 ```r
-abort <- cromwell_abort(thisOne)
+cromwell_abort(thisOne)
 ```
 
 When a workflow is done, request information about the workflow outputs.
 
 ```r
-out <- cromwell_outputs(thisOne)
+cromwell_outputs(thisOne)
 ```
 
 ### Misc stuff
@@ -140,5 +145,6 @@ out <- cromwell_outputs(thisOne)
 Ugly list of raw metadata should you need it for workflow troubleshooting
 
 ```r
-cromwell_glob(thisOne); WTF[["failures"]]
+wtf <- cromwell_glob(thisOne)
+wtf[["failures"]]
 ```
