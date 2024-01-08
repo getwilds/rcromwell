@@ -1,9 +1,9 @@
 #' Get the available backends of a Cromwell server
 #'
-#' @return Cromwell backend options
-#' @author Amy Paguirigan
-#' @inheritSection workflow_options Important
 #' @export
+#' @author Amy Paguirigan, Scott Chamberlain
+#' @inheritSection workflow_options Important
+#' @return Cromwell backend options
 cromwell_backends <- function() {
   check_url()
   crom_mssg("Getting backend options from Cromwell")

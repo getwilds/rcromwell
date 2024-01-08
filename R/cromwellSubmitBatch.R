@@ -3,6 +3,7 @@
 #' Supports the submission of a fully defined workflow job to a Cromwell
 #' instance.
 #'
+#' @export
 #' @param wdl Local path to the wdl file describing the workflow. (Required)
 #' @param params Local path to the json containing the parameters to use with
 #' the workflow. (Optional)
@@ -13,11 +14,10 @@
 #' @param labels A data frame containing the labels for this workflow.
 #' (Optional)
 #' @param dependencies A zip'd file of subworkflow dependencies. (Optional)
+#' @inheritSection workflow_options Important
+#' @author Amy Paguirigan, Scott Chamberlain
 #' @return Returns the response from the API post which includes the workflow
 #' ID that you'll need to monitor the job.
-#' @author Amy Paguirigan
-#' @inheritSection workflow_options Important
-#' @export
 cromwell_submit_batch <-
   function(wdl, batch = NULL, params = NULL, options = NULL, labels = NULL,
            dependencies = NULL) {

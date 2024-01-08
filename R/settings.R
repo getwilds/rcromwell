@@ -47,6 +47,7 @@ NULL
 #' if `cromwell_url=NULL` - thus, we retain a value for `CROMWELLURL` if
 #' it is set even if this function is run without passing anything to
 #' `cromwell_url`
+#' @author Scott Chamberlain
 #' @examples \dontrun{
 #' cromwell_config()
 #' cromwell_config("https://mycromwellinstance.com")

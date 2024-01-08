@@ -2,13 +2,13 @@
 #'
 #' Gets info about call caching status for the calls of a workflow
 #'
+#' @export
 #' @template workflowid
-#' @return Returns a long form data frame of metadata on call caching in a
-#' workflow. NOTE: Currently does not support subworkflows well.
-#' @author Amy Paguirigan
+#' @author Amy Paguirigan, Scott Chamberlain
 #' @autoglobal
 #' @inheritSection workflow_options Important
-#' @export
+#' @return Returns a long form data frame of metadata on call caching in a
+#' workflow. NOTE: Currently does not support subworkflows well.
 cromwell_cache <- function(workflow_id) {
   check_url()
   crom_mssg(paste0(

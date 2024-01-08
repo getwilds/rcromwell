@@ -2,12 +2,13 @@
 #'
 #' Retrieve a glob of workflow level metadata for a specific workflow.
 #'
+#' @export
 #' @template workflowid
 #' @param expand_sub_workflows Boolean, whether to expand subworkflows in the
 #' results or not, default is FALSE.
-#' @return Returns a gross list of lists of metadata on a workflow.
-#' @author Amy Paguirigan
+#' @author Amy Paguirigan, Scott Chamberlain
 #' @inheritSection workflow_options Important
+#' @return Returns a gross list of lists of metadata on a workflow.
 #' @examples \dontrun{
 #' ## Request what jobs have been submitted to your Cromwell instance in the
 #' ## past 7 days.
@@ -17,7 +18,6 @@
 #' thisWorkflowID <- recentJobs$workflow_id[1]
 #' workflowMeta <- cromwell_glob(workflow_id = thisWorkflowID)
 #' }
-#' @export
 cromwell_glob <- function(workflow_id, expand_sub_workflows = FALSE) {
   check_url()
   crom_mssg(paste0("Querying for metadata for workflow id: ", workflow_id))

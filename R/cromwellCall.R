@@ -2,14 +2,15 @@
 #'
 #' Retrieve and process call metadata for a specific workflow.
 #'
+#' @export
 #' @template workflowid
 #' @importFrom tidyr separate
-#' @return Returns a long form data frame of metadata on calls.
-#' NOTE: does not currently support subWorkflows well yet.
-#' @author Amy Paguirigan
 #' @inheritSection workflow_options Important
 #' @details Now supports nested scatters.
 #' @autoglobal
+#' @author Amy Paguirigan, Scott Chamberlain
+#' @return Returns a long form data frame of metadata on calls.
+#' NOTE: does not currently support subWorkflows well yet.
 #' @examples \dontrun{
 #' ## Request what jobs have been submitted to your Cromwell instance in the
 #' ## past 7 days.
@@ -19,7 +20,6 @@
 #' thisWorkflowID <- recentJobs$workflow_id[1]
 #' callsMeta <- cromwell_call(workflow_id = thisWorkflowID)
 #' }
-#' @export
 cromwell_call <- function(workflow_id) {
   check_url()
   crom_mssg(paste0("Querying for call metadata for workflow id: ", workflow_id))

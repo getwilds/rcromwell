@@ -1,12 +1,12 @@
 #' Gets outputs for a workflow in Cromwell
 #'
+#' @export
 #' @template workflowid
-#' @return Returns a dataframe containing the workflowName, workflowOutputType,
-#' pathToOutput, shardIndex for the specified outputs of a workflow_id
-#' @author Amy Paguirigan
+#' @author Amy Paguirigan, Scott Chamberlain
 #' @autoglobal
 #' @inheritSection workflow_options Important
-#' @export
+#' @return Returns a dataframe containing the workflowName, workflowOutputType,
+#' pathToOutput, shardIndex for the specified outputs of a workflow_id
 cromwell_outputs <- function(workflow_id) {
   check_url()
   crom_mssg(paste0("Querying for outputs list for workflow id: ", workflow_id))

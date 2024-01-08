@@ -1,10 +1,10 @@
 #' Abort a workflow job on Cromwell
 #'
-#' @template workflowid
-#' @return Returns the response from the API post
-#' @author Amy Paguirigan
-#' @inheritSection workflow_options Important
 #' @export
+#' @template workflowid
+#' @author Amy Paguirigan, Scott Chamberlain
+#' @inheritSection workflow_options Important
+#' @return Returns the response from the API post
 cromwell_abort <- function(workflow_id) {
   check_url()
   crom_mssg("Aborting job in Cromwell")

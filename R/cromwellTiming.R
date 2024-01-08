@@ -1,10 +1,10 @@
 #' Get a timing diagram for a Cromwell workflow
 #'
-#' @template workflowid
-#' @return Opens a timing diagram in a browser
-#' @author Amy Paguirigan
-#' @inheritSection workflow_options Important
 #' @export
+#' @template workflowid
+#' @inheritSection workflow_options Important
+#' @author Amy Paguirigan, Scott Chamberlain
+#' @return Opens a timing diagram in a browser
 cromwell_timing <- function(workflow_id) {
   check_url()
   crom_mssg("Getting timing diagram from Cromwell")

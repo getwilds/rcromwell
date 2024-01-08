@@ -33,5 +33,5 @@ failsMeta <- cromwell_failures(workflow_id = thisWorkflowID)
 }
 }
 \author{
-Amy Paguirigan
+Amy Paguirigan, Scott Chamberlain
 }

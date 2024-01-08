@@ -1,6 +1,7 @@
 #' @importFrom httr GET POST stop_for_status content upload_file
 #' @noRd
 #' @keywords internal
+#' @author Scott Chamberlain
 http_get <- function(url, as = NULL, ...) {
   result <- httr::GET(url, ...)
   httr::stop_for_status(result)

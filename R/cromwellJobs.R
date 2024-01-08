@@ -1,5 +1,6 @@
 #' Requests metadata about Cromwell workflow jobs during a time period specified
 #'
+#' @export
 #' @importFrom rlang set_names
 #' @param days The number of days of history to return, defaults to 1 day.
 #' @param workflow_name An array of strings of valid workflow names you want in
@@ -7,16 +8,15 @@
 #' @param workflow_status A array of strings of valid workflow statuses you want
 #' in your job list (e.g., submitted, running, succeeded, failed,
 #' aborting, aborted)
+#' @author Amy Paguirigan, Scott Chamberlain
+#' @inheritSection workflow_options Important
 #' @return Returns a long form data frame of metadata on workflow jobs
 #' submitted to a specific Cromwell instance.
-#' @author Amy Paguirigan
-#' @inheritSection workflow_options Important
 #' @examples \dontrun{
 #' ## Request what jobs have been submitted to your Cromwell instance in the
 #' ## past 7 days.
 #' recentJobs <- cromwell_jobs(days = 7)
 #' }
-#' @export
 cromwell_jobs <- function(days = 1,
                           workflow_name = NULL,
                           workflow_status = NULL) {
