@@ -17,20 +17,15 @@ Convenience Tools for Managing WDL Workflows via Cromwell
 You can install the development version of `rcromwell` from [GitHub](https://github.com/) with:
 
 ```r
-# install.packages("remotes")
-remotes::install_github("getwilds/rcromwell")
+# install.packages("pak")
+pak::pak("getwilds/rcromwell")
 ```
 
 Install a specific release version (in this case v1.0) by:
 
 ```r
-remotes::install_github('getwilds/rcromwell@v1.0')
+pak::pak('getwilds/rcromwell@v1.0')
 ```
-
-## Set up your Cromwell Server
-
-Use instructions over in the [diy-cromwell-server repo](https://github.com/FredHutch/diy-cromwell-server) to get the configuration files needed and some testing workflows.
-
 
 ## Example workflow process
 
@@ -39,7 +34,7 @@ Set your Cromwell URL
 ```r
 library(rcromwell)
 library(dplyr)
-cromwell_config("http://gizmoXXX:20202")
+cromwell_config("http://localhost:20202")
 ```
 
 ### Validate your workflow formatting
