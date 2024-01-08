@@ -36,5 +36,5 @@ recentJobs <- cromwell_jobs(days = 7)
 }
 }
 \author{
-Amy Paguirigan
+Amy Paguirigan, Scott Chamberlain
 }

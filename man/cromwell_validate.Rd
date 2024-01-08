@@ -26,5 +26,5 @@ Requires valid Cromwell server URL to be set. See \link{cromwellSettings}
 }
 
 \author{
-Amy Paguirigan
+Amy Paguirigan, Scott Chamberlain
 }

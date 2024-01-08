@@ -1,15 +1,15 @@
 #' Validates a workflow for submission
 #'
 #'
+#' @export
 #' @param wdl Local path to the wdl file describing the workflow. (Required)
 #' @param all_inputs Local path to the json containing ALL the inputs the
 #' parameters to use with the workflow - if a batch and parameters json
 #' are present they must first be combined. (Optional)
+#' @author Amy Paguirigan, Scott Chamberlain
+#' @inheritSection workflow_options Important
 #' @return Returns the response from the API post which includes the workflow
 #' ID that you'll need to monitor the job.
-#' @author Amy Paguirigan
-#' @inheritSection workflow_options Important
-#' @export
 cromwell_validate <- function(wdl, all_inputs = NULL) {
   check_url()
   crom_mssg("Validating a workflow for Cromwell")

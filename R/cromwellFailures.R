@@ -2,12 +2,13 @@
 #'
 #' Gets info about failed calls for a specific workflow
 #'
+#' @export
 #' @template workflowid
-#' @return Returns a long form data frame of metadata on failed calls in a
-#' workflow.
-#' @author Amy Paguirigan
+#' @author Amy Paguirigan, Scott Chamberlain
 #' @autoglobal
 #' @inheritSection workflow_options Important
+#' @return Returns a long form data frame of metadata on failed calls in a
+#' workflow.
 #' @examples \dontrun{
 #' ## Request what jobs have been submitted to your Cromwell instance in the
 #' ## past 7 days.
@@ -17,7 +18,6 @@
 #' thisWorkflowID <- recentJobs$workflow_id[1]
 #' failsMeta <- cromwell_failures(workflow_id = thisWorkflowID)
 #' }
-#' @export
 cromwell_failures <- function(workflow_id) {
   check_url()
   crom_mssg(paste0(

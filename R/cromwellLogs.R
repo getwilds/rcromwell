@@ -1,9 +1,10 @@
 #' Gets logs for a workflow in Cromwell
 #'
+#' @export
 #' @template workflowid
-#' @return Returns the response from the API post
-#' @author Amy Paguirigan
+#' @author Amy Paguirigan, Scott Chamberlain
 #' @inheritSection workflow_options Important
+#' @return Returns the response from the API post
 cromwell_logs <- function(workflow_id) {
   check_url()
   crom_mssg("Getting list of logs from Cromwell")

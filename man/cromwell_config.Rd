@@ -30,3 +30,6 @@ cromwell_config("https://mycromwellinstance.com")
 cromwell_config(verbose = FALSE)
 }
 }
+\author{
+Scott Chamberlain
+}

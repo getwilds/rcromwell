@@ -27,5 +27,5 @@ workflow_options(jobs$workflow_id[1])
 }
 }
 \author{
-Amy Paguirigan
+Amy Paguirigan, Scott Chamberlain
 }

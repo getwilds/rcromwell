@@ -35,5 +35,5 @@ workflowMeta <- cromwell_glob(workflow_id = thisWorkflowID)
 }
 }
 \author{
-Amy Paguirigan
+Amy Paguirigan, Scott Chamberlain
 }
