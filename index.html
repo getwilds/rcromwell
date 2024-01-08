@@ -71,16 +71,11 @@
 </h2>
 <p>You can install the development version of <code>rcromwell</code> from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># install.packages("remotes")</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"getwilds/rcromwell"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"getwilds/rcromwell"</span><span class="op">)</span></span></code></pre></div>
 <p>Install a specific release version (in this case v1.0) by:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">'getwilds/rcromwell@v1.0'</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="set-up-your-cromwell-server">Set up your Cromwell Server<a class="anchor" aria-label="anchor" href="#set-up-your-cromwell-server"></a>
-</h2>
-<p>Use instructions over in the <a href="https://github.com/FredHutch/diy-cromwell-server" class="external-link">diy-cromwell-server repo</a> to get the configuration files needed and some testing workflows.</p>
+<code class="sourceCode R"><span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">'getwilds/rcromwell@v1.0'</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="example-workflow-process">Example workflow process<a class="anchor" aria-label="anchor" href="#example-workflow-process"></a>
@@ -89,7 +84,7 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://getwilds.org/rcromwell/">rcromwell</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="reference/cromwell_config.html">cromwell_config</a></span><span class="op">(</span><span class="st">"http://gizmoXXX:20202"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="reference/cromwell_config.html">cromwell_config</a></span><span class="op">(</span><span class="st">"http://localhost:20202"</span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="validate-your-workflow-formatting">Validate your workflow formatting<a class="anchor" aria-label="anchor" href="#validate-your-workflow-formatting"></a>
 </h3>
