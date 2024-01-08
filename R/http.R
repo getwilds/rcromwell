@@ -16,7 +16,8 @@ http_post <- function(url, as = NULL, ...) {
 
 make_url <- function(...) {
   base_url <- Sys.getenv("CROMWELLURL")
-  file.path(base_url, ...)
+  cleaned_url <- gsub("/+$", "", base_url)
+  file.path(cleaned_url, ...)
 }
 
 check_url <- function() {
