@@ -19,7 +19,7 @@ Imports:
     tidyr,
     lubridate,
     rlang
-License: GPL-3
+License: MIT + file LICENSE
 Depends: R (>= 3.6.0)
 Roxygen: list(markdown = TRUE, roclets = c("collate", "namespace", "rd",
     "roxyglobals::global_roclet"))

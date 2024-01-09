@@ -10,3 +10,4 @@ docker
 ^.lintr$
 man-roxygen/
 ^README\.Rmd$
+^LICENSE\.md$
