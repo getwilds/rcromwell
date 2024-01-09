@@ -81,8 +81,5 @@ cromwell_jobs <- function(days = 1,
   } else {
     cr_table <- dplyr::tibble("workflow_id" = NA)
   }
-  names_ <- c("submission", "start", "end", "workflowDuration")
-  these_cols <- colnames(cr_table) %in% names_
-  cr_table[these_cols] <- lapply(cr_table[these_cols], as.character)
   return(cr_table)
 }
