@@ -26,7 +26,7 @@ cromwell_submit_batch <-
     if (is.null(batch) && is.null(params)) {
       warning(
         "You did not submit either batch or params inputs.",
-        "Was that on purpose?"
+        " Was that on purpose?"
       )
     }
     body <- list(
