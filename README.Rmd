@@ -49,17 +49,17 @@ cromwell_config("http://localhost:20202")
 
 ```r
 list.files(pattern = "*.wdl")
-valid <- cromwell_validate(WDL = "myworkflow.wdl")
+valid <- cromwell_validate(wdl = "myworkflow.wdl")
 valid[["errors"]]
 ```
 
 ### Go fix your issues, now send your workflow to Crowmell
 
 ```r
-thisJob <- cromwell_submit_batch(WDL = "myworkflow.wdl",
-                    Params = "myworkflow-parameters.json",
-                    Batch = "myworkflow-batch.json",
-                    Options = "workflow-options.json")
+thisJob <- cromwell_submit_batch(wdl = "myworkflow.wdl",
+                    params = "myworkflow-parameters.json",
+                    batch = "myworkflow-batch.json",
+                    options = "workflow-options.json")
 (thisOne <- thisJob$id)
 ```
 
