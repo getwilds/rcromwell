@@ -17,7 +17,12 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Amy Paguirigan \email{apaguiri@fredhutch.org} (\href{https://orcid.org/0000-0002-6819-9736}{ORCID})
+\strong{Maintainer}: Scott Chamberlain \email{sachamber@fredhutch.org} (\href{https://orcid.org/0000-0003-1444-9135}{ORCID})
+
+Authors:
+\itemize{
+  \item Amy Paguirigan (\href{https://orcid.org/0000-0002-6819-9736}{ORCID})
+}
 
 }
 \keyword{internal}

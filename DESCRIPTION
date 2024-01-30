@@ -1,12 +1,13 @@
 Package: rcromwell
 Title: Convenience Tools for Managing WDL Workflows via Cromwell
 Version: 3.0.0
-Authors@R: 
-    person(given = "Amy",
-           family = "Paguirigan",
-           role = c("aut", "cre"),
-           email = "apaguiri@fredhutch.org",
-           comment = c(ORCID = "0000-0002-6819-9736"))
+Authors@R: c(
+    person("Amy", "Paguirigan", role = "aut",
+           comment = c(ORCID = "0000-0002-6819-9736")),
+    person("Scott", "Chamberlain", email = "sachamber@fredhutch.org",
+            role = c("aut", "cre"),
+            comment = c(ORCID = "0000-0003-1444-9135"))
+  )
 URL: http://getwilds.org/rcromwell/ (website)
     https://github.com/getwilds/rcromwell (devel)
 BugReports: https://github.com/getwilds/rcromwell/issues
