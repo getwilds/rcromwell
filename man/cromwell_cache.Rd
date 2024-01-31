@@ -18,7 +18,7 @@ Gets info about call caching status for the calls of a workflow
 }
 \section{Important}{
 
-Requires valid Cromwell server URL to be set. See \link{cromwellSettings}
+Requires valid Cromwell server URL to be set. See \link{cromwell_settings}
 }
 
 \author{

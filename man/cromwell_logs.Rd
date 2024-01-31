@@ -17,7 +17,7 @@ Gets logs for a workflow in Cromwell
 }
 \section{Important}{
 
-Requires valid Cromwell server URL to be set. See \link{cromwellSettings}
+Requires valid Cromwell server URL to be set. See \link{cromwell_settings}
 }
 
 \author{

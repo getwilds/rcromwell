@@ -18,7 +18,7 @@ a specific workflow.
 }
 \section{Important}{
 
-Requires valid Cromwell server URL to be set. See \link{cromwellSettings}
+Requires valid Cromwell server URL to be set. See \link{cromwell_settings}
 }
 
 \examples{

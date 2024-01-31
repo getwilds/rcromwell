@@ -5,7 +5,7 @@
 #' @importFrom jsonlite fromJSON
 #' @author Amy Paguirigan, Scott Chamberlain
 #' @section Important:
-#' Requires valid Cromwell server URL to be set. See [cromwellSettings]
+#' Requires valid Cromwell server URL to be set. See [cromwell_settings]
 #' @return Returns a data frame of the options for a workflow previously run
 #' @examples \dontrun{
 #' jobs <- cromwell_jobs()

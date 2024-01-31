@@ -25,7 +25,7 @@ Requests metadata about Cromwell workflow jobs during a time period specified
 }
 \section{Important}{
 
-Requires valid Cromwell server URL to be set. See \link{cromwellSettings}
+Requires valid Cromwell server URL to be set. See \link{cromwell_settings}
 }
 
 \examples{
