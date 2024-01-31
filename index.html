@@ -69,6 +69,8 @@
 <!-- badges: start -->
 
 <p>Convenience Tools for Managing WDL Workflows via Cromwell</p>
+<p>Cromwell is a scientific workflow engine designed for simplicity and scalability. It’s maintained by the <a href="https://www.broadinstitute.org/" class="external-link">Broad Institute</a>. (<a href="https://cromwell.readthedocs.io/en/latest/" class="external-link">docs</a>, <a href="https://github.com/broadinstitute/cromwell" class="external-link">code source</a>).</p>
+<p><code>rcromwell</code> is maintained by the <a href="https://hutchdatascience.org/" class="external-link">Fred Hutch Cancer Center Data Science Lab</a>.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -78,85 +80,27 @@
 <span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"getwilds/rcromwell"</span><span class="op">)</span></span></code></pre></div>
 <p>Install a specific release version (in this case v1.0) by:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">'getwilds/rcromwell@v1.0'</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">'getwilds/rcromwell@v1.1.0'</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="example-workflow-process">Example workflow process<a class="anchor" aria-label="anchor" href="#example-workflow-process"></a>
+<h2 id="documentation">Documentation<a class="anchor" aria-label="anchor" href="#documentation"></a>
 </h2>
-<p>Set your Cromwell URL</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://getwilds.org/rcromwell/">rcromwell</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="reference/cromwell_config.html">cromwell_config</a></span><span class="op">(</span><span class="st">"http://localhost:20202"</span><span class="op">)</span></span></code></pre></div>
-<div class="section level3">
-<h3 id="validate-your-workflow-formatting">Validate your workflow formatting<a class="anchor" aria-label="anchor" href="#validate-your-workflow-formatting"></a>
-</h3>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"*.wdl"</span><span class="op">)</span></span>
-<span><span class="va">valid</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cromwell_validate.html">cromwell_validate</a></span><span class="op">(</span>wdl <span class="op">=</span> <span class="st">"myworkflow.wdl"</span><span class="op">)</span></span>
-<span><span class="va">valid</span><span class="op">[[</span><span class="st">"errors"</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
+<p>Go to <a href="http://getwilds.org/rcromwell/" class="uri">http://getwilds.org/rcromwell/</a> for <code>rcromwell</code> package documentation. Go to the <strong>Get Started</strong> vignette to get started!</p>
 </div>
-<div class="section level3">
-<h3 id="go-fix-your-issues-now-send-your-workflow-to-crowmell">Go fix your issues, now send your workflow to Crowmell<a class="anchor" aria-label="anchor" href="#go-fix-your-issues-now-send-your-workflow-to-crowmell"></a>
-</h3>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">thisJob</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cromwell_submit_batch.html">cromwell_submit_batch</a></span><span class="op">(</span>wdl <span class="op">=</span> <span class="st">"myworkflow.wdl"</span>,</span>
-<span>                    params <span class="op">=</span> <span class="st">"myworkflow-parameters.json"</span>,</span>
-<span>                    batch <span class="op">=</span> <span class="st">"myworkflow-batch.json"</span>,</span>
-<span>                    options <span class="op">=</span> <span class="st">"workflow-options.json"</span><span class="op">)</span></span>
-<span><span class="op">(</span><span class="va">thisOne</span> <span class="op">&lt;-</span> <span class="va">thisJob</span><span class="op">$</span><span class="va">id</span><span class="op">)</span></span></code></pre></div>
-<p><code>thisJob$id</code> is the unique Cromwell ID for your entire workflow - you can use that to request all sorts of metadata!!!</p>
+<div class="section level2">
+<h2 id="bugs-features">Bugs? Features?<a class="anchor" aria-label="anchor" href="#bugs-features"></a>
+</h2>
+<p>Open an issue on our <a href="https://github.com/getwilds/rcromwell/issues/" class="external-link">issue tracker</a>.</p>
 </div>
-<div class="section level3">
-<h3 id="now-get-all-your-metadata-and-track-the-workflow">Now get all your metadata and track the workflow!!<a class="anchor" aria-label="anchor" href="#now-get-all-your-metadata-and-track-the-workflow"></a>
-</h3>
-<p>Return a data frame of all jobs run in the past number of days (uses your database)</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/cromwell_jobs.html">cromwell_jobs</a></span><span class="op">(</span>days <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p>Return a data frame (one line if you only submit one workflow id) containing workflow level metadata</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">w</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cromwell_workflow.html">cromwell_workflow</a></span><span class="op">(</span><span class="va">thisOne</span><span class="op">)</span></span></code></pre></div>
-<p>Print the current status of the workflow(s) is(are)</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">w</span><span class="op">$</span><span class="va">status</span></span></code></pre></div>
-<p>Return a data frame containing all call level metadata</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cromwell_call.html">cromwell_call</a></span><span class="op">(</span><span class="va">thisOne</span><span class="op">)</span></span></code></pre></div>
-<p>Handy set of dplyr commands to tell you about how the various calls are doing</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">callName</span>, <span class="va">executionStatus</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize</a></span><span class="op">(</span>status <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">executionStatus</span><span class="op">)</span></span></code></pre></div>
-<p>Returns a data frame containing call level call caching metadata</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ca</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cromwell_cache.html">cromwell_cache</a></span><span class="op">(</span><span class="va">thisOne</span><span class="op">)</span></span></code></pre></div>
-<p>Handy set of dplyr commands to tell you about what sort of call caching is happening</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ca</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">callCaching.hit</span>, <span class="va">callName</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize</a></span><span class="op">(</span>hits <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>Opens up a popup in your browser with a timing diagram in it.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/cromwell_timing.html">cromwell_timing</a></span><span class="op">(</span><span class="va">thisOne</span><span class="op">)</span></span></code></pre></div>
-<p>Returns a data frame containing call level failure metadata</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/cromwell_failures.html">cromwell_failures</a></span><span class="op">(</span><span class="va">thisOne</span><span class="op">)</span></span></code></pre></div>
-<p>Will tell Cromwell to abort the current workflow - note this cannot be undone and it will take a while to stop all the jobs.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/cromwell_abort.html">cromwell_abort</a></span><span class="op">(</span><span class="va">thisOne</span><span class="op">)</span></span></code></pre></div>
-<p>When a workflow is done, request information about the workflow outputs.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/cromwell_outputs.html">cromwell_outputs</a></span><span class="op">(</span><span class="va">thisOne</span><span class="op">)</span></span></code></pre></div>
+<div class="section level2">
+<h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
+</h2>
+<p>Please note that the rcromwell project is released with a <a href="http://getwilds.org/rcromwell/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 </div>
-<div class="section level3">
-<h3 id="misc-stuff">Misc stuff<a class="anchor" aria-label="anchor" href="#misc-stuff"></a>
-</h3>
-<p>Ugly list of raw metadata should you need it for workflow troubleshooting</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">wtf</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cromwell_glob.html">cromwell_glob</a></span><span class="op">(</span><span class="va">thisOne</span><span class="op">)</span></span>
-<span><span class="va">wtf</span><span class="op">[[</span><span class="st">"failures"</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
-</div>
+<div class="section level2">
+<h2 id="license">License<a class="anchor" aria-label="anchor" href="#license"></a>
+</h2>
+<p><a href="LICENSE.html">MIT</a></p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
@@ -175,6 +119,12 @@
 </ul>
 </div>
 
+<div class="community">
+<h2 data-toc-skip>Community</h2>
+<ul class="list-unstyled">
+<li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
+</ul>
+</div>
 
 <div class="citation">
 <h2 data-toc-skip>Citation</h2>
@@ -186,7 +136,8 @@
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Amy Paguirigan <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-6819-9736" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Amy Paguirigan <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-6819-9736" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Scott Chamberlain <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-1444-9135" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 </ul>
 </div>
 
@@ -204,7 +155,7 @@
 
     <footer><div class="pkgdown-footer-left">
   <p></p>
-<p>Developed by Amy Paguirigan.</p>
+<p>Developed by Amy Paguirigan, Scott Chamberlain.</p>
 </div>
 
 <div class="pkgdown-footer-right">
