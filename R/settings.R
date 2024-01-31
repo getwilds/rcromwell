@@ -1,6 +1,6 @@
 #' Cromwell Settings
 #'
-#' @name cromwellSettings
+#' @name cromwell_settings
 #'
 #' @section Cromwell URL:
 #' A URL for the Cromwell server you're interacting with is required.

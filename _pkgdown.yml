@@ -1,4 +1,35 @@
 url: http://getwilds.org/rcromwell/
 template:
   bootstrap: 5
-
+reference:
+  - title: rcromwell
+    desc: >
+      High level overview of package
+    contents:
+      - rcromwell
+  - title: Settings
+    contents:
+      - cromwell_settings
+      - cromwell_config
+  - title: Cromwell server introspection
+    contents:
+      - cromwell_version
+      - cromwell_backends
+  - title: Validate files
+    contents:
+      - cromwell_validate
+  - title: Workflows
+    contents:
+      - cromwell_workflow
+      - cromwell_abort
+      - cromwell_cache
+      - cromwell_call
+      - cromwell_failures
+      - cromwell_glob
+      - cromwell_jobs
+      - cromwell_logs
+      - cromwell_outputs
+      - cromwell_submit_batch
+      - cromwell_timing
+      - workflow_options
+      - workflow_inputs
