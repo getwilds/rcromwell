@@ -28,9 +28,6 @@
     <loc>http://getwilds.org/rcromwell/news/index.html</loc>
   </url>
   <url>
-    <loc>http://getwilds.org/rcromwell/reference/cromwellSettings.html</loc>
-  </url>
-  <url>
     <loc>http://getwilds.org/rcromwell/reference/cromwell_abort.html</loc>
   </url>
   <url>
@@ -59,6 +56,9 @@
   </url>
   <url>
     <loc>http://getwilds.org/rcromwell/reference/cromwell_outputs.html</loc>
+  </url>
+  <url>
+    <loc>http://getwilds.org/rcromwell/reference/cromwell_settings.html</loc>
   </url>
   <url>
     <loc>http://getwilds.org/rcromwell/reference/cromwell_submit_batch.html</loc>
