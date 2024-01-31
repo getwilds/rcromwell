@@ -13,14 +13,6 @@ vignette: >
 ```r
 library(rcromwell)
 library(dplyr)
-#> 
-#> Attaching package: 'dplyr'
-#> The following objects are masked from 'package:stats':
-#> 
-#>     filter, lag
-#> The following objects are masked from 'package:base':
-#> 
-#>     intersect, setdiff, setequal, union
 ```
 
 ## Set your Cromwell URL
@@ -38,16 +30,28 @@ cromwell_config("http://localhost:8000")
 
 ## Send a workflow to Crowmell
 
+Get your file paths
+
 
 ```r
 file_hello <- system.file("examples/hello.wdl", package = "rcromwell")
 file_inputs <- system.file("examples/inputs.json", package = "rcromwell")
-thisJob <- cromwell_submit_batch(wdl = file_hello, params = file_inputs)
-#> Submitting a batch workflow to Cromwell
-thisOne <- thisJob$id
+file.copy(file_hello, (file_hello_tmp <- tempfile()))
+#> [1] TRUE
 ```
 
-`thisJob$id` (af1c9bf4-45ac-4f41-b563-fc7f53676db8) is the unique Cromwell ID for your entire workflow - you can use that to request all sorts of metadata!!!
+
+
+Submit the job
+
+
+```r
+this_job <- cromwell_submit_batch(wdl = file_hello, params = file_inputs)
+#> Submitting a batch workflow to Cromwell
+job_id <- this_job$id
+```
+
+`this_job$id` (734cd942-abdb-4aaf-b15d-dc0a03b4c6d9) is the unique Cromwell ID for your entire workflow - you can use that to request all sorts of metadata!!!
 
 ## Now get all your metadata and track the workflow!!
 
@@ -55,23 +59,20 @@ Return a data frame of all jobs run in the past number of days (uses your databa
 
 
 ```r
-cromwell_jobs(days = 2)
-#> Querying cromwell for jobs in the last 2 days.
-#> # A tibble: 52 × 8
-#>    workflow_id metadataArchiveStatus workflow_name start status submission end  
-#>    <chr>       <chr>                 <chr>         <chr> <chr>  <chr>      <chr>
-#>  1 8c418d8c-c… Unarchived            test          2024… Runni… 2024-01-0… <NA> 
-#>  2 53ac66b1-a… Unarchived            test          2024… Succe… 2024-01-0… 2024…
-#>  3 f6f919f5-4… Unarchived            test          2024… Succe… 2024-01-0… 2024…
-#>  4 f7464c7e-9… Unarchived            test          2024… Succe… 2024-01-0… 2024…
-#>  5 0a286772-2… Unarchived            test          2024… Succe… 2024-01-0… 2024…
-#>  6 b0be7e6e-6… Unarchived            test          2024… Succe… 2024-01-0… 2024…
-#>  7 700c3598-9… Unarchived            test          2024… Succe… 2024-01-0… 2024…
-#>  8 04bbe5ab-b… Unarchived            test          2024… Succe… 2024-01-0… 2024…
-#>  9 612b4a6c-4… Unarchived            test          2024… Succe… 2024-01-0… 2024…
-#> 10 088fb55e-2… Unarchived            test          2024… Succe… 2024-01-0… 2024…
-#> # ℹ 42 more rows
-#> # ℹ 1 more variable: workflowDuration <chr>
+cromwell_jobs(days = 7)
+#> Querying cromwell for jobs in the last 7 days.
+#> # A tibble: 7 × 8
+#>   end                 workflow_id            metadataArchiveStatus workflow_name
+#>   <dttm>              <chr>                  <chr>                 <chr>        
+#> 1 2024-01-30 16:14:50 cd588f94-648d-470d-b8… Unarchived            test         
+#> 2 2024-01-30 16:13:50 2849c7e6-56a4-47ef-9b… Unarchived            test         
+#> 3 2024-01-30 16:13:10 83fd89d3-da58-441e-8f… Unarchived            test         
+#> 4 2024-01-30 16:11:29 76f79830-a534-4458-90… Unarchived            test         
+#> 5 2024-01-30 16:10:53 e0474b58-2aae-4326-a8… Unarchived            <NA>         
+#> 6 2024-01-30 16:08:30 2767b820-e1aa-408e-8c… Unarchived            test         
+#> 7 2024-01-30 16:07:51 c3643522-6c08-4008-b3… Unarchived            test         
+#> # ℹ 4 more variables: start <dttm>, status <chr>, submission <dttm>,
+#> #   workflowDuration <dbl>
 ```
 
 Return a data frame (one line if you only submit one workflow id) containing workflow level metadata
@@ -80,8 +81,8 @@ Return a data frame (one line if you only submit one workflow id) containing wor
 
 
 ```r
-w <- cromwell_workflow(thisOne)
-#> Querying for metadata for workflow id: af1c9bf4-45ac-4f41-b563-fc7f53676db8
+w <- cromwell_workflow(job_id)
+#> Querying for metadata for workflow id: 734cd942-abdb-4aaf-b15d-dc0a03b4c6d9
 ```
 
 Print the current status of the workflow(s) is(are)
@@ -96,8 +97,8 @@ Return a data frame containing all call level metadata
 
 
 ```r
-df <- cromwell_call(thisOne)
-#> Querying for call metadata for workflow id: af1c9bf4-45ac-4f41-b563-fc7f53676db8
+df <- cromwell_call(job_id)
+#> Querying for call metadata for workflow id: 734cd942-abdb-4aaf-b15d-dc0a03b4c6d9
 ```
 
 Handy set of dplyr commands to tell you about how the various calls are doing
@@ -112,17 +113,19 @@ df %>%
 #> `.groups` argument.
 #> # A tibble: 1 × 3
 #> # Groups:   callName [1]
-#>   callName executionStatus status
-#>   <chr>    <chr>            <int>
-#> 1 hello    Running              1
+#>   callName executionStatus  status
+#>   <chr>    <chr>             <int>
+#> 1 hello    QueuedInCromwell      1
 ```
 
 Returns a data frame containing call level call caching metadata
 
 
+
+
 ```r
-cromwell_cache(thisOne)
-#> Querying for call caching metadata for workflow id: af1c9bf4-45ac-4f41-b563-fc7f53676db8
+cromwell_cache(job_id)
+#> Querying for call caching metadata for workflow id: 734cd942-abdb-4aaf-b15d-dc0a03b4c6d9
 #> # A tibble: 1 × 8
 #>   workflowName callName callCaching.allowResultReuse callCaching.effectiveCall…¹
 #>   <chr>        <chr>    <chr>                        <chr>                      

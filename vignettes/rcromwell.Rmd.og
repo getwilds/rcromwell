@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+```{r setup, message=FALSE}
 library(rcromwell)
 library(dplyr)
 ```
@@ -27,21 +27,34 @@ cromwell_config("http://localhost:8000")
 
 ## Send a workflow to Crowmell
 
-```{r submit-batch}
+Get your file paths
+
+```{r file-paths}
 file_hello <- system.file("examples/hello.wdl", package = "rcromwell")
 file_inputs <- system.file("examples/inputs.json", package = "rcromwell")
-thisJob <- cromwell_submit_batch(wdl = file_hello, params = file_inputs)
-thisOne <- thisJob$id
+file.copy(file_hello, (file_hello_tmp <- tempfile()))
 ```
 
-`thisJob$id` (`r thisJob$id`) is the unique Cromwell ID for your entire workflow - you can use that to request all sorts of metadata!!!
+```{r include=FALSE}
+file.copy(file_hello, (file_hello <- tempfile()))
+file.copy(file_inputs, (file_inputs <- tempfile()))
+```
+
+Submit the job
+
+```{r submit-batch}
+this_job <- cromwell_submit_batch(wdl = file_hello, params = file_inputs)
+job_id <- this_job$id
+```
+
+`this_job$id` (`r this_job$id`) is the unique Cromwell ID for your entire workflow - you can use that to request all sorts of metadata!!!
 
 ## Now get all your metadata and track the workflow!!
 
 Return a data frame of all jobs run in the past number of days (uses your database)
 
 ```{r}
-cromwell_jobs(days = 2)
+cromwell_jobs(days = 7)
 ```
 
 Return a data frame (one line if you only submit one workflow id) containing workflow level metadata
@@ -51,7 +64,7 @@ Sys.sleep(25)
 ```
 
 ```{r}
-w <- cromwell_workflow(thisOne)
+w <- cromwell_workflow(job_id)
 ```
 
 Print the current status of the workflow(s) is(are)
@@ -63,7 +76,7 @@ w$status
 Return a data frame containing all call level metadata
 
 ```{r}
-df <- cromwell_call(thisOne)
+df <- cromwell_call(job_id)
 ```
 
 Handy set of dplyr commands to tell you about how the various calls are doing
@@ -77,6 +90,10 @@ df %>%
 
 Returns a data frame containing call level call caching metadata
 
+```{r include=FALSE}
+Sys.sleep(10)
+```
+
 ```{r}
-cromwell_cache(thisOne)
+cromwell_cache(job_id)
 ```
