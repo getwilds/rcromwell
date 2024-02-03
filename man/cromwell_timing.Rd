@@ -4,10 +4,18 @@
 \alias{cromwell_timing}
 \title{Get a timing diagram for a Cromwell workflow}
 \usage{
-cromwell_timing(workflow_id)
+cromwell_timing(workflow_id, url = cw_url())
 }
 \arguments{
 \item{workflow_id}{(character) A single workflow ID}
+
+\item{url}{(character) base url for your Cromwell server. optional. if not
+supplied set the url as the env var \code{CROMWELLURL}}
+
+\item{token}{(character) we do not recommend passing your token
+here as a string. Either pass it using \code{\link[=Sys.getenv]{Sys.getenv()}} or save your
+token as the env var \code{PROOF_TOKEN} and then passing nothing to this
+param and we'll find it}
 }
 \value{
 Opens a timing diagram in a browser

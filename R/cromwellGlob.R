@@ -4,6 +4,7 @@
 #'
 #' @export
 #' @template workflowid
+#' @template serverdeets
 #' @param expand_sub_workflows Boolean, whether to expand subworkflows in the
 #' results or not, default is FALSE.
 #' @author Amy Paguirigan, Scott Chamberlain
@@ -18,23 +19,27 @@
 #' thisWorkflowID <- recentJobs$workflow_id[1]
 #' workflowMeta <- cromwell_glob(workflow_id = thisWorkflowID)
 #' }
-cromwell_glob <- function(workflow_id, expand_sub_workflows = FALSE) {
-  check_url()
+cromwell_glob <- function(workflow_id, expand_sub_workflows = FALSE,
+  url = cw_url(), token = NULL) {
+
+  check_url(url)
   crom_mssg(paste0("Querying for metadata for workflow id: ", workflow_id))
-  url <- make_url("api/workflows/v1", workflow_id, "metadata")
+  url <- make_url(url, "api/workflows/v1", workflow_id, "metadata")
   if (!expand_sub_workflows) {
     crommetadata <-
       http_get(
         url = url,
         query = list(expandSubWorkflows = "false"),
-        as = "parsed"
+        as = "parsed",
+        token = token
       )
   } else {
     crommetadata <-
       http_get(
         url = url,
         query = list(expandSubWorkflows = "true"),
-        as = "parsed"
+        as = "parsed",
+        token = token
       )
   }
   return(crommetadata)

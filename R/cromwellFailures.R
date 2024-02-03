@@ -4,6 +4,7 @@
 #'
 #' @export
 #' @template workflowid
+#' @template serverdeets
 #' @author Amy Paguirigan, Scott Chamberlain
 #' @autoglobal
 #' @inheritSection workflow_options Important
@@ -18,8 +19,8 @@
 #' thisWorkflowID <- recentJobs$workflow_id[1]
 #' failsMeta <- cromwell_failures(workflow_id = thisWorkflowID)
 #' }
-cromwell_failures <- function(workflow_id) {
-  check_url()
+cromwell_failures <- function(workflow_id, url = cw_url(), token = NULL) {
+  check_url(url)
   crom_mssg(paste0(
     "Querying for failure metadata for workflow id: ",
     workflow_id
@@ -27,9 +28,10 @@ cromwell_failures <- function(workflow_id) {
 
   response <-
     http_get(
-      url = make_url("api/workflows/v1", workflow_id, "metadata"),
+      url = make_url(url, "api/workflows/v1", workflow_id, "metadata"),
       query = list(includeKey = "failures", includeKey = "jobId"),
-      as = "parsed"
+      as = "parsed",
+      token = token
     )
   if (is.list(response$calls)) {
     bobfail <- purrr::pluck(response, "calls")

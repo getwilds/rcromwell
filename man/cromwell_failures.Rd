@@ -4,10 +4,18 @@
 \alias{cromwell_failures}
 \title{Pull metadata for the failed calls made in a Cromwell workflow job}
 \usage{
-cromwell_failures(workflow_id)
+cromwell_failures(workflow_id, url = cw_url(), token = NULL)
 }
 \arguments{
 \item{workflow_id}{(character) A single workflow ID}
+
+\item{url}{(character) base url for your Cromwell server. optional. if not
+supplied set the url as the env var \code{CROMWELLURL}}
+
+\item{token}{(character) we do not recommend passing your token
+here as a string. Either pass it using \code{\link[=Sys.getenv]{Sys.getenv()}} or save your
+token as the env var \code{PROOF_TOKEN} and then passing nothing to this
+param and we'll find it}
 }
 \value{
 Returns a long form data frame of metadata on failed calls in a

@@ -4,13 +4,14 @@
 #'
 #' @export
 #' @template workflowid
+#' @template serverdeets
 #' @author Amy Paguirigan, Scott Chamberlain
 #' @autoglobal
 #' @inheritSection workflow_options Important
 #' @return Returns a long form data frame of metadata on call caching in a
 #' workflow. NOTE: Currently does not support subworkflows well.
-cromwell_cache <- function(workflow_id) {
-  check_url()
+cromwell_cache <- function(workflow_id, url = cw_url(), token = NULL) {
+  check_url(url)
   crom_mssg(paste0(
     "Querying for call caching metadata for workflow id: ",
     workflow_id
@@ -18,9 +19,10 @@ cromwell_cache <- function(workflow_id) {
 
   crommetadata <-
     http_get(
-      url = make_url("api/workflows/v1", workflow_id, "metadata"),
+      url = make_url(url, "api/workflows/v1", workflow_id, "metadata"),
       query = list(expandSubWorkflows = "false"),
-      as = "parsed"
+      as = "parsed",
+      token = token
     )
 
   if (length(crommetadata$calls) > 0) {

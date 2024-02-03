@@ -4,7 +4,7 @@
 \alias{cromwell_validate}
 \title{Validates a workflow for submission}
 \usage{
-cromwell_validate(wdl, all_inputs = NULL)
+cromwell_validate(wdl, all_inputs = NULL, url = cw_url(), token = NULL)
 }
 \arguments{
 \item{wdl}{Local path to the wdl file describing the workflow. (Required)}
@@ -12,6 +12,14 @@ cromwell_validate(wdl, all_inputs = NULL)
 \item{all_inputs}{Local path to the json containing ALL the inputs the
 parameters to use with the workflow - if a batch and parameters json
 are present they must first be combined. (Optional)}
+
+\item{url}{(character) base url for your Cromwell server. optional. if not
+supplied set the url as the env var \code{CROMWELLURL}}
+
+\item{token}{(character) we do not recommend passing your token
+here as a string. Either pass it using \code{\link[=Sys.getenv]{Sys.getenv()}} or save your
+token as the env var \code{PROOF_TOKEN} and then passing nothing to this
+param and we'll find it}
 }
 \value{
 Returns the response from the API post which includes the workflow
