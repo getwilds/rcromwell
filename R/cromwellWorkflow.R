@@ -4,6 +4,7 @@
 #' a specific workflow.
 #'
 #' @template workflowid
+#' @template serverdeets
 #' @return Returns a long form data frame of metadata on a workflow.
 #' @author Amy Paguirigan
 #' @inheritSection workflow_options Important
@@ -17,14 +18,15 @@
 #' workflowMeta <- cromwell_workflow(workflow_id = thisWorkflowID)
 #' }
 #' @export
-cromwell_workflow <- function(workflow_id) {
-  check_url()
+cromwell_workflow <- function(workflow_id, url = cw_url(), token = NULL) {
+  check_url(url)
   crom_mssg(paste0("Querying for metadata for workflow id: ", workflow_id))
 
   meta <- http_get(
-    url = make_url("api/workflows/v1", workflow_id, "metadata"),
+    url = make_url(url, "api/workflows/v1", workflow_id, "metadata"),
     query = list(expandSubWorkflows = "false", excludeKey = "calls"),
-    as = "parsed"
+    as = "parsed",
+    token = token
   )
   if (!is.list(meta)) {
     stop(

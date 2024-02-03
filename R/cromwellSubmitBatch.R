@@ -14,14 +14,15 @@
 #' @param labels A data frame containing the labels for this workflow.
 #' (Optional)
 #' @param dependencies A zip'd file of subworkflow dependencies. (Optional)
+#' @template serverdeets
 #' @inheritSection workflow_options Important
 #' @author Amy Paguirigan, Scott Chamberlain
 #' @return Returns the response from the API post which includes the workflow
 #' ID that you'll need to monitor the job.
 cromwell_submit_batch <-
   function(wdl, batch = NULL, params = NULL, options = NULL, labels = NULL,
-           dependencies = NULL) {
-    check_url()
+           dependencies = NULL, url = cw_url(), token = NULL) {
+    check_url(url)
     crom_mssg("Submitting a batch workflow to Cromwell")
     if (is.null(batch) && is.null(params)) {
       warning(
@@ -60,9 +61,10 @@ cromwell_submit_batch <-
 
     crom_dat <-
       http_post(
-        url = make_url("api/workflows/v1"),
+        url = make_url(url, "api/workflows/v1"),
         body = body,
-        encode = "multipart"
+        encode = "multipart",
+        token = token
       )
     dplyr::as_tibble(crom_dat)
   }

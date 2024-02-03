@@ -4,7 +4,13 @@
 \alias{cromwell_jobs}
 \title{Requests metadata about Cromwell workflow jobs during a time period specified}
 \usage{
-cromwell_jobs(days = 1, workflow_name = NULL, workflow_status = NULL)
+cromwell_jobs(
+  days = 1,
+  workflow_name = NULL,
+  workflow_status = NULL,
+  url = cw_url(),
+  token = NULL
+)
 }
 \arguments{
 \item{days}{The number of days of history to return, defaults to 1 day.}
@@ -15,6 +21,14 @@ your job list.}
 \item{workflow_status}{A array of strings of valid workflow statuses you want
 in your job list (e.g., submitted, running, succeeded, failed,
 aborting, aborted)}
+
+\item{url}{(character) base url for your Cromwell server. optional. if not
+supplied set the url as the env var \code{CROMWELLURL}}
+
+\item{token}{(character) we do not recommend passing your token
+here as a string. Either pass it using \code{\link[=Sys.getenv]{Sys.getenv()}} or save your
+token as the env var \code{PROOF_TOKEN} and then passing nothing to this
+param and we'll find it}
 }
 \value{
 Returns a long form data frame of metadata on workflow jobs

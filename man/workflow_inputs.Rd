@@ -4,10 +4,18 @@
 \alias{workflow_inputs}
 \title{Pull the workflow inputs provided for a Cromwell workflow job}
 \usage{
-workflow_inputs(workflow_id)
+workflow_inputs(workflow_id, url = cw_url(), token = NULL)
 }
 \arguments{
 \item{workflow_id}{(character) A single workflow ID}
+
+\item{url}{(character) base url for your Cromwell server. optional. if not
+supplied set the url as the env var \code{CROMWELLURL}}
+
+\item{token}{(character) we do not recommend passing your token
+here as a string. Either pass it using \code{\link[=Sys.getenv]{Sys.getenv()}} or save your
+token as the env var \code{PROOF_TOKEN} and then passing nothing to this
+param and we'll find it}
 }
 \value{
 Returns a data frame of the inputs for a workflow previously run

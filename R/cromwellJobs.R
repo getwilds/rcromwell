@@ -8,6 +8,7 @@
 #' @param workflow_status A array of strings of valid workflow statuses you want
 #' in your job list (e.g., submitted, running, succeeded, failed,
 #' aborting, aborted)
+#' @template serverdeets
 #' @author Amy Paguirigan, Scott Chamberlain
 #' @inheritSection workflow_options Important
 #' @return Returns a long form data frame of metadata on workflow jobs
@@ -19,8 +20,10 @@
 #' }
 cromwell_jobs <- function(days = 1,
                           workflow_name = NULL,
-                          workflow_status = NULL) {
-  check_url()
+                          workflow_status = NULL,
+                          url = cw_url(),
+                          token = NULL) {
+  check_url(url)
   crom_mssg(paste0("Querying cromwell for jobs in the last ", days, " days."))
   query <-
     list(submission = paste0(Sys.Date() - round(days, 0), "T00:00Z"))
@@ -32,7 +35,8 @@ cromwell_jobs <- function(days = 1,
       c(query, rlang::set_names(as.list(workflow_status), "status"))
   }
   crom_dat <-
-    http_get(make_url("api/workflows/v1/query"), query = query)$results
+    http_get(make_url(url, "api/workflows/v1/query"),
+      query = query, token = token)$results
   cr_table <- purrr::map_dfr(crom_dat, dplyr::bind_rows)
   if (nrow(cr_table) > 0 && "id" %in% names(cr_table)) {
     cr_table <- dplyr::rename(cr_table, "workflow_id" = "id")

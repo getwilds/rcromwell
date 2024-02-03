@@ -4,6 +4,7 @@
 #'
 #' @export
 #' @template workflowid
+#' @template serverdeets
 #' @importFrom tidyr separate
 #' @inheritSection workflow_options Important
 #' @details Now supports nested scatters.
@@ -20,14 +21,15 @@
 #' thisWorkflowID <- recentJobs$workflow_id[1]
 #' callsMeta <- cromwell_call(workflow_id = thisWorkflowID)
 #' }
-cromwell_call <- function(workflow_id) {
-  check_url()
+cromwell_call <- function(workflow_id, url = cw_url(), token = NULL) {
+  check_url(url)
   crom_mssg(paste0("Querying for call metadata for workflow id: ", workflow_id))
   crommetadata <-
     http_get(
-      url = make_url("api/workflows/v1", workflow_id, "metadata"),
+      url = make_url(url, "api/workflows/v1", workflow_id, "metadata"),
       query = list(expandSubWorkflows = "true"),
-      as = "parsed"
+      as = "parsed",
+      token = token
     )
   # if the response is a character vector, then return it and stop
   if (is.character(crommetadata)) stop(crommetadata)

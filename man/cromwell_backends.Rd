@@ -4,7 +4,16 @@
 \alias{cromwell_backends}
 \title{Get the available backends of a Cromwell server}
 \usage{
-cromwell_backends()
+cromwell_backends(url = cw_url(), token = NULL)
+}
+\arguments{
+\item{url}{(character) base url for your Cromwell server. optional. if not
+supplied set the url as the env var \code{CROMWELLURL}}
+
+\item{token}{(character) we do not recommend passing your token
+here as a string. Either pass it using \code{\link[=Sys.getenv]{Sys.getenv()}} or save your
+token as the env var \code{PROOF_TOKEN} and then passing nothing to this
+param and we'll find it}
 }
 \value{
 Cromwell backend options

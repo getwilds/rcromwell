@@ -2,22 +2,26 @@
 #'
 #' @export
 #' @template workflowid
+#' @template serverdeets
 #' @author Amy Paguirigan, Scott Chamberlain
 #' @autoglobal
 #' @inheritSection workflow_options Important
 #' @return Returns a dataframe containing the workflowName, workflowOutputType,
 #' pathToOutput, shardIndex for the specified outputs of a workflow_id
-cromwell_outputs <- function(workflow_id) {
-  check_url()
+cromwell_outputs <- function(workflow_id, url = cw_url(), token = NULL) {
+  check_url(url)
   crom_mssg(paste0("Querying for outputs list for workflow id: ", workflow_id))
   # Make API call for output content and parse the content returned
   resp <- http_get(
     url =
       make_url(
+        url,
         "api/workflows/v1",
         workflow_id,
         "outputs"
-      ), as = "parsed"
+      ),
+    as = "parsed",
+    token = token
   )
   # if the length of the outputs is 0 then there are no outputs available yet.
   if (length(resp$outputs) > 0) {

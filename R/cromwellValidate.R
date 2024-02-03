@@ -8,10 +8,13 @@
 #' are present they must first be combined. (Optional)
 #' @author Amy Paguirigan, Scott Chamberlain
 #' @inheritSection workflow_options Important
+#' @template serverdeets
 #' @return Returns the response from the API post which includes the workflow
 #' ID that you'll need to monitor the job.
-cromwell_validate <- function(wdl, all_inputs = NULL) {
-  check_url()
+cromwell_validate <- function(wdl, all_inputs = NULL,
+  url = cw_url(), token = NULL) {
+
+  check_url(url)
   crom_mssg("Validating a workflow for Cromwell")
 
   body <- list(workflowSource = httr::upload_file(wdl))
@@ -23,8 +26,9 @@ cromwell_validate <- function(wdl, all_inputs = NULL) {
   }
 
   http_post(
-    url = make_url("api/womtool/v1/describe"),
+    url = make_url(url, "api/womtool/v1/describe"),
     body = body,
-    encode = "multipart"
+    encode = "multipart",
+    token = token
   )
 }
