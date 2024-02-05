@@ -11,17 +11,17 @@ cromwell_timing(workflow_id, url = cw_url())
 
 \item{url}{(character) base url for your Cromwell server. optional. if not
 supplied set the url as the env var \code{CROMWELLURL}}
-
-\item{token}{(character) we do not recommend passing your token
-here as a string. Either pass it using \code{\link[=Sys.getenv]{Sys.getenv()}} or save your
-token as the env var \code{PROOF_TOKEN} and then passing nothing to this
-param and we'll find it}
 }
 \value{
 Opens a timing diagram in a browser
 }
 \description{
 Get a timing diagram for a Cromwell workflow
+}
+\details{
+Internally this function uses \code{\link[httr:BROWSE]{httr::BROWSE()}} which uses
+\code{\link[utils:browseURL]{utils::browseURL()}} - if a auth header is required you'll have to
+do that manually
 }
 \section{Important}{
 
