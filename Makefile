@@ -1,6 +1,7 @@
 PACKAGE := $(shell grep '^Package:' DESCRIPTION | sed -E 's/^Package:[[:space:]]+//')
 RSCRIPT = Rscript --no-init-file
 FILE_TARGET := "R/${FILE}.R"
+CROMWELLURL := http://localhost:8000
 
 # .PHONY is used so that make will not treat the target as a filename
 .PHONY: install build doc docs eg check test readme
@@ -18,13 +19,13 @@ eg:
 	${RSCRIPT} -e "devtools::run_examples(run_dontrun = TRUE)"
 
 check: build
-	_R_CHECK_CRAN_INCOMING_=FALSE CROMWELLURL=http://localhost:8000 \
+	_R_CHECK_CRAN_INCOMING_=FALSE CROMWELLURL=${CROMWELLURL} \
 		R CMD CHECK --as-cran --no-manual `ls -1tr ${PACKAGE}*gz | tail -n1`
 	@rm -f `ls -1tr ${PACKAGE}*gz | tail -n1`
 	@rm -rf ${PACKAGE}.Rcheck
 
 test:
-	${RSCRIPT} -e "devtools::test()"
+	CROMWELLURL=${CROMWELLURL} ${RSCRIPT} -e "devtools::test()"
 
 readme:
 	${RSCRIPT} -e "knitr::knit('README.Rmd')"
