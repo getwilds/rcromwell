@@ -15,7 +15,8 @@
 workflow_options <- function(workflow_id, url = cw_url(), token = NULL) {
   check_url(url)
   dplyr::as_tibble(
-    jsonlite::fromJSON(cromwell_workflow(workflow_id, url, token)$options))
+    jsonlite::fromJSON(cromwell_workflow(workflow_id, url, token)$options)
+  )
 }
 
 #' Pull the workflow inputs provided for a Cromwell workflow job
@@ -29,5 +30,6 @@ workflow_options <- function(workflow_id, url = cw_url(), token = NULL) {
 workflow_inputs <- function(workflow_id, url = cw_url(), token = NULL) {
   check_url(url)
   dplyr::as_tibble(
-    jsonlite::fromJSON(cromwell_workflow(workflow_id, url, token)$inputs))
+    jsonlite::fromJSON(cromwell_workflow(workflow_id, url, token)$inputs)
+  )
 }

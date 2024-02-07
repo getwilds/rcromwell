@@ -31,7 +31,6 @@ make_url <- function(base_url, ...) {
 #' @param x a url. default: NULL
 #' @keywords internal
 check_url <- function(x = NULL) {
-
   if (identical(x, "") || is.null(x)) {
     stop("Set the env var `CROMWELLURL`. ",
       "See ?cromwell_settings",
