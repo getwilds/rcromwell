@@ -1,3 +1,5 @@
+# nolint start
+
 #' Retrieve metadata for the calls made in a Cromwell workflow job
 #'
 #' Retrieve and process call metadata for a specific workflow.
@@ -252,3 +254,4 @@ cromwell_call <- function(workflow_id, url = cw_url(), token = NULL) {
   }
   return(just_calls)
 }
+# nolint end

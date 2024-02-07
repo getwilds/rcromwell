@@ -46,8 +46,10 @@ cromwell_outputs <- function(workflow_id, url = cw_url(), token = NULL) {
     }
     df$workflow_id <- workflow_id
   } else {
-    df <- dplyr::tibble("workflow_id" =
-                          "No outputs available for this workflow yet")
+    df <- dplyr::tibble(
+      "workflow_id" =
+        "No outputs available for this workflow yet"
+    )
   }
   return(df)
 }

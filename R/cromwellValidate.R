@@ -11,9 +11,9 @@
 #' @template serverdeets
 #' @return Returns the response from the API post which includes the workflow
 #' ID that you'll need to monitor the job.
-cromwell_validate <- function(wdl, all_inputs = NULL,
-  url = cw_url(), token = NULL) {
-
+cromwell_validate <- function(
+    wdl, all_inputs = NULL,
+    url = cw_url(), token = NULL) {
   check_url(url)
   crom_mssg("Validating a workflow for Cromwell")
 

@@ -36,14 +36,16 @@ cromwell_jobs <- function(days = 1,
   }
   crom_dat <-
     http_get(make_url(url, "api/workflows/v1/query"),
-      query = query, token = token)$results
+      query = query, token = token
+    )$results
   cr_table <- purrr::map_dfr(crom_dat, dplyr::bind_rows)
   if (nrow(cr_table) > 0 && "id" %in% names(cr_table)) {
     cr_table <- dplyr::rename(cr_table, "workflow_id" = "id")
     if ("name" %in% colnames(cr_table)) {
       cr_table <- dplyr::rename(cr_table, "workflow_name" = "name")
     }
-    cr_table$submission <- lubridate::with_tz(lubridate::ymd_hms(cr_table$submission),
+    cr_table$submission <- lubridate::with_tz(
+      lubridate::ymd_hms(cr_table$submission),
       tzone = pkg_env$tzone
     )
     if ("start" %in% colnames(cr_table)) {

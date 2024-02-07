@@ -19,9 +19,9 @@
 #' thisWorkflowID <- recentJobs$workflow_id[1]
 #' workflowMeta <- cromwell_glob(workflow_id = thisWorkflowID)
 #' }
-cromwell_glob <- function(workflow_id, expand_sub_workflows = FALSE,
-  url = cw_url(), token = NULL) {
-
+cromwell_glob <- function(
+    workflow_id, expand_sub_workflows = FALSE,
+    url = cw_url(), token = NULL) {
   check_url(url)
   crom_mssg(paste0("Querying for metadata for workflow id: ", workflow_id))
   url <- make_url(url, "api/workflows/v1", workflow_id, "metadata")
