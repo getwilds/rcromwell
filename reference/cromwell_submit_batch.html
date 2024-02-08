@@ -12,7 +12,7 @@ instance."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/m
     
     <a class="navbar-brand me-2" href="../index.html">rcromwell</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.0.0.91</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,7 +63,9 @@ instance.</p>
 <span>  params <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  options <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  dependencies <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  dependencies <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  url <span class="op">=</span> <span class="fu"><a href="cw_url.html">cw_url</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  token <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -95,6 +97,18 @@ apply. (Optional)</p></dd>
 
 <dt>dependencies</dt>
 <dd><p>A zip'd file of subworkflow dependencies. (Optional)</p></dd>
+
+
+<dt>url</dt>
+<dd><p>(character) base url for your Cromwell server. optional. if not
+supplied set the url as the env var <code>CROMWELLURL</code></p></dd>
+
+
+<dt>token</dt>
+<dd><p>(character) we do not recommend passing your token
+here as a string. Either pass it using <code><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv()</a></code> or save your
+token as the env var <code>PROOF_TOKEN</code> and then passing nothing to this
+param and we'll find it</p></dd>
 
 </dl></div>
     <div class="section level2">

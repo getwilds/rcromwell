@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">rcromwell</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.0.0.91</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,13 +54,25 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">cromwell_abort</span><span class="op">(</span><span class="va">workflow_id</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">cromwell_abort</span><span class="op">(</span><span class="va">workflow_id</span>, url <span class="op">=</span> <span class="fu"><a href="cw_url.html">cw_url</a></span><span class="op">(</span><span class="op">)</span>, token <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>workflow_id</dt>
 <dd><p>(character) A single workflow ID</p></dd>
+
+
+<dt>url</dt>
+<dd><p>(character) base url for your Cromwell server. optional. if not
+supplied set the url as the env var <code>CROMWELLURL</code></p></dd>
+
+
+<dt>token</dt>
+<dd><p>(character) we do not recommend passing your token
+here as a string. Either pass it using <code><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv()</a></code> or save your
+token as the env var <code>PROOF_TOKEN</code> and then passing nothing to this
+param and we'll find it</p></dd>
 
 </dl></div>
     <div class="section level2">
