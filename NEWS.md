@@ -1,4 +1,8 @@
-# rcromwell v3
+# rcromwell 3.2.0
+
+* rework all functions that interact with a cromwell server to allow for token and the server URL to be passed in as parameters to the function - this allows for an easier shiny flow when it's not a good idea to save these values as env vars (but does make sense for a single user, which is still supported) (#29)
+
+# rcromwell 3.0.0
 
 * First version of this package under the new name `rcromwell` (#17)
 * Functions and functions arguments changed from camelCase to snake_case
