@@ -50,7 +50,7 @@ cromwell_submit_batch <-
     }
     if (!is.null(options)) {
       body <- c(body,
-        workflow_options = list(httr::upload_file(options))
+        workflowOptions = list(httr::upload_file(options))
       )
     }
     if (!is.null(labels)) {

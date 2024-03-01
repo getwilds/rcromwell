@@ -24,5 +24,10 @@ Authors:
   \item Amy Paguirigan (\href{https://orcid.org/0000-0002-6819-9736}{ORCID})
 }
 
+Other contributors:
+\itemize{
+  \item Fred Hutchinson Cancer Center \email{wilds@fredhutch.org} [funder]
+}
+
 }
 \keyword{internal}

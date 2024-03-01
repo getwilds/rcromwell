@@ -4,9 +4,14 @@ invisible(vcr::vcr_configure(
 ))
 vcr::check_cassette_names()
 
-file_hello <- system.file("examples/hello.wdl", package = "rcromwell")
-file_inputs <- system.file("examples/inputs.json", package = "rcromwell")
-file_inputs_bad <- system.file("examples/inputs_bad.json", package = "rcromwell")
+sys_file <- function(..., pkg = "rcromwell") {
+  system.file(..., package = pkg)
+}
+
+file_hello <- sys_file("examples/hello.wdl")
+file_inputs <- sys_file("examples/inputs.json")
+file_inputs_bad <- sys_file("examples/inputs_bad.json")
+file_workflow_opts <- sys_file("examples/workflow_options.json")
 
 # suppress messages for the test run
 cromwell_config(verbose = FALSE)
