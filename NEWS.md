@@ -1,3 +1,7 @@
+# rcromwell 3.2.1
+
+* fix `cromwell_submit_batch` - internally changed `workflow_options` to `workflowOptions` (#78)
+
 # rcromwell 3.2.0
 
 * rework all functions that interact with a cromwell server to allow for token and the server URL to be passed in as parameters to the function - this allows for an easier shiny flow when it's not a good idea to save these values as env vars (but does make sense for a single user, which is still supported) (#29)
