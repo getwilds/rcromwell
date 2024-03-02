@@ -1,6 +1,6 @@
 # rcromwell 3.2.1
 
-* fix `cromwell_submit_batch` - internally changed `workflow_options` to `workflowOptions` (#78)
+* fix `cromwell_submit_batch` - internally changed `workflow_options` to `workflowOptions` (#32)
 
 # rcromwell 3.2.0
 
