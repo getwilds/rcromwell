@@ -7,7 +7,7 @@ test_that("cromwell_failures", {
     job <- cromwell_submit_batch(wdl = file_hello, params = file_inputs_bad)
   })
 
-  # Sys.sleep(30) # Needed only for recording new fixture
+  # Sys.sleep(30) # Needed only for recording new fixture #nolint
 
   vcr::use_cassette("cromwell_failures", {
     res <- cromwell_failures(job$id)

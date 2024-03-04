@@ -1,9 +1,3 @@
-# try_url <- function(url) {
-#   tryCatch(httr::GET(url), error = function(e) e)
-# }
-
-# skip_if_offline("proof-api.fredhutch.org")
-
 test_that("proof api or DIY cromwell server down", {
   # This should happen whether proof or DIY if not on
   # campus or VPN for Fred Hutch at least
