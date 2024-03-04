@@ -5,20 +5,45 @@ cw_url <- function() {
   Sys.getenv("CROMWELLURL")
 }
 
+con_utf8 <- function(response, as = NULL, ...) {
+  httr::content(response, as = as, encoding = "utf-8", ...)
+}
+
+#' @importFrom rlang has_name
+#' @importFrom httr status_code
+#' @importFrom rlang abort caller_env
+handle_error <- function(response, call = caller_env()) {
+  status <- httr::status_code(response)
+  if (status >= 400) {
+    err <- con_utf8(response, as = "parsed")
+    if (rlang::has_name(err, "error")) {
+      mssg <- err$error
+    } else if (rlang::has_name(err, "message")) {
+      mssg <- err$message
+    } else {
+      httr::stop_for_status(response)
+    }
+    abort(
+      sprintf("(HTTP %s) - %s", as.character(status), mssg),
+      call = call
+    )
+  }
+}
+
 #' @importFrom httr GET POST stop_for_status content upload_file
 #' @noRd
 #' @keywords internal
 #' @author Scott Chamberlain
-http_get <- function(url, as = NULL, token = NULL, ...) {
+http_get <- function(url, as = NULL, token = NULL, call = caller_env(), ...) {
   result <- httr::GET(url, try_auth_header(token), ...)
-  httr::stop_for_status(result)
-  httr::content(result, as = as)
+  handle_error(result, call)
+  con_utf8(result, as = as)
 }
 
-http_post <- function(url, as = NULL, token = NULL, ...) {
+http_post <- function(url, as = NULL, token = NULL, call = caller_env(), ...) {
   result <- httr::POST(url, try_auth_header(token), ...)
-  httr::stop_for_status(result)
-  httr::content(result, as = as)
+  handle_error(result, call)
+  con_utf8(result, as = as)
 }
 
 make_url <- function(base_url, ...) {

@@ -1,6 +1,6 @@
 Package: rcromwell
 Title: Convenience Tools for Managing WDL Workflows via Cromwell
-Version: 3.2.1
+Version: 3.2.1.92
 Authors@R: c(
     person("Amy", "Paguirigan", role = "aut",
            comment = c(ORCID = "0000-0002-6819-9736")),
@@ -27,11 +27,13 @@ Roxygen: list(markdown = TRUE, roclets = c("collate", "namespace", "rd",
 RoxygenNote: 7.2.3
 Encoding: UTF-8
 Suggests:
+    curl,
     knitr,
     rmarkdown,
     roxyglobals,
     testthat (>= 3.0.0),
-    vcr (>= 0.6.0)
+    vcr (>= 0.6.0),
+    webmockr
 Remotes:
     ropensci/vcr
 Config/testthat/edition: 3

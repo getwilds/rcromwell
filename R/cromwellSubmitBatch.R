@@ -50,7 +50,7 @@ cromwell_submit_batch <-
     }
     if (!is.null(options)) {
       body <- c(body,
-        workflowOptions = list(httr::upload_file(options))
+        workflow_options = list(httr::upload_file(options))
       )
     }
     if (!is.null(labels)) {
@@ -67,4 +67,4 @@ cromwell_submit_batch <-
         token = token
       )
     dplyr::as_tibble(crom_dat)
-  }
+}
