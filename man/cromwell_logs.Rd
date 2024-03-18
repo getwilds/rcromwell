@@ -18,7 +18,15 @@ token as the env var \code{PROOF_TOKEN} and then passing nothing to this
 param and we'll find it}
 }
 \value{
-Returns the response from the API post
+a tibble with a variable number of forws; with columns:
+\itemize{
+\item callName (chr)
+\item stderr (chr)
+\item stdout (chr)
+\item attempt (chr)
+\item shardIndex (chr)
+\item workflow_id (chr)
+}
 }
 \description{
 Gets logs for a workflow in Cromwell

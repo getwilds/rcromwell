@@ -14,5 +14,5 @@ test_that("cromwell_failures", {
   })
 
   expect_s3_class(res, "data.frame")
-  expect_match(res$workflow_id, "No failure metadata available")
+  expect_equal(NROW(res), 0)
 })

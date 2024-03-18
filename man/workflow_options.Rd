@@ -18,7 +18,12 @@ token as the env var \code{PROOF_TOKEN} and then passing nothing to this
 param and we'll find it}
 }
 \value{
-Returns a data frame of the options for a workflow previously run
+a tibble of the options for a workflow previously run:
+\itemize{
+\item read_from_cache
+\item workflow_failure_mode
+\item write_to_cache
+}
 }
 \description{
 Pull the workflow options provided for a Cromwell workflow job

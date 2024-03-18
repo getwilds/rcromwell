@@ -1,0 +1,29 @@
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:8000/api/workflows/v1/d623c127-3085-4e9c-8282-8f877bef0517/metadata?expandSubWorkflows=false&excludeKey=calls
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept: application/json, text/xml, application/xml, */*
+  response:
+    status:
+      status_code: 200
+      category: Success
+      reason: OK
+      message: 'Success: (200) OK'
+    headers:
+      content-encoding: gzip
+      server: akka-http/10.1.15
+      date: Sun, 17 Mar 2024 04:50:30 GMT
+      transfer-encoding: chunked
+      content-type: application/json
+    body:
+      encoding: ''
+      file: no
+      string: '{"workflowName":"test","workflowProcessingEvents":[{"cromwellId":"cromid-01b35cf","description":"Finished","timestamp":"2024-03-17T04:50:22.629Z","cromwellVersion":"86"},{"cromwellId":"cromid-01b35cf","description":"PickedUp","timestamp":"2024-03-17T04:50:10.371Z","cromwellVersion":"86"}],"actualWorkflowLanguageVersion":"draft-2","submittedFiles":{"workflow":"task
+        hello {\n  String name\n\n  command {\n    echo ''Hello ${name}!''\n  }\n  output
+        {\n    File response = stdout()\n  }\n}\n\nworkflow test {\n  call hello\n}\n\n","root":"","options":"{\n\n}","inputs":"{\"test.hello.name\":\"World\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{"test.hello.response":"/Users/schambe3/github/cromwell/cromwell-executions/test/d623c127-3085-4e9c-8282-8f877bef0517/call-hello/execution/stdout"},"workflowRoot":"/Users/schambe3/github/cromwell/cromwell-executions/test/d623c127-3085-4e9c-8282-8f877bef0517","actualWorkflowLanguage":"WDL","status":"Succeeded","end":"2024-03-17T04:50:22.628Z","start":"2024-03-17T04:50:10.373Z","id":"d623c127-3085-4e9c-8282-8f877bef0517","inputs":{"test.hello.name":"World"},"labels":{"cromwell-workflow-id":"cromwell-d623c127-3085-4e9c-8282-8f877bef0517"},"submission":"2024-03-17T04:49:59.918Z"}'
+  recorded_at: 2024-03-17 04:50:30 GMT
+  recorded_with: vcr/1.2.2.91, webmockr/0.9.0

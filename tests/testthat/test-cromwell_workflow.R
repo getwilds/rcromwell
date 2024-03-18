@@ -11,4 +11,13 @@ test_that("cromwell_workflow", {
 
   expect_s3_class(res, "data.frame")
   expect_equal(res$workflow_id, job$id)
+
+  ## processing function
+  vcr::use_cassette("cromwell_workflow_http", {
+    meta <- cromwell_workflow_http(job$id, cw_url(), NULL)
+  })
+
+  out <- cromwell_workflow_process(meta, job$id)
+  expect_s3_class(out, "data.frame")
+  expect_equal(out$workflow_id, job$id)
 })

@@ -25,7 +25,7 @@
 #' }
 cromwell_call <- function(workflow_id, url = cw_url(), token = NULL) {
   check_url(url)
-  crom_mssg(paste0("Querying for call metadata for workflow id: ", workflow_id))
+  crom_mssg(glue("Querying for call metadata for workflow id: {workflow_id}"))
   crommetadata <-
     http_get(
       url = make_url(url, "api/workflows/v1", workflow_id, "metadata"),

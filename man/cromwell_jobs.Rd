@@ -31,8 +31,18 @@ token as the env var \code{PROOF_TOKEN} and then passing nothing to this
 param and we'll find it}
 }
 \value{
-Returns a long form data frame of metadata on workflow jobs
-submitted to a specific Cromwell instance.
+a tibble of metadata on workflow jobs submitted; each row is a
+different job. columns:
+\itemize{
+\item end (dttm)
+\item workflow_id (chr)
+\item metadataArchiveStatus (chr)
+\item workflow_name (chr)
+\item start (dttm)
+\item status (chr)
+\item submission (dttm)
+\item workflowDuration (dbl)
+}
 }
 \description{
 Requests metadata about Cromwell workflow jobs during a time period specified

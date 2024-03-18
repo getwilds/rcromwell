@@ -19,7 +19,8 @@ Imports:
     purrr,
     tidyr,
     lubridate,
-    rlang
+    rlang,
+    glue
 License: MIT + file LICENSE
 Depends: R (>= 3.6.0)
 Roxygen: list(markdown = TRUE, roclets = c("collate", "namespace", "rd",

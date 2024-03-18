@@ -6,10 +6,10 @@
 #' @template workflowid
 #' @template serverdeets
 #' @param expand_sub_workflows Boolean, whether to expand subworkflows in the
-#' results or not, default is FALSE.
+#' results or not (default: `FALSE`)
 #' @author Amy Paguirigan, Scott Chamberlain
 #' @inheritSection workflow_options Important
-#' @return Returns a gross list of lists of metadata on a workflow.
+#' @return a list of metadata on a workflow
 #' @examples \dontrun{
 #' ## Request what jobs have been submitted to your Cromwell instance in the
 #' ## past 7 days.
@@ -22,25 +22,18 @@
 cromwell_glob <- function(
     workflow_id, expand_sub_workflows = FALSE,
     url = cw_url(), token = NULL) {
+  stopifnot(rlang::is_logical(expand_sub_workflows))
+  stopifnot(
+    "expand_sub_workflows should be length 1" =
+      length(expand_sub_workflows) == 1
+  )
   check_url(url)
-  crom_mssg(paste0("Querying for metadata for workflow id: ", workflow_id))
+  crom_mssg(glue("Querying for metadata for workflow id: {workflow_id}"))
   url <- make_url(url, "api/workflows/v1", workflow_id, "metadata")
-  if (!expand_sub_workflows) {
-    crommetadata <-
-      http_get(
-        url = url,
-        query = list(expandSubWorkflows = "false"),
-        as = "parsed",
-        token = token
-      )
-  } else {
-    crommetadata <-
-      http_get(
-        url = url,
-        query = list(expandSubWorkflows = "true"),
-        as = "parsed",
-        token = token
-      )
-  }
-  return(crommetadata)
+  http_get(
+    url = url,
+    query = list(expandSubWorkflows = tolower(expand_sub_workflows)),
+    as = "parsed",
+    token = token
+  )
 }

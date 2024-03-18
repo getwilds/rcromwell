@@ -1,0 +1,30 @@
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:8000/api/workflows/v1/92dd16fa-75ec-4d57-9d49-0e446c86506b/metadata?expandSubWorkflows=false
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept: application/json, text/xml, application/xml, */*
+  response:
+    status:
+      status_code: 200
+      category: Success
+      reason: OK
+      message: 'Success: (200) OK'
+    headers:
+      content-encoding: gzip
+      server: akka-http/10.1.15
+      date: Mon, 18 Mar 2024 16:35:50 GMT
+      transfer-encoding: chunked
+      content-type: application/json
+    body:
+      encoding: ''
+      file: no
+      string: '{"workflowName":"test","workflowProcessingEvents":[{"cromwellId":"cromid-01b35cf","description":"PickedUp","timestamp":"2024-03-18T16:35:35.495Z","cromwellVersion":"86"}],"actualWorkflowLanguageVersion":"draft-2","submittedFiles":{"workflow":"task
+        hello {\n  String name\n\n  command {\n    echo ''Hello ${name}!''\n  }\n  output
+        {\n    File response = stdout()\n  }\n}\n\nworkflow test {\n  call hello\n}\n\n","root":"","options":"{\n\n}","inputs":"{\"test.hello.name\":\"World\"}","workflowUrl":"","labels":"{}"},"calls":{"test.hello":[{"executionStatus":"Running","stdout":"/Users/schambe3/github/cromwell/cromwell-executions/test/92dd16fa-75ec-4d57-9d49-0e446c86506b/call-hello/execution/stdout","commandLine":"echo
+        ''Hello World!''","shardIndex":-1,"runtimeAttributes":{"maxRetries":"0","failOnStderr":"false","continueOnReturnCode":"0"},"callCaching":{"allowResultReuse":false,"effectiveCallCachingMode":"CallCachingOff"},"inputs":{"name":"World"},"backend":"Local","attempt":1,"start":"2024-03-18T16:35:36.542Z","stderr":"/Users/schambe3/github/cromwell/cromwell-executions/test/92dd16fa-75ec-4d57-9d49-0e446c86506b/call-hello/execution/stderr","callRoot":"/Users/schambe3/github/cromwell/cromwell-executions/test/92dd16fa-75ec-4d57-9d49-0e446c86506b/call-hello"}]},"outputs":{},"workflowRoot":"/Users/schambe3/github/cromwell/cromwell-executions/test/92dd16fa-75ec-4d57-9d49-0e446c86506b","actualWorkflowLanguage":"WDL","status":"Running","start":"2024-03-18T16:35:35.497Z","id":"92dd16fa-75ec-4d57-9d49-0e446c86506b","inputs":{"test.hello.name":"World"},"labels":{"cromwell-workflow-id":"cromwell-92dd16fa-75ec-4d57-9d49-0e446c86506b"},"submission":"2024-03-18T16:35:20.738Z"}'
+  recorded_at: 2024-03-18 16:35:50 GMT
+  recorded_with: vcr/1.2.2.91, webmockr/0.9.0

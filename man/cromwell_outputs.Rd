@@ -18,8 +18,14 @@ token as the env var \code{PROOF_TOKEN} and then passing nothing to this
 param and we'll find it}
 }
 \value{
-Returns a dataframe containing the workflowName, workflowOutputType,
-pathToOutput, shardIndex for the specified outputs of a workflow_id
+a tibble with columns:
+\itemize{
+\item workflowName
+\item workflowOutputType
+\item pathToOutput
+\item shardIndex
+\item workflow_id
+}
 }
 \description{
 Gets outputs for a workflow in Cromwell
