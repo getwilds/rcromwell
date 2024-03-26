@@ -22,8 +22,7 @@ token as the env var \code{PROOF_TOKEN} and then passing nothing to this
 param and we'll find it}
 }
 \value{
-Returns the response from the API post which includes the workflow
-ID that you'll need to monitor the job.
+a list with validation details
 }
 \description{
 Validates a workflow for submission

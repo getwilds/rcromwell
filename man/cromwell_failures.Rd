@@ -18,8 +18,8 @@ token as the env var \code{PROOF_TOKEN} and then passing nothing to this
 param and we'll find it}
 }
 \value{
-Returns a long form data frame of metadata on failed calls in a
-workflow.
+a tibble of metadata on failed calls in a workflow; columns
+vary depending on workflow; if no results, a zero row tibble
 }
 \description{
 Gets info about failed calls for a specific workflow

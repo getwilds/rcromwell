@@ -18,7 +18,8 @@ token as the env var \code{PROOF_TOKEN} and then passing nothing to this
 param and we'll find it}
 }
 \value{
-Returns a long form data frame of metadata on a workflow.
+a tibble of metadata on a workflow. if no results a
+zero row tibble
 }
 \description{
 Retrieve and process all labels, submission and workflow level metadata for

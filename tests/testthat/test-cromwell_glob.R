@@ -8,4 +8,11 @@ test_that("cromwell_glob", {
   expect_type(res, "list")
   expect_gt(length(res), 10)
   expect_equal(res$status, "Running")
+
+  # FIXME: expand_sub_workflows doesn't change anything in response
+  vcr::use_cassette("cromwell_glob_expanded", {
+    expanded <- cromwell_glob(res$id, expand_sub_workflows = TRUE)
+  })
+
+  expect_identical(res, expanded)
 })

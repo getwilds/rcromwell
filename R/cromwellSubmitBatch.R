@@ -17,54 +17,67 @@
 #' @template serverdeets
 #' @inheritSection workflow_options Important
 #' @author Amy Paguirigan, Scott Chamberlain
-#' @return Returns the response from the API post which includes the workflow
-#' ID that you'll need to monitor the job.
+#' @return a tibble with one row and two columns:
+#' - id: workflow ID you'll need to monitor the job
+#' - status: the status of the job
 cromwell_submit_batch <-
   function(wdl, batch = NULL, params = NULL, options = NULL, labels = NULL,
            dependencies = NULL, url = cw_url(), token = NULL) {
     check_url(url)
-    crom_mssg("Submitting a batch workflow to Cromwell")
-    if (is.null(batch) && is.null(params)) {
-      warning(
-        "You did not submit either batch or params inputs.",
-        " Was that on purpose?"
-      )
-    }
-    body <- list(
-      workflowSource = httr::upload_file(wdl)
+    body <- cromwell_submit_batch_query(
+      wdl, batch, params, options,
+      labels, dependencies
     )
-
-    if (!is.null(params) && !is.null(batch)) {
-      body <- c(body, workflowInputs = list(httr::upload_file(params)))
-      body <- c(body, workflowInputs_2 = list(httr::upload_file(batch)))
-    } else if (!is.null(params)) {
-      body <- c(body, workflowInputs = list(httr::upload_file(params)))
-    } else if (!is.null(batch)) {
-      body <- c(body, workflowInputs = list(httr::upload_file(batch)))
-    }
-
-    if (!is.null(dependencies)) {
-      body <- c(body,
-        workflowDependencies = list(httr::upload_file(dependencies))
-      )
-    }
-    if (!is.null(options)) {
-      body <- c(body,
-        workflow_options = list(httr::upload_file(options))
-      )
-    }
-    if (!is.null(labels)) {
-      body <- c(body,
-        labels = list(jsonlite::toJSON(as.list(labels), auto_unbox = TRUE))
-      )
-    }
-
-    crom_dat <-
-      http_post(
-        url = make_url(url, "api/workflows/v1"),
-        body = body,
-        encode = "multipart",
-        token = token
-      )
-    dplyr::as_tibble(crom_dat)
+    cromwell_submit_batch_http(body, url, token) %>%
+      as_tibble()
   }
+
+cromwell_submit_batch_query <- function(
+    wdl, batch = NULL, params = NULL,
+    options = NULL, labels = NULL, dependencies = NULL) {
+  crom_mssg("Submitting a batch workflow to Cromwell")
+  if (is.null(batch) && is.null(params)) {
+    warning(
+      "You did not submit either batch or params inputs.",
+      " Was that on purpose?"
+    )
+  }
+  body <- list(
+    workflowSource = httr::upload_file(wdl)
+  )
+
+  if (!is.null(params) && !is.null(batch)) {
+    body <- c(body, workflowInputs = lst_upload_file(params))
+    body <- c(body, workflowInputs_2 = lst_upload_file(batch))
+  } else if (!is.null(params)) {
+    body <- c(body, workflowInputs = lst_upload_file(params))
+  } else if (!is.null(batch)) {
+    body <- c(body, workflowInputs = lst_upload_file(batch))
+  }
+
+  if (!is.null(dependencies)) {
+    body <- c(body,
+      workflowDependencies = lst_upload_file(dependencies)
+    )
+  }
+  if (!is.null(options)) {
+    body <- c(body,
+      workflowOptions = lst_upload_file(options)
+    )
+  }
+  if (!is.null(labels)) {
+    body <- c(body,
+      labels = list(jsonlite::toJSON(as.list(labels), auto_unbox = TRUE))
+    )
+  }
+  body
+}
+
+cromwell_submit_batch_http <- function(body, url, token) {
+  http_post(
+    url = make_url(url, "api/workflows/v1"),
+    body = body,
+    encode = "multipart",
+    token = token
+  )
+}

@@ -5,7 +5,7 @@
 #' @template serverdeets
 #' @author Amy Paguirigan, Scott Chamberlain
 #' @inheritSection workflow_options Important
-#' @return Returns the response from the API post
+#' @return a tibble
 cromwell_abort <- function(workflow_id, url = cw_url(), token = NULL) {
   check_url(url)
   crom_mssg("Aborting job in Cromwell")

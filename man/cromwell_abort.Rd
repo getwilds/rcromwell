@@ -18,7 +18,7 @@ token as the env var \code{PROOF_TOKEN} and then passing nothing to this
 param and we'll find it}
 }
 \value{
-Returns the response from the API post
+a tibble
 }
 \description{
 Abort a workflow job on Cromwell

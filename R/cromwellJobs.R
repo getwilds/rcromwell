@@ -11,8 +11,16 @@
 #' @template serverdeets
 #' @author Amy Paguirigan, Scott Chamberlain
 #' @inheritSection workflow_options Important
-#' @return Returns a long form data frame of metadata on workflow jobs
-#' submitted to a specific Cromwell instance.
+#' @return a tibble of metadata on workflow jobs submitted; each row is a
+#' different job. columns:
+#' - end (dttm)
+#' - workflow_id (chr)
+#' - metadataArchiveStatus (chr)
+#' - workflow_name (chr)
+#' - start (dttm)
+#' - status (chr)
+#' - submission (dttm)
+#' - workflowDuration (dbl)
 #' @examples \dontrun{
 #' ## Request what jobs have been submitted to your Cromwell instance in the
 #' ## past 7 days.
@@ -24,7 +32,16 @@ cromwell_jobs <- function(days = 1,
                           url = cw_url(),
                           token = NULL) {
   check_url(url)
-  crom_mssg(paste0("Querying cromwell for jobs in the last ", days, " days."))
+  crom_mssg(glue("Querying cromwell for jobs in the last {days} days"))
+  query <- cromwell_jobs_query(days, workflow_name, workflow_status)
+  jobs_data <- http_get(
+    make_url(url, "api/workflows/v1/query"),
+    query = query, token = token
+  )
+  cromwell_jobs_process(jobs_data$results)
+}
+
+cromwell_jobs_query <- function(days, workflow_name, workflow_status) {
   query <-
     list(submission = paste0(Sys.Date() - round(days, 0), "T00:00Z"))
   if (!is.null(workflow_name)) {
@@ -34,11 +51,11 @@ cromwell_jobs <- function(days = 1,
     query <-
       c(query, rlang::set_names(as.list(workflow_status), "status"))
   }
-  crom_dat <-
-    http_get(make_url(url, "api/workflows/v1/query"),
-      query = query, token = token
-    )$results
-  cr_table <- purrr::map_dfr(crom_dat, dplyr::bind_rows)
+  query
+}
+
+cromwell_jobs_process <- function(jobs_data) {
+  cr_table <- purrr::map_dfr(jobs_data, dplyr::bind_rows)
   if (nrow(cr_table) > 0 && "id" %in% names(cr_table)) {
     cr_table <- dplyr::rename(cr_table, "workflow_id" = "id")
     if ("name" %in% colnames(cr_table)) {

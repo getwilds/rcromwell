@@ -41,8 +41,11 @@ token as the env var \code{PROOF_TOKEN} and then passing nothing to this
 param and we'll find it}
 }
 \value{
-Returns the response from the API post which includes the workflow
-ID that you'll need to monitor the job.
+a tibble with one row and two columns:
+\itemize{
+\item id: workflow ID you'll need to monitor the job
+\item status: the status of the job
+}
 }
 \description{
 Supports the submission of a fully defined workflow job to a Cromwell

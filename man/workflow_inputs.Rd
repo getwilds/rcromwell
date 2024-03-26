@@ -18,7 +18,7 @@ token as the env var \code{PROOF_TOKEN} and then passing nothing to this
 param and we'll find it}
 }
 \value{
-Returns a data frame of the inputs for a workflow previously run
+a tibble of the inputs for a workflow previously run
 }
 \description{
 Pull the workflow inputs provided for a Cromwell workflow job

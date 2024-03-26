@@ -4,7 +4,7 @@
 #' @template serverdeets
 #' @author Amy Paguirigan, Scott Chamberlain
 #' @inheritSection workflow_options Important
-#' @return Cromwell backend options
+#' @return Cromwell backend options as a list
 cromwell_backends <- function(url = cw_url(), token = NULL) {
   check_url(url)
   crom_mssg("Getting backend options from Cromwell")

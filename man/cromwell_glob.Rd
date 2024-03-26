@@ -15,7 +15,7 @@ cromwell_glob(
 \item{workflow_id}{(character) A single workflow ID}
 
 \item{expand_sub_workflows}{Boolean, whether to expand subworkflows in the
-results or not, default is FALSE.}
+results or not (default: \code{FALSE})}
 
 \item{url}{(character) base url for your Cromwell server. optional. if not
 supplied set the url as the env var \code{CROMWELLURL}}
@@ -26,7 +26,7 @@ token as the env var \code{PROOF_TOKEN} and then passing nothing to this
 param and we'll find it}
 }
 \value{
-Returns a gross list of lists of metadata on a workflow.
+a list of metadata on a workflow
 }
 \description{
 Retrieve a glob of workflow level metadata for a specific workflow.

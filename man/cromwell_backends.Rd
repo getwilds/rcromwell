@@ -16,7 +16,7 @@ token as the env var \code{PROOF_TOKEN} and then passing nothing to this
 param and we'll find it}
 }
 \value{
-Cromwell backend options
+Cromwell backend options as a list
 }
 \description{
 Get the available backends of a Cromwell server

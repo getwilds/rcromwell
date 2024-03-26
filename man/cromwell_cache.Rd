@@ -18,11 +18,14 @@ token as the env var \code{PROOF_TOKEN} and then passing nothing to this
 param and we'll find it}
 }
 \value{
-Returns a long form data frame of metadata on call caching in a
-workflow. NOTE: Currently does not support subworkflows well.
+a tibble of metadata on call caching in a workflow; columns
+vary depending on workflow; if no results, a zero row tibble
 }
 \description{
 Gets info about call caching status for the calls of a workflow
+}
+\details{
+Currently does not support subworkflows well.
 }
 \section{Important}{
 
