@@ -7,6 +7,7 @@
 <!-- badges: start -->
 [![Project Status: Experimental – Useable, some support, not open to feedback, unstable API.](https://getwilds.github.io/badges/badges/experimental.svg)](https://getwilds.github.io/badges/#experimental)
 [![R-CMD-check](https://github.com/getwilds/rcromwell/actions/workflows/R-CMD-check.yaml/badge.svg?branch=dev)](https://github.com/getwilds/rcromwell/actions/workflows/R-CMD-check.yaml)
+[![codecov](https://codecov.io/gh/getwilds/rcromwell/graph/badge.svg?token=AVQ6J31XZ3)](https://codecov.io/gh/getwilds/rcromwell)
 <!-- badges: end -->
 
 Convenience Tools for Managing WDL Workflows via Cromwell
@@ -22,12 +23,6 @@ You can install the development version of `rcromwell` from [GitHub](https://git
 ```r
 # install.packages("pak")
 pak::pak("getwilds/rcromwell")
-```
-
-Install a specific release version (in this case v1.0) by:
-
-```r
-pak::pak('getwilds/rcromwell@v1.1.0')
 ```
 
 ## Documentation
