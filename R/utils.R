@@ -7,8 +7,7 @@ lst_upload_file <- function(path) {
 browse <- function(url) {
   if (interactive()) {
     utils::browseURL(url)
-  }
-  else {
+  } else {
     message("Please point your browser to the following url: ")
     message(url)
   }
