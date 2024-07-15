@@ -1,6 +1,6 @@
 Package: rcromwell
 Title: Convenience Tools for Managing WDL Workflows via Cromwell
-Version: 3.2.2.91
+Version: 3.2.4.91
 Authors@R: c(
     person("Amy", "Paguirigan", role = "aut",
            comment = c(ORCID = "0000-0002-6819-9736")),
@@ -13,22 +13,22 @@ URL: http://getwilds.org/rcromwell/ (website)
 BugReports: https://github.com/getwilds/rcromwell/issues
 Description: A repo containing a basic R package for using Cromwell with WDL workflows via R.
 Imports:
-    httr,
     jsonlite,
     dplyr,
     purrr,
     tidyr,
     lubridate,
     rlang,
-    glue
+    glue,
+    curl,
+    httr2
 License: MIT + file LICENSE
 Depends: R (>= 3.6.0)
 Roxygen: list(markdown = TRUE, roclets = c("collate", "namespace", "rd",
     "roxyglobals::global_roclet"))
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 Encoding: UTF-8
 Suggests:
-    curl,
     knitr,
     rmarkdown,
     roxyglobals,
@@ -36,7 +36,8 @@ Suggests:
     vcr (>= 0.6.0),
     webmockr
 Remotes:
-    ropensci/vcr
+    ropensci/vcr@httr2,
+    ropensci/webmockr@httr2
 Config/testthat/edition: 3
 Config/roxyglobals/filename: globals.R
 Config/roxyglobals/unique: FALSE

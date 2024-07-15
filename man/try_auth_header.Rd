@@ -4,15 +4,17 @@
 \alias{try_auth_header}
 \title{Add Authorization header}
 \usage{
-try_auth_header(token = NULL)
+try_auth_header(.req, token = NULL)
 }
 \arguments{
+\item{.req}{An \code{httr2} request}
+
 \item{token}{(character) a Bearer token. optional. if nothing
 passed, we look for the env var PROOF_TOKEN}
 }
 \value{
-A \code{request} S3 class with the HTTP header that can be passed
-to \code{httr::GET()}, \code{httr::POST()}, etc.
+An \code{httr2_request} S3 class adding an HTTP header for
+\code{Authorization} with the value in \code{token}
 }
 \description{
 Add Authorization header

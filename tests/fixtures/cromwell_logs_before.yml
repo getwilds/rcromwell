@@ -4,51 +4,42 @@ http_interactions:
     uri: http://localhost:8000/api/workflows/v1
     body:
       encoding: ''
-      string: workflowSource=list(path = "/Users/schambe3/github/getwilds/rcromwell/inst/examples/hello.wdl",
-        type = "application/octet-stream", name = NULL),workflowInputs=list(path =
-        "/Users/schambe3/github/getwilds/rcromwell/inst/examples/inputs.json", type
-        = "application/json", name = NULL)
-    headers:
-      Accept: application/json, text/xml, application/xml, */*
+      string: ''
+    headers: []
   response:
     status:
       status_code: 201
-      category: Success
-      reason: Created
-      message: 'Success: (201) Created'
+      message: Created
     headers:
-      server: akka-http/10.1.15
-      date: Fri, 05 Jan 2024 16:40:36 GMT
-      content-type: application/json
-      content-length: '66'
+      Server: akka-http/10.1.15
+      Date: Mon, 15 Jul 2024 21:57:36 GMT
+      Content-Type: application/json
+      Content-Length: '66'
     body:
       encoding: ''
       file: no
-      string: '{"id":"ef029101-fd1a-4b1c-8caa-c40c5acdf4de","status":"Submitted"}'
-  recorded_at: 2024-01-05 16:40:46 GMT
-  recorded_with: vcr/1.2.2.91, webmockr/0.9.0
+      string: '{"id":"94133d20-5afd-4a21-8b3f-717aaec431a1","status":"Submitted"}'
+  recorded_at: 2024-07-15 21:57:46 GMT
+  recorded_with: vcr/1.2.2.93, webmockr/0.9.1.91
 - request:
     method: get
-    uri: http://localhost:8000/api/workflows/v1/ef029101-fd1a-4b1c-8caa-c40c5acdf4de/logs
+    uri: http://localhost:8000/api/workflows/v1/94133d20-5afd-4a21-8b3f-717aaec431a1/logs
     body:
       encoding: ''
       string: ''
-    headers:
-      Accept: application/json, text/xml, application/xml, */*
+    headers: []
   response:
     status:
       status_code: 200
-      category: Success
-      reason: OK
-      message: 'Success: (200) OK'
+      message: OK
     headers:
-      server: akka-http/10.1.15
-      date: Fri, 05 Jan 2024 16:40:46 GMT
-      content-type: application/json
-      content-length: '45'
+      Server: akka-http/10.1.15
+      Date: Mon, 15 Jul 2024 21:57:46 GMT
+      Content-Type: application/json
+      Content-Length: '45'
     body:
       encoding: ''
       file: no
-      string: '{"id":"ef029101-fd1a-4b1c-8caa-c40c5acdf4de"}'
-  recorded_at: 2024-01-05 16:40:46 GMT
-  recorded_with: vcr/1.2.2.91, webmockr/0.9.0
+      string: '{"id":"94133d20-5afd-4a21-8b3f-717aaec431a1"}'
+  recorded_at: 2024-07-15 21:57:46 GMT
+  recorded_with: vcr/1.2.2.93, webmockr/0.9.1.91

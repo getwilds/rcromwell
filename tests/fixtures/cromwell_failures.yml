@@ -1,29 +1,26 @@
 http_interactions:
 - request:
     method: get
-    uri: http://localhost:8000/api/workflows/v1/aab8233b-681c-43d0-aeaa-146d3773a1ff/metadata?includeKey=failures&includeKey=jobId
+    uri: http://localhost:8000/api/workflows/v1/b8eb2edf-742a-40b4-9f49-4ea89cd857e1/metadata?includeKey=failures&includeKey=jobId
     body:
       encoding: ''
       string: ''
-    headers:
-      Accept: application/json, text/xml, application/xml, */*
+    headers: []
   response:
     status:
       status_code: 200
-      category: Success
-      reason: OK
-      message: 'Success: (200) OK'
+      message: OK
     headers:
-      content-encoding: gzip
-      server: akka-http/10.1.15
-      date: Fri, 05 Jan 2024 16:39:33 GMT
-      transfer-encoding: chunked
-      content-type: application/json
+      Content-Encoding: gzip
+      Server: akka-http/10.1.15
+      Date: Mon, 15 Jul 2024 22:11:30 GMT
+      Transfer-Encoding: chunked
+      Content-Type: application/json
     body:
       encoding: ''
       file: no
       string: '{"failures":[{"causedBy":[{"causedBy":[],"message":"Required workflow
         input ''test.hello.name'' not specified"}],"message":"Workflow input processing
-        failed"}],"calls":{},"id":"aab8233b-681c-43d0-aeaa-146d3773a1ff"}'
-  recorded_at: 2024-01-05 16:39:33 GMT
-  recorded_with: vcr/1.2.2.91, webmockr/0.9.0
+        failed"}],"calls":{},"id":"b8eb2edf-742a-40b4-9f49-4ea89cd857e1"}'
+  recorded_at: 2024-07-15 22:11:30 GMT
+  recorded_with: vcr/1.2.2.93, webmockr/0.9.1.91

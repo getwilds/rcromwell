@@ -34,10 +34,12 @@ cromwell_jobs <- function(days = 1,
   check_url(url)
   crom_mssg(glue("Querying cromwell for jobs in the last {days} days"))
   query <- cromwell_jobs_query(days, workflow_name, workflow_status)
-  jobs_data <- http_get(
-    make_url(url, "api/workflows/v1/query"),
-    query = query, token = token
-  )
+  jobs_data <- http_req_get(
+    url = make_url(url, "api/workflows/v1/query"),
+    token = token
+  ) |>
+    req_url_query(!!!query) |>
+    http_perform()
   cromwell_jobs_process(jobs_data$results)
 }
 

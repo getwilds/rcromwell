@@ -1,26 +1,23 @@
 http_interactions:
 - request:
     method: get
-    uri: http://localhost:8000/api/workflows/v1/query?submission=2024-01-04T00%3A00Z
+    uri: http://localhost:8000/api/workflows/v1/query?submission=2024-07-14T00%3A00Z
     body:
       encoding: ''
       string: ''
-    headers:
-      Accept: application/json, text/xml, application/xml, */*
+    headers: []
   response:
     status:
       status_code: 200
-      category: Success
-      reason: OK
-      message: 'Success: (200) OK'
+      message: OK
     headers:
-      server: akka-http/10.1.15
-      date: Fri, 05 Jan 2024 16:40:22 GMT
-      content-type: application/json
-      content-length: '3224'
+      Server: akka-http/10.1.15
+      Date: Mon, 15 Jul 2024 22:15:57 GMT
+      Content-Type: application/json
+      Content-Length: '2035'
     body:
       encoding: ''
       file: no
-      string: '{"results":[{"end":"2024-01-05T16:40:14.538Z","id":"d7837f49-412f-4849-be45-ad1d387c39e3","metadataArchiveStatus":"Unarchived","name":"test","start":"2024-01-05T16:39:57.172Z","status":"Succeeded","submission":"2024-01-05T16:39:52.063Z"},{"end":"2024-01-05T16:39:17.136Z","id":"aab8233b-681c-43d0-aeaa-146d3773a1ff","metadataArchiveStatus":"Unarchived","start":"2024-01-05T16:39:17.127Z","status":"Failed","submission":"2024-01-05T16:39:03.372Z"},{"end":"2024-01-05T16:38:55.467Z","id":"7f953f6c-3e78-457f-95d1-52c3891d0e4f","metadataArchiveStatus":"Unarchived","name":"test","start":"2024-01-05T16:38:37.090Z","status":"Succeeded","submission":"2024-01-05T16:38:20.629Z"},{"end":"2024-01-05T16:37:25.195Z","id":"e45a30ed-3674-4ac4-96ba-dc3985aa469d","metadataArchiveStatus":"Unarchived","name":"test","start":"2024-01-05T16:37:17.012Z","status":"Succeeded","submission":"2024-01-05T16:36:55.936Z"},{"id":"2c642b5a-826c-4601-9fa9-cd01b4c92e3b","metadataArchiveStatus":"Unarchived","status":"Aborted","submission":"2024-01-05T16:35:09.567Z"},{"end":"2024-01-05T16:36:05.117Z","id":"0beb2a06-29e3-4da3-8d09-35469703920c","metadataArchiveStatus":"Unarchived","name":"test","start":"2024-01-05T16:35:56.934Z","status":"Succeeded","submission":"2024-01-05T16:34:35.511Z"},{"id":"bfa38643-6dc5-41d7-9543-5370c0c410c5","metadataArchiveStatus":"Unarchived","status":"Aborted","submission":"2024-01-05T16:34:35.154Z"},{"end":"2024-01-05T16:36:45.156Z","id":"289d1d3a-79e8-456a-a8d8-3876cdcfb64b","metadataArchiveStatus":"Unarchived","name":"test","start":"2024-01-05T16:36:36.971Z","status":"Succeeded","submission":"2024-01-05T16:34:35.577Z"},{"end":"2024-01-05T16:36:24.107Z","id":"a0cc879b-ac07-4a9e-a5ac-e951cc2457e9","metadataArchiveStatus":"Unarchived","name":"test","start":"2024-01-05T16:36:16.950Z","status":"Succeeded","submission":"2024-01-05T16:34:35.542Z"},{"end":"2024-01-05T16:35:16.896Z","id":"755c64b0-be95-4899-9853-7b974ac722fe","metadataArchiveStatus":"Unarchived","start":"2024-01-05T16:35:16.884Z","status":"Failed","submission":"2024-01-05T16:34:35.408Z"},{"end":"2024-01-05T16:35:05.046Z","id":"f42f1ee5-f052-4a57-a618-d12c5f5a4811","metadataArchiveStatus":"Unarchived","name":"test","start":"2024-01-05T16:34:56.863Z","status":"Succeeded","submission":"2024-01-05T16:34:35.373Z"},{"end":"2024-01-05T16:34:45.018Z","id":"17d2bec5-4954-41f4-8d5b-72c5514f49bc","metadataArchiveStatus":"Unarchived","name":"test","start":"2024-01-05T16:34:36.837Z","status":"Succeeded","submission":"2024-01-05T16:34:35.326Z"},{"end":"2024-01-05T16:37:04.157Z","id":"e1e036bc-d017-4f9d-aea6-35e2dd98616d","metadataArchiveStatus":"Unarchived","name":"test","start":"2024-01-05T16:36:56.993Z","status":"Succeeded","submission":"2024-01-05T16:34:35.655Z"},{"end":"2024-01-05T16:35:45.087Z","id":"c5ac1653-b673-4ec7-b3b0-536b03f62ebb","metadataArchiveStatus":"Unarchived","name":"test","start":"2024-01-05T16:35:36.910Z","status":"Succeeded","submission":"2024-01-05T16:34:35.445Z"},{"end":"2024-01-04T20:57:20.360Z","id":"c324aa59-081f-4071-83d4-f6f722584c12","metadataArchiveStatus":"Unarchived","name":"test","start":"2024-01-04T20:57:09.107Z","status":"Succeeded","submission":"2024-01-04T20:57:00.117Z"}],"totalResultsCount":15}'
-  recorded_at: 2024-01-05 16:40:22 GMT
-  recorded_with: vcr/1.2.2.91, webmockr/0.9.0
+      string: '{"results":[{"end":"2024-07-15T22:11:12.764Z","id":"b8eb2edf-742a-40b4-9f49-4ea89cd857e1","metadataArchiveStatus":"Unarchived","start":"2024-07-15T22:11:12.751Z","status":"Failed","submission":"2024-07-15T22:11:00.018Z"},{"end":"2024-07-15T22:10:52.734Z","id":"de9cefd6-5134-4130-811c-62bd75333216","metadataArchiveStatus":"Unarchived","start":"2024-07-15T22:10:52.717Z","status":"Failed","submission":"2024-07-15T22:10:51.043Z"},{"end":"2024-07-15T22:07:26.758Z","id":"303243c4-c30f-4269-978b-c7964b066abe","metadataArchiveStatus":"Unarchived","name":"test","start":"2024-07-15T22:07:12.456Z","status":"Succeeded","submission":"2024-07-15T22:07:09.411Z"},{"end":"2024-07-15T22:05:06.577Z","id":"1314984e-c9e6-4dbf-b441-df1581caace2","metadataArchiveStatus":"Unarchived","name":"test","start":"2024-07-15T22:04:52.265Z","status":"Succeeded","submission":"2024-07-15T22:04:51.172Z"},{"end":"2024-07-15T22:01:26.318Z","id":"900e031d-bf5d-4a97-b516-7962ee9b8ad3","metadataArchiveStatus":"Unarchived","name":"test","start":"2024-07-15T22:01:12.008Z","status":"Succeeded","submission":"2024-07-15T22:01:08.141Z"},{"end":"2024-07-15T21:58:07.065Z","id":"94133d20-5afd-4a21-8b3f-717aaec431a1","metadataArchiveStatus":"Unarchived","name":"test","start":"2024-07-15T21:57:51.753Z","status":"Succeeded","submission":"2024-07-15T21:57:36.322Z"},{"end":"2024-07-15T21:57:47.066Z","id":"b88db47d-5bd6-402d-a8f4-dd07eadbfb40","metadataArchiveStatus":"Unarchived","name":"test","start":"2024-07-15T21:57:31.730Z","status":"Succeeded","submission":"2024-07-15T21:57:22.376Z"},{"end":"2024-07-15T21:46:46.082Z","id":"a019666d-cf45-4300-ad26-a41543afbdc7","metadataArchiveStatus":"Unarchived","name":"test","start":"2024-07-15T21:46:30.762Z","status":"Succeeded","submission":"2024-07-15T21:46:29.557Z"},{"end":"2024-07-15T21:44:27.151Z","id":"d0fc92c9-7de0-4102-b574-53ac5a0c4e4a","metadataArchiveStatus":"Unarchived","name":"test","start":"2024-07-15T21:44:10.558Z","status":"Succeeded","submission":"2024-07-15T21:43:54.454Z"}],"totalResultsCount":9}'
+  recorded_at: 2024-07-15 22:15:57 GMT
+  recorded_with: vcr/1.2.2.93, webmockr/0.9.1.91

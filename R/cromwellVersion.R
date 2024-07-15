@@ -7,5 +7,6 @@
 #' @return (character) the Cromwell version
 cromwell_version <- function(url = cw_url(), token = NULL) {
   check_url(url)
-  http_get(make_url(url, "engine/v1/version"), token = token)
+  http_req_get(url = make_url(url, "engine/v1/version"), token = token) |>
+    http_perform()
 }

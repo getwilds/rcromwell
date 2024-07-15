@@ -43,7 +43,7 @@ cromwell_submit_batch_query <- function(
     )
   }
   body <- list(
-    workflowSource = httr::upload_file(wdl)
+    workflowSource = curl::form_file(wdl)
   )
 
   if (!is.null(params) && !is.null(batch)) {
@@ -74,10 +74,10 @@ cromwell_submit_batch_query <- function(
 }
 
 cromwell_submit_batch_http <- function(body, url, token) {
-  http_post(
+  http_req_post(
     url = make_url(url, "api/workflows/v1"),
-    body = body,
-    encode = "multipart",
     token = token
-  )
+  ) |>
+    req_body_multipart(!!!body) |>
+    http_perform()
 }

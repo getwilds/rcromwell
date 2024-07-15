@@ -20,12 +20,12 @@ cromwell_cache <- function(workflow_id, url = cw_url(), token = NULL) {
 }
 
 cromwell_cache_http <- function(workflow_id, url = cw_url(), token = NULL) {
-  http_get(
+  http_req_get(
     url = make_url(url, "api/workflows/v1", workflow_id, "metadata"),
-    query = list(expandSubWorkflows = "false"),
-    as = "parsed",
     token = token
-  )
+  ) |>
+    req_url_query(expandSubWorkflows = "false") |>
+    http_perform()
 }
 
 #' @autoglobal

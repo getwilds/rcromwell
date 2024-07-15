@@ -2,13 +2,15 @@ test_that("proof api or DIY cromwell server down", {
   # This should happen whether proof or DIY if not on
   # campus or VPN for Fred Hutch at least
   # and happens if someone puts in a bad url
-
-  httr::set_callback("response", \(req, res) curl::nslookup("abcdefg"))
-  expect_error(
-    cromwell_submit_batch(wdl = file_hello, params = file_inputs),
-    "Unable to resolve host"
+  httr2::with_mocked_responses(
+    \(req, res) curl::nslookup("abcdefg"),
+    {
+      expect_error(
+        cromwell_submit_batch(wdl = file_hello, params = file_inputs),
+        "Unable to resolve host"
+      )
+    }
   )
-  httr::set_callback("response", NULL)
 })
 
 test_that("401 unauthorized for proof api", {

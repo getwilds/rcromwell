@@ -19,9 +19,8 @@ Opens a timing diagram in a browser
 Get a timing diagram for a Cromwell workflow
 }
 \details{
-Internally this function uses \code{\link[httr:BROWSE]{httr::BROWSE()}} which uses
-\code{\link[utils:browseURL]{utils::browseURL()}} - if a auth header is required you'll have to
-do that manually
+Internally this function uses \code{\link[utils:browseURL]{utils::browseURL()}} - if an
+auth header is required you'll have to do that manually
 }
 \section{Important}{
 

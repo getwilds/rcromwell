@@ -25,12 +25,12 @@ cromwell_failures <- function(workflow_id, url = cw_url(), token = NULL) {
   ))
 
   response <-
-    http_get(
+    http_req_get(
       url = make_url(url, "api/workflows/v1", workflow_id, "metadata"),
-      query = list(includeKey = "failures", includeKey = "jobId"),
-      as = "parsed",
       token = token
-    )
+    ) |>
+      req_url_query(includeKey = "failures", includeKey = "jobId") |>
+      http_perform()
   cromwell_failures_process(response, workflow_id)
 }
 
