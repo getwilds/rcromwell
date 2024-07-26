@@ -68,7 +68,8 @@ cromwell_submit_batch_query <- function(
   if (!is.null(labels)) {
     labels_temp_file <- tempfile(pattern = "rcromwell_", fileext = ".json")
     cat(jsonlite::toJSON(as.list(labels), auto_unbox = TRUE),
-      file = labels_temp_file)
+      file = labels_temp_file
+    )
     body <- c(body,
       labels = lst_upload_file(labels_temp_file)
     )

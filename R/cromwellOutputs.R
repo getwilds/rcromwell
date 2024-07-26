@@ -34,7 +34,9 @@ cromwell_outputs_query <- function(workflow_id, url = cw_url(), token = NULL) {
 
 #' @autoglobal
 cromwell_outputs_process <- function(resp, workflow_id) {
-  if (length(resp$outputs) == 0) return(dplyr::tibble())
+  if (length(resp$outputs) == 0) {
+    return(dplyr::tibble())
+  }
   # grab only the outputs list and unlist into a dataframe
   df <- purrr::map_dfr(resp$outputs, function(x) {
     z <- dplyr::tibble("pathToOutput" = unlist(x))

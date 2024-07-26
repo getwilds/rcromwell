@@ -6,8 +6,10 @@ test_that("cromwell_labels", {
   )
 
   vcr::use_cassette("cromwell_labels_submit", {
-    res <- cromwell_submit_batch(wdl = file_hello, params = file_inputs,
-      labels = my_labels)
+    res <- cromwell_submit_batch(
+      wdl = file_hello, params = file_inputs,
+      labels = my_labels
+    )
   })
 
   # Sys.sleep(20) # Needed only for recording new fixture #nolint
