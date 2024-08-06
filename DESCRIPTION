@@ -1,6 +1,6 @@
 Package: rcromwell
 Title: Convenience Tools for Managing WDL Workflows via Cromwell
-Version: 3.2.2.93
+Version: 3.2.4
 Authors@R: c(
     person("Amy", "Paguirigan", role = "aut",
            comment = c(ORCID = "0000-0002-6819-9736")),
@@ -8,7 +8,7 @@ Authors@R: c(
            comment = c(ORCID = "0000-0003-1444-9135")),
     person("Fred Hutchinson Cancer Center", , , "wilds@fredhutch.org", role = "fnd")
   )
-URL: https://getwilds.org/rcromwell/, https://github.com/getwilds/rcromwell
+URL: https://getwilds.org/rcromwell, https://github.com/getwilds/rcromwell
 BugReports: https://github.com/getwilds/rcromwell/issues
 Description: A repo containing a basic R package for using Cromwell with WDL workflows via R.
 Imports:

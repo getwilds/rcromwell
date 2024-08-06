@@ -1,3 +1,7 @@
+# rcromwell 3.2.4
+
+* gains new function `cromwell_labels` that hits the `/labels` route (#43) (#45)
+
 # rcromwell 3.2.1
 
 * fix `cromwell_submit_batch` - internally changed `workflow_options` to `workflowOptions` (#32)
