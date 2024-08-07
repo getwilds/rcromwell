@@ -1,6 +1,6 @@
 Package: rcromwell
 Title: Convenience Tools for Managing WDL Workflows via Cromwell
-Version: 3.2.4
+Version: 3.2.4.9200
 Authors@R: c(
     person("Amy", "Paguirigan", role = "aut",
            comment = c(ORCID = "0000-0002-6819-9736")),
