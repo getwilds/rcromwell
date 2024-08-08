@@ -11,7 +11,8 @@ A repo containing a basic R package for using Cromwell with WDL workflows via R.
 \seealso{
 Useful links:
 \itemize{
-  \item \url{http://getwilds.org/rcromwell/ (website) https://github.com/getwilds/rcromwell (devel)}
+  \item \url{https://getwilds.org/rcromwell}
+  \item \url{https://github.com/getwilds/rcromwell}
   \item Report bugs at \url{https://github.com/getwilds/rcromwell/issues}
 }
 

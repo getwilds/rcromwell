@@ -27,6 +27,7 @@ reference:
       - cromwell_failures
       - cromwell_glob
       - cromwell_jobs
+      - cromwell_labels
       - cromwell_logs
       - cromwell_outputs
       - cromwell_submit_batch
