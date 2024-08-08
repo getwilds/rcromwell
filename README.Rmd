@@ -48,3 +48,7 @@ Please note that the rcromwell project is released with a [Contributor Code of C
 ## License
 
 [MIT](LICENSE.md)
+
+## Prior art
+
+- [wdlRunR](https://github.com/seandavi/wdlRunR) - archived package/repo
