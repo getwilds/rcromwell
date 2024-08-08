@@ -1,6 +1,10 @@
-# rcromwell 3.2.4
+# rcromwell 3.2.5
 
 * gains new function `cromwell_labels` that hits the `/labels` route (#43) (#45)
+* remove comment about failures not working (#35)
+* add prior art section to readme with one entry (#30)
+* reorder output columns of `cromwell_workflow` and always return tibble for `cromwell_call` (#42) (#46)
+* better links in readme to docs (#41)
 
 # rcromwell 3.2.1
 

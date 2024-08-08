@@ -10,5 +10,6 @@ test_that("cromwell_call", {
   })
 
   expect_s3_class(res, "data.frame")
+  expect_s3_class(res, "tbl")
   expect_equal(res$callName, "hello")
 })
