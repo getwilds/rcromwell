@@ -106,8 +106,10 @@ cromwell_jobs_process <- function(jobs_data) {
   }
 
   # specific column order if columns exist (via `any_of`)
-  columns_order <- c("workflow_name", "workflow_id", "status", "submission", "start",
-    "end", "workflowDuration")
+  columns_order <- c(
+    "workflow_name", "workflow_id", "status", "submission", "start",
+    "end", "workflowDuration"
+  )
   cr_table <- dplyr::relocate(cr_table, any_of(columns_order))
   return(cr_table)
 }
