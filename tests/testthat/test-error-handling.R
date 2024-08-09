@@ -1,3 +1,5 @@
+skip_if_not(cromwell_localhost_up())
+
 test_that("proof api or DIY cromwell server down", {
   # This should happen whether proof or DIY if not on
   # campus or VPN for Fred Hutch at least

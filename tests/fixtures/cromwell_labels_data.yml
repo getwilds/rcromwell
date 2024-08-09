@@ -1,0 +1,26 @@
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:8000/api/workflows/v1/287c7902-abc0-49ab-a6ec-0ce0c097b4d2/labels
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept: application/json, text/xml, application/xml, */*
+  response:
+    status:
+      status_code: 200
+      category: Success
+      reason: OK
+      message: 'Success: (200) OK'
+    headers:
+      server: akka-http/10.1.15
+      date: Fri, 26 Jul 2024 19:26:12 GMT
+      content-type: application/json
+      content-length: '200'
+    body:
+      encoding: ''
+      file: no
+      string: '{"id":"287c7902-abc0-49ab-a6ec-0ce0c097b4d2","labels":{"Label":"Apple","secondaryLabel":"Orange","workflowType":"AppSubmission","cromwell-workflow-id":"cromwell-287c7902-abc0-49ab-a6ec-0ce0c097b4d2"}}'
+  recorded_at: 2024-07-26 19:26:12 GMT
+  recorded_with: vcr/1.6.0, webmockr/1.0.0

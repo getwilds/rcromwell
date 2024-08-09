@@ -15,3 +15,11 @@ file_workflow_opts <- sys_file("examples/workflow_options.json")
 
 # suppress messages for the test run
 cromwell_config(verbose = FALSE)
+
+cromwell_localhost_up <- function() {
+  try8000 <- tryCatch(
+    curl::curl_fetch_memory("localhost:8000"),
+    error = function(e) e
+  )
+  !inherits(try8000, "error")
+}

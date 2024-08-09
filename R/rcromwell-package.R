@@ -4,7 +4,7 @@
 ## usethis namespace: start
 #' @importFrom glue glue
 #' @importFrom rlang abort
-#' @importFrom dplyr as_tibble tibble %>%
+#' @importFrom dplyr as_tibble tibble relocate any_of %>%
 #' @importFrom lubridate now with_tz ymd_hms
 #' @importFrom purrr discard flatten keep map map_dfr pluck reduce
 #' @importFrom httr2 request req_headers req_perform req_error

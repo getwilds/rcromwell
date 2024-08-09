@@ -17,6 +17,9 @@ here as a string. Either pass it using \code{\link[=Sys.getenv]{Sys.getenv()}} o
 token as the env var \code{PROOF_TOKEN} and then passing nothing to this
 param and we'll find it}
 }
+\value{
+a named list of labels
+}
 \description{
 Cromwell labels for a workflow
 }

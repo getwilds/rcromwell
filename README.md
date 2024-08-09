@@ -27,7 +27,7 @@ pak::pak("getwilds/rcromwell")
 
 ## Documentation
 
-Go to <http://getwilds.org/rcromwell/> for `rcromwell` package documentation. Go to the **Get Started** vignette to get started!
+Go to <http://getwilds.org/rcromwell/> for `rcromwell` package documentation. Go to the [Get Started vignette](https://getwilds.org/rcromwell/articles/rcromwell.html) to get started, or [reference page](https://getwilds.org/rcromwell/reference/index.html) for the function documentation.
 
 ## Bugs? Features?
 
@@ -40,3 +40,7 @@ Please note that the rcromwell project is released with a [Contributor Code of C
 ## License
 
 [MIT](LICENSE.md)
+
+## Prior art
+
+- [wdlRunR](https://github.com/seandavi/wdlRunR) - archived package/repo

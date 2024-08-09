@@ -252,6 +252,6 @@ cromwell_call <- function(workflow_id, url = cw_url(), token = NULL) {
     # with Shiny apps easier
     just_calls <- dplyr::tibble("workflow_id" = "No call metadata available.")
   }
-  return(just_calls)
+  return(dplyr::as_tibble(just_calls))
 }
 # nolint end
