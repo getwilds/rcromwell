@@ -50,7 +50,7 @@ cromwell_cache_process <- function(crommetadata, workflow_id) {
           # add the shard Index associated
           b$shardIndex <- shard_data$shardIndex
         } else {
-          b <- dplyr::as_tibble("shardIndex" = shard_data$shardIndex)
+          b <- dplyr::tibble("shardIndex" = shard_data$shardIndex)
         }
         b$shardIndex <- as.character(b$shardIndex)
         b$workflow_id <- workflow_id
