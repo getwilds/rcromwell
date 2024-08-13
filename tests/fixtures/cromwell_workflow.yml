@@ -1,7 +1,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://localhost:8000/api/workflows/v1/363c4a00-e3c5-4984-b4ad-ac06466dfaad/metadata?expandSubWorkflows=false&excludeKey=calls
+    uri: http://localhost:8000/api/workflows/v1/1adcd013-64e7-416a-8553-67302f4821f5/metadata?expandSubWorkflows=false&excludeKey=calls
     body:
       encoding: ''
       string: ''
@@ -12,15 +12,14 @@ http_interactions:
       message: OK
     headers:
       Content-Encoding: gzip
-      Server: akka-http/10.1.15
-      Date: Mon, 15 Jul 2024 22:18:07 GMT
+      Date: Tue, 13 Aug 2024 16:43:07 GMT
       Transfer-Encoding: chunked
       Content-Type: application/json
     body:
       encoding: ''
       file: no
-      string: '{"workflowName":"test","workflowProcessingEvents":[{"cromwellId":"cromid-d1d4e5c","description":"PickedUp","timestamp":"2024-07-15T22:17:53.169Z","cromwellVersion":"86"}],"actualWorkflowLanguageVersion":"draft-2","submittedFiles":{"workflow":"task
+      string: '{"workflowName":"test","workflowProcessingEvents":[{"cromwellId":"cromid-7c918c5","description":"PickedUp","timestamp":"2024-08-13T16:43:02.303Z","cromwellVersion":"87"}],"actualWorkflowLanguageVersion":"draft-2","submittedFiles":{"workflow":"task
         hello {\n  String name\n\n  command {\n    echo ''Hello ${name}!''\n  }\n  output
-        {\n    File response = stdout()\n  }\n}\n\nworkflow test {\n  call hello\n}\n\n","root":"","options":"{\n\n}","inputs":"{\"test.hello.name\":\"World\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/Users/schambe3/github/cromwell/cromwell-executions/test/363c4a00-e3c5-4984-b4ad-ac06466dfaad","actualWorkflowLanguage":"WDL","status":"Running","start":"2024-07-15T22:17:53.171Z","id":"363c4a00-e3c5-4984-b4ad-ac06466dfaad","inputs":{"test.hello.name":"World"},"labels":{"cromwell-workflow-id":"cromwell-363c4a00-e3c5-4984-b4ad-ac06466dfaad"},"submission":"2024-07-15T22:17:37.512Z"}'
-  recorded_at: 2024-07-15 22:18:07 GMT
-  recorded_with: vcr/1.2.2.93, webmockr/0.9.1.91
+        {\n    File response = stdout()\n  }\n}\n\nworkflow test {\n  call hello\n}\n\n","root":"","options":"{\n\n}","inputs":"{\"test.hello.name\":\"World\"}","workflowUrl":"","labels":"{}"},"calls":{},"outputs":{},"workflowRoot":"/Users/schambe3/github/cromwell/cromwell-executions/test/1adcd013-64e7-416a-8553-67302f4821f5","actualWorkflowLanguage":"WDL","status":"Running","start":"2024-08-13T16:43:02.304Z","id":"1adcd013-64e7-416a-8553-67302f4821f5","inputs":{"test.hello.name":"World"},"labels":{"cromwell-workflow-id":"cromwell-1adcd013-64e7-416a-8553-67302f4821f5"},"submission":"2024-08-13T16:42:37.206Z"}'
+  recorded_at: 2024-08-13 16:43:07 GMT
+  recorded_with: vcr/1.6.0, webmockr/1.0.0

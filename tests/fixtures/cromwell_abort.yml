@@ -11,19 +11,18 @@ http_interactions:
       status_code: 201
       message: Created
     headers:
-      Server: akka-http/10.1.15
-      Date: Mon, 15 Jul 2024 22:01:08 GMT
+      Date: Fri, 09 Aug 2024 23:00:08 GMT
       Content-Type: application/json
       Content-Length: '66'
     body:
       encoding: ''
       file: no
-      string: '{"id":"900e031d-bf5d-4a97-b516-7962ee9b8ad3","status":"Submitted"}'
-  recorded_at: 2024-07-15 22:01:28 GMT
-  recorded_with: vcr/1.2.2.93, webmockr/0.9.1.91
+      string: '{"id":"97c27bcb-e724-4e42-bd8c-abc402af489f","status":"Submitted"}'
+  recorded_at: 2024-08-09 23:00:28 GMT
+  recorded_with: vcr/1.6.0, webmockr/1.0.0
 - request:
     method: post
-    uri: http://localhost:8000/api/workflows/v1/900e031d-bf5d-4a97-b516-7962ee9b8ad3/abort
+    uri: http://localhost:8000/api/workflows/v1/97c27bcb-e724-4e42-bd8c-abc402af489f/abort
     body:
       encoding: ''
       string: ''
@@ -33,13 +32,12 @@ http_interactions:
       status_code: 200
       message: OK
     headers:
-      Server: akka-http/10.1.15
-      Date: Mon, 15 Jul 2024 22:01:28 GMT
+      Date: Fri, 09 Aug 2024 23:00:28 GMT
       Content-Type: application/json
       Content-Length: '65'
     body:
       encoding: ''
       file: no
-      string: '{"id":"900e031d-bf5d-4a97-b516-7962ee9b8ad3","status":"Aborting"}'
-  recorded_at: 2024-07-15 22:01:28 GMT
-  recorded_with: vcr/1.2.2.93, webmockr/0.9.1.91
+      string: '{"id":"97c27bcb-e724-4e42-bd8c-abc402af489f","status":"Aborting"}'
+  recorded_at: 2024-08-09 23:00:28 GMT
+  recorded_with: vcr/1.6.0, webmockr/1.0.0

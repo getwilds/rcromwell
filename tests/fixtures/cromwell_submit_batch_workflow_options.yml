@@ -11,13 +11,12 @@ http_interactions:
       status_code: 201
       message: Created
     headers:
-      Server: akka-http/10.1.15
-      Date: Mon, 15 Jul 2024 20:04:53 GMT
+      Date: Tue, 13 Aug 2024 16:41:48 GMT
       Content-Type: application/json
       Content-Length: '66'
     body:
       encoding: ''
       file: no
-      string: '{"id":"b273be2c-cfd7-42a0-9d6d-d3d4a4f9c1b6","status":"Submitted"}'
-  recorded_at: 2024-07-15 20:04:53 GMT
-  recorded_with: vcr/1.2.2.93, webmockr/0.9.1.91
+      string: '{"id":"34604b3e-a4d7-43b4-a359-8f7dcd4c689b","status":"Submitted"}'
+  recorded_at: 2024-08-13 16:41:48 GMT
+  recorded_with: vcr/1.6.0, webmockr/1.0.0

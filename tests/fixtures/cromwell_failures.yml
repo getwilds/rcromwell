@@ -1,7 +1,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://localhost:8000/api/workflows/v1/b8eb2edf-742a-40b4-9f49-4ea89cd857e1/metadata?includeKey=failures&includeKey=jobId
+    uri: http://localhost:8000/api/workflows/v1/c4a6e761-2376-4633-8e53-9ca554f28193/metadata?includeKey=failures&includeKey=jobId
     body:
       encoding: ''
       string: ''
@@ -12,8 +12,7 @@ http_interactions:
       message: OK
     headers:
       Content-Encoding: gzip
-      Server: akka-http/10.1.15
-      Date: Mon, 15 Jul 2024 22:11:30 GMT
+      Date: Fri, 09 Aug 2024 23:37:15 GMT
       Transfer-Encoding: chunked
       Content-Type: application/json
     body:
@@ -21,6 +20,6 @@ http_interactions:
       file: no
       string: '{"failures":[{"causedBy":[{"causedBy":[],"message":"Required workflow
         input ''test.hello.name'' not specified"}],"message":"Workflow input processing
-        failed"}],"calls":{},"id":"b8eb2edf-742a-40b4-9f49-4ea89cd857e1"}'
-  recorded_at: 2024-07-15 22:11:30 GMT
-  recorded_with: vcr/1.2.2.93, webmockr/0.9.1.91
+        failed"}],"calls":{},"id":"c4a6e761-2376-4633-8e53-9ca554f28193"}'
+  recorded_at: 2024-08-09 23:37:15 GMT
+  recorded_with: vcr/1.6.0, webmockr/1.0.0
