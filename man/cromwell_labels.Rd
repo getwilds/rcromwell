@@ -18,7 +18,7 @@ token as the env var \code{PROOF_TOKEN} and then passing nothing to this
 param and we'll find it}
 }
 \value{
-a named list of workflow labels
+a named list of labels
 }
 \description{
 Cromwell labels for a workflow

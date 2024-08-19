@@ -15,18 +15,18 @@ cromwell_validate <- function(
   check_url(url)
   crom_mssg("Validating a workflow for Cromwell")
 
-  body <- list(workflowSource = httr::upload_file(wdl))
+  body <- list(workflowSource = curl::form_file(wdl))
   if (!is.null(all_inputs)) {
     body <- c(
       body,
-      workflowInputs = list(httr::upload_file(all_inputs))
+      workflowInputs = list(curl::form_file(all_inputs))
     )
   }
 
-  http_post(
+  http_req_post(
     url = make_url(url, "api/womtool/v1/describe"),
-    body = body,
-    encode = "multipart",
     token = token
-  )
+  ) |>
+    req_body_multipart(!!!body) |>
+    http_perform()
 }

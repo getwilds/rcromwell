@@ -19,7 +19,7 @@ cromwell_outputs <- function(workflow_id, url = cw_url(), token = NULL) {
 }
 
 cromwell_outputs_query <- function(workflow_id, url = cw_url(), token = NULL) {
-  http_get(
+  http_req_get(
     url =
       make_url(
         url,
@@ -27,9 +27,9 @@ cromwell_outputs_query <- function(workflow_id, url = cw_url(), token = NULL) {
         workflow_id,
         "outputs"
       ),
-    as = "parsed",
     token = token
-  )
+  ) |>
+    http_perform()
 }
 
 #' @autoglobal

@@ -20,12 +20,12 @@ cromwell_cache <- function(workflow_id, url = cw_url(), token = NULL) {
 }
 
 cromwell_cache_http <- function(workflow_id, url = cw_url(), token = NULL) {
-  http_get(
+  http_req_get(
     url = make_url(url, "api/workflows/v1", workflow_id, "metadata"),
-    query = list(expandSubWorkflows = "false"),
-    as = "parsed",
     token = token
-  )
+  ) |>
+    req_url_query(expandSubWorkflows = "false") |>
+    http_perform()
 }
 
 #' @autoglobal
@@ -50,7 +50,7 @@ cromwell_cache_process <- function(crommetadata, workflow_id) {
           # add the shard Index associated
           b$shardIndex <- shard_data$shardIndex
         } else {
-          b <- dplyr::as_tibble("shardIndex" = shard_data$shardIndex)
+          b <- dplyr::tibble("shardIndex" = shard_data$shardIndex)
         }
         b$shardIndex <- as.character(b$shardIndex)
         b$workflow_id <- workflow_id

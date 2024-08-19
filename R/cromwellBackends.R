@@ -8,7 +8,11 @@
 cromwell_backends <- function(url = cw_url(), token = NULL) {
   check_url(url)
   crom_mssg("Getting backend options from Cromwell")
-  all <- http_get(make_url(url, "api/workflows/v1/backends"), token = token)
+  all <- http_req_get(
+    url = make_url(url, "api/workflows/v1/backends"),
+    token = token
+  ) |>
+    http_perform()
   all$supportedBackends <- unlist(all$supportedBackends)
   return(all)
 }

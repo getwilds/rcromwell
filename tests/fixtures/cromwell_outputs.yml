@@ -1,26 +1,22 @@
 http_interactions:
 - request:
     method: get
-    uri: http://localhost:8000/api/workflows/v1/4abc608d-a8cf-410d-909c-0e0f4d48ee85/outputs
+    uri: http://localhost:8000/api/workflows/v1/032c9dc7-1f87-4eb9-a005-e28be7f5d1ad/outputs
     body:
       encoding: ''
       string: ''
-    headers:
-      Accept: application/json, text/xml, application/xml, */*
+    headers: []
   response:
     status:
       status_code: 200
-      category: Success
-      reason: OK
-      message: 'Success: (200) OK'
+      message: OK
     headers:
-      server: akka-http/10.1.15
-      date: Fri, 05 Jan 2024 16:42:57 GMT
-      content-type: application/json
-      content-length: '203'
+      Date: Tue, 13 Aug 2024 16:41:10 GMT
+      Content-Type: application/json
+      Content-Length: '203'
     body:
       encoding: ''
       file: no
-      string: '{"outputs":{"test.hello.response":"/Users/schambe3/github/cromwell/cromwell-executions/test/4abc608d-a8cf-410d-909c-0e0f4d48ee85/call-hello/execution/stdout"},"id":"4abc608d-a8cf-410d-909c-0e0f4d48ee85"}'
-  recorded_at: 2024-01-05 16:42:57 GMT
-  recorded_with: vcr/1.2.2.91, webmockr/0.9.0
+      string: '{"outputs":{"test.hello.response":"/Users/schambe3/github/cromwell/cromwell-executions/test/032c9dc7-1f87-4eb9-a005-e28be7f5d1ad/call-hello/execution/stdout"},"id":"032c9dc7-1f87-4eb9-a005-e28be7f5d1ad"}'
+  recorded_at: 2024-08-13 16:41:10 GMT
+  recorded_with: vcr/1.6.0, webmockr/1.0.0
