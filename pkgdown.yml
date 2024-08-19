@@ -3,7 +3,7 @@ pkgdown: 2.1.0
 pkgdown_sha: ~
 articles:
   rcromwell: rcromwell.html
-last_built: 2024-08-19T21:34Z
+last_built: 2024-08-19T21:35Z
 urls:
   reference: http://getwilds.org/rcromwell/reference
   article: http://getwilds.org/rcromwell/articles

@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">rcromwell</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.2.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.2.6.9100</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,22 +40,26 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">try_auth_header</span><span class="op">(</span>token <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">try_auth_header</span><span class="op">(</span><span class="va">.req</span>, token <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
 
 
-<dl><dt id="arg-token">token<a class="anchor" aria-label="anchor" href="#arg-token"></a></dt>
+<dl><dt id="arg--req">.req<a class="anchor" aria-label="anchor" href="#arg--req"></a></dt>
+<dd><p>An <code>httr2</code> request</p></dd>
+
+
+<dt id="arg-token">token<a class="anchor" aria-label="anchor" href="#arg-token"></a></dt>
 <dd><p>(character) a Bearer token. optional. if nothing
 passed, we look for the env var PROOF_TOKEN</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A <code>request</code> S3 class with the HTTP header that can be passed
-to <code><a href="https://httr.r-lib.org/reference/GET.html" class="external-link">httr::GET()</a></code>, <code><a href="https://httr.r-lib.org/reference/POST.html" class="external-link">httr::POST()</a></code>, etc.</p>
+    <p>An <code>httr2_request</code> S3 class adding an HTTP header for
+<code>Authorization</code> with the value in <code>token</code></p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
