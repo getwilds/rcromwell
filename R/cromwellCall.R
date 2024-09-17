@@ -27,12 +27,12 @@ cromwell_call <- function(workflow_id, url = cw_url(), token = NULL) {
   check_url(url)
   crom_mssg(glue("Querying for call metadata for workflow id: {workflow_id}"))
   crommetadata <-
-    http_get(
+    http_req_get(
       url = make_url(url, "api/workflows/v1", workflow_id, "metadata"),
-      query = list(expandSubWorkflows = "true"),
-      as = "parsed",
       token = token
-    )
+    ) |>
+    req_url_query(expandSubWorkflows = "true") |>
+    http_perform()
   # if the response is a character vector, then return it and stop
   if (is.character(crommetadata)) stop(crommetadata)
   # if the response is a list, meaning it has some content, continue

@@ -1,3 +1,7 @@
+# rcromwell 3.3.0
+
+* Swapping `httr` for `httr2` and fixing styling (@sckott in [#48](https://github.com/getwilds/rcromwell/pull/48))
+
 # rcromwell 3.2.5
 
 * gains new function `cromwell_labels` that hits the `/labels` route (#43) (#45)

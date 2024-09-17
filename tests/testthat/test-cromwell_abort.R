@@ -9,5 +9,5 @@ test_that("cromwell_abort", {
 
   expect_equal(NROW(res), 1)
   expect_named(res, c("id", "status"))
-  expect_equal(res$status, "Aborted")
+  expect_equal(res$status, "Aborting")
 })

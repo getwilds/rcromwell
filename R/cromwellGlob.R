@@ -30,10 +30,7 @@ cromwell_glob <- function(
   check_url(url)
   crom_mssg(glue("Querying for metadata for workflow id: {workflow_id}"))
   url <- make_url(url, "api/workflows/v1", workflow_id, "metadata")
-  http_get(
-    url = url,
-    query = list(expandSubWorkflows = tolower(expand_sub_workflows)),
-    as = "parsed",
-    token = token
-  )
+  http_req_get(url = url, token = token) |>
+    req_url_query(expandSubWorkflows = tolower(expand_sub_workflows)) |>
+    http_perform()
 }

@@ -4,26 +4,19 @@ http_interactions:
     uri: http://localhost:8000/api/workflows/v1
     body:
       encoding: ''
-      string: workflowSource=list(path = "/Users/schambe3/github/getwilds/rcromwell/inst/examples/hello.wdl",
-        type = "application/octet-stream", name = NULL),workflowInputs=list(path =
-        "/Users/schambe3/github/getwilds/rcromwell/inst/examples/inputs.json", type
-        = "application/json", name = NULL)
-    headers:
-      Accept: application/json, text/xml, application/xml, */*
+      string: ''
+    headers: []
   response:
     status:
       status_code: 201
-      category: Success
-      reason: Created
-      message: 'Success: (201) Created'
+      message: Created
     headers:
-      server: akka-http/10.1.15
-      date: Fri, 05 Jan 2024 16:38:20 GMT
-      content-type: application/json
-      content-length: '66'
+      Date: Fri, 09 Aug 2024 23:05:54 GMT
+      Content-Type: application/json
+      Content-Length: '66'
     body:
       encoding: ''
       file: no
-      string: '{"id":"7f953f6c-3e78-457f-95d1-52c3891d0e4f","status":"Submitted"}'
-  recorded_at: 2024-01-05 16:38:20 GMT
-  recorded_with: vcr/1.2.2.91, webmockr/0.9.0
+      string: '{"id":"c05a0de4-1a6c-4ee7-bf33-d35c077cf5c3","status":"Submitted"}'
+  recorded_at: 2024-08-09 23:05:54 GMT
+  recorded_with: vcr/1.6.0, webmockr/1.0.0

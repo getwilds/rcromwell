@@ -9,8 +9,10 @@
 cromwell_abort <- function(workflow_id, url = cw_url(), token = NULL) {
   check_url(url)
   crom_mssg("Aborting job in Cromwell")
-  http_post(make_url(url, "api/workflows/v1", workflow_id, "abort"),
+  http_req_post(
+    url = make_url(url, "api/workflows/v1", workflow_id, "abort"),
     token = token
-  ) %>%
+  ) |>
+    http_perform() |>
     dplyr::as_tibble()
 }

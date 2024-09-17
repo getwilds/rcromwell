@@ -4,24 +4,19 @@ http_interactions:
     uri: http://localhost:8000/api/womtool/v1/describe
     body:
       encoding: ''
-      string: workflowSource=list(path = "/Users/schambe3/github/getwilds/rcromwell/inst/examples/hello.wdl",
-        type = "application/octet-stream", name = NULL)
-    headers:
-      Accept: application/json, text/xml, application/xml, */*
+      string: ''
+    headers: []
   response:
     status:
       status_code: 200
-      category: Success
-      reason: OK
-      message: 'Success: (200) OK'
+      message: OK
     headers:
-      server: akka-http/10.1.15
-      date: Fri, 05 Jan 2024 16:43:21 GMT
-      content-type: application/json
-      content-length: '463'
+      Date: Tue, 13 Aug 2024 16:42:14 GMT
+      Content-Type: application/json
+      Content-Length: '463'
     body:
       encoding: ''
       file: no
       string: '{"valid":true,"errors":[],"validWorkflow":true,"name":"test","inputs":[{"name":"hello.name","valueType":{"typeName":"String"},"typeDisplayName":"String","optional":false,"default":null}],"outputs":[{"name":"hello.response","valueType":{"typeName":"File"},"typeDisplayName":"File"}],"images":[],"submittedDescriptorType":{"descriptorType":"WDL","descriptorTypeVersion":"draft-2"},"importedDescriptorTypes":[],"meta":{},"parameterMeta":{},"isRunnableWorkflow":true}'
-  recorded_at: 2024-01-05 16:43:21 GMT
-  recorded_with: vcr/1.2.2.91, webmockr/0.9.0
+  recorded_at: 2024-08-13 16:42:14 GMT
+  recorded_with: vcr/1.6.0, webmockr/1.0.0

@@ -27,12 +27,12 @@ cromwell_workflow <- function(workflow_id, url = cw_url(), token = NULL) {
 }
 
 cromwell_workflow_http <- function(workflow_id, url, token) {
-  http_get(
+  http_req_get(
     url = make_url(url, "api/workflows/v1", workflow_id, "metadata"),
-    query = list(expandSubWorkflows = "false", excludeKey = "calls"),
-    as = "parsed",
     token = token
-  )
+  ) |>
+    req_url_query(expandSubWorkflows = "false", excludeKey = "calls") |>
+    http_perform()
 }
 
 cromwell_workflow_process <- function(meta, workflow_id) {

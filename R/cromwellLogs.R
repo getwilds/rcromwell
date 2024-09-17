@@ -20,16 +20,16 @@ cromwell_logs <- function(workflow_id, url = cw_url(), token = NULL) {
 }
 
 cromwell_logs_query <- function(workflow_id, url = cw_url(), token = NULL) {
-  http_get(
+  http_req_get(
     url = make_url(
       url,
       "api/workflows/v1",
       workflow_id,
       "logs"
     ),
-    as = "parsed",
     token = token
-  )
+  ) |>
+    http_perform()
 }
 
 cromwell_logs_process <- function(response, workflow_id) {
